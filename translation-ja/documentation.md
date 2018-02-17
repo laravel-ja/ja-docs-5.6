@@ -27,8 +27,8 @@
     - [URL生成](/docs/{{version}}/urls)
     - [セッション](/docs/{{version}}/session)
     - [バリデーション](/docs/{{version}}/validation)
-    - [Error Handling](/docs/{{version}}/errors)
-    - [Logging](/docs/{{version}}/logging)
+    - [エラー処理](/docs/{{version}}/errors)
+    - [ログ](/docs/{{version}}/logging)
 - ## フロントエンド
     - [Bladeテンプレート](/docs/{{version}}/blade)
     - [多言語化](/docs/{{version}}/localization)
