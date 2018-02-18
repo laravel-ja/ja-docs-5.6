@@ -174,7 +174,7 @@ DELETE    | `/photos/{photo}`      | destroy      | photos.destroy
 
 #### 擬似フォームメソッド
 
-Since HTML forms can't make `PUT`, `PATCH`, or `DELETE` requests, you will need to add a hidden `_method` field to spoof these HTTP verbs. The `@method` Blade directive can create this field for you:
+HTMLフォームは`PUT`、`PATCH`、`DELETE`リクエストを作成できませんので、HTTP動詞を偽装するために、`_method`隠しフィールドを追加する必要が起きるでしょう。`@method` Bladeディレクティブでこのフィールドを生成できます。
 
     <form action="/foo/bar" method="POST">
         @method('PUT')
@@ -206,7 +206,7 @@ APIに使用するリソースルートを宣言する場合、`create`や`edit`
         'posts' => 'PostController'
     ]);
 
-To quickly generate an API resource controller that does not include the `create` or `edit` methods, use the `--api` switch when executing the `make:controller` command:
+`create`や`edit`メソッドを含まないAPIリソースコントローラを素早く生成するには、`make:controller`コマンドを実行する際、`--api`スイッチを使用してください。
 
     php artisan make:controller API/PhotoController --api
 

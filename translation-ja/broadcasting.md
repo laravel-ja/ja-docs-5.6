@@ -13,7 +13,7 @@
 - [認証中チャンネル](#authorizing-channels)
     - [認証ルート定義](#defining-authorization-routes)
     - [認証コールバック定義](#defining-authorization-callbacks)
-    - [Defining Channel Classes](#defining-channel-classes)
+    - [チャンネル名の登録](#defining-channel-classes)
 - [ブロードキャストイベント](#broadcasting-events)
     - [認証中ユーザーの回避](#only-to-others)
 - [ブロードキャストの受け取り](#receiving-broadcasts)
@@ -354,19 +354,19 @@ HTTPルートと同様にチャンネルルートでも、暗黙あるいは明�
     });
 
 <a name="defining-channel-classes"></a>
-### Defining Channel Classes
+### チャンネル名の登録
 
-If your application is consuming many different channels, your `routes/channels.php` file could become bulky. So, instead of using Closures to authorize channels, you may use channel classes. To generate a channel class, use the `make:channel` Artisan command. This command will place a new channel class in the `App/Broadcasting` directory.
+アプリケーションで多くのチャンネルを利用していると、`routes/channels.php`ファイルは膨大になってしまいます。認証チャンネルのクロージャを使用する代わりに、チャンネルクラスを使用するのが良いでしょう。チャンネルクラスを生成するには、`make:channel`　Aritisanコマンドが使用できます。このコマンドは、新しいチャンネルクラスを`App/Broadcasting`ディレクトリへ生成します。
 
     php artisan make:channel OrderChannel
 
-Next, register your channel in your `routes/channels.php` file:
+次に、チャンネルを`routes/channels.php`ファイルで登録します。
 
     use App\Broadcasting\OrderChannel;
 
     Broadcast::channel('order.{order}', OrderChannel::class);
 
-Finally, you may place the authorization logic for your channel in the channel class' `join` method. This `join` method will house the same logic you would have typically placed in your channel authorization Closure. Of course, you may also take advantage of channel model binding:
+最後に、チャンネルの認証ロジックをチャンネルクラスの`join`へ記述します。典型的な場合ではチャンネル認証クロージャに設置するのと同じロジックをこの`join`メソッドに設置します。もちろん、チャンネルモデル結合の利点も利用できます。
 
     <?php
 
@@ -378,7 +378,7 @@ Finally, you may place the authorization logic for your channel in the channel c
     class OrderChannel
     {
         /**
-         * Create a new channel instance.
+         * 新しいチャンネルインスタンスの生成
          *
          * @return void
          */
@@ -388,7 +388,7 @@ Finally, you may place the authorization logic for your channel in the channel c
         }
 
         /**
-         * Authenticate the user's access to the channel.
+         * ユーザーのチャンネルへアクセスを認証
          *
          * @param  \App\User  $user
          * @param  \App\Order  $order
@@ -400,7 +400,7 @@ Finally, you may place the authorization logic for your channel in the channel c
         }
     }
 
-> {tip} Like many other classes in Laravel, channel classes will automatically be resolved by the [service container](/docs/{{version}}/container). So, you may type-hint any dependencies required by your channel in its constructor.
+> {tip} Laravelの他のクラスと同様に、チャンネルクラスは自動的に[サービスコンテナ](/docs/{{version}}/container)により、依存を解決されます。そのため、コンストラクタでタイプヒントにより、チャンネルで必要な依存を指定できます。
 
 <a name="broadcasting-events"></a>
 ## ブロードキャストイベント
@@ -420,16 +420,16 @@ Finally, you may place the authorization logic for your channel in the channel c
 
     broadcast(new ShippingStatusUpdated($update))->toOthers();
 
-`toOthers`メソッドをいつ使うのかをよく理解してもらうため、タスク名を入力してもらうことで、新しいタスクをユーザーが作成できる、タスクリストアプリケーションを想像してください。タスクを作成するためにアプリケーションは、タスクの生成をブロードキャストし、新しいタスクのJSON表現を返す、`/task`エンドポイントへリクエストを作成するでしょう。JavaScriptアプリケーションがそのエンドポイントからレスポンスを受け取る時、その新しいタスクをタスクリストへ直接挿入するでしょう。次のようにです。
+`toOthers`メソッドをいつ使うのかをよく理解してもらうため、タスク名を入力してもらうことにより新しいタスクをユーザーが作成できる、タスクリストアプリケーションを想像してください。タスクを作成するためにアプリケーションは、タスクの生成をブロードキャストし、新しいタスクのJSON表現を返す、`/task`エンドポイントへリクエストを作成するでしょう。JavaScriptアプリケーションがそのエンドポイントからレスポンスを受け取る時、その新しいタスクをタスクリストへ直接挿入するでしょう。次のようにです。
 
     axios.post('/task', task)
         .then((response) => {
             this.tasks.push(response.data);
         });
 
-However, remember that we also broadcast the task's creation. If your JavaScript application is listening for this event in order to add tasks to the task list, you will have duplicate tasks in your list: one from the end-point and one from the broadcast. You may solve this by using the `toOthers` method to instruct the broadcaster to not broadcast the event to the current user.
+しかしながら、タスクの生成もブロードキャストしていることを思い出してください。JavaScriptアプリケーションがこのイベントをタスクリストへタスクを追加するためにリッスンしている場合、リストにそのタスクを二重登録してしまいます。ひとつはエンドポイントから、もう一つはブロードキャストからです。これを解決するには、toOthers`メソッドを使用し、ブロードキャスターへそのイベントを現在のユーザーに対してブロードキャストしないように指示してください。
 
-> {note} Your event must use the `Illuminate\Broadcasting\InteractsWithSockets` trait in order to call the `toOthers` method.
+> {note} イベントで`toOthers`メソッドを呼び出すには、`Illuminate\Broadcasting\InteractsWithSockets`トレイトを使用する必要があります。
 
 #### 設定
 
