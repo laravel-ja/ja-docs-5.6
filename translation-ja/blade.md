@@ -131,21 +131,21 @@ Bladeビューはグローバルな`view`ヘルパを使用し、ルートから
         ...
     @endcomponent
 
-#### Aliasing Components
+#### コンポーネントの別名
 
-If your Blade components are stored in a sub-directory, you may wish to alias them for easier access. For example, imagine a Blade component that is stored at `resources/views/components/alert.blade.php`. You may use the `component` method to alias the component from `components.alert` to `alert`. Typically, this should be done in the `boot` method of your `AppServiceProvider`:
+Bladeコンポーネントをサブディレクトリへ保存している場合、簡単にアクセスできるようにエイリアスを使いたくなります。たとえば、`resources/views/components/alert.blade.php`へBladeコンポーネントを保存していると想像してください。`component`メソッドを使い、`components.alert`コンポーネントの別名を`alert`と名付けられます。通常、`AppServiceProvider`の`boot`メソッドで別名を指定します。
 
     use Illuminate\Support\Facades\Blade;
 
     Blade::component('components.alert', 'alert');
 
-Once the component has been aliased, you may render it using a directive:
+コンポーネントへ別名を付けたら、ディレクティブでレンダーできます。」
 
     @alert('alert', ['type' => 'danger'])
         You are not allowed to access this resource!
     @endalert
 
-You may omit the component parameters if it has no additional slots:
+追加のスロットがなければ、コンポーネントの引数を省略できます。
 
     @alert
         You are not allowed to access this resource!
@@ -194,7 +194,7 @@ JavaScriptの変数を初期化するために、配列をビューに渡してJ
 
 #### HTML Entity Encoding
 
-By default, Blade (and the Laravel `e` helper) will double encode HTML entities. If you would like to disable double encoding, call the `Blade::withoutDoubleEncoding` method from the `boot` method of your `AppServiceProvider`:
+Blade（およびLaravelの`e`ヘルパ）はデフォルトで、HTMLエンティティをdouble encodeします。double encodeを無効にするには、`AppServiceProvider`の`boot`メソッドで、`Blade::withoutDoubleEncoding`メソッドを呼び出してください。
 
     <?php
 

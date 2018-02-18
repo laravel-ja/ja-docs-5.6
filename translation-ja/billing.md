@@ -592,7 +592,7 @@ Cashierは課金の失敗時にサブスクリプションを自動的に処理�
         'custom-option' => $value,
     ]);
 
-If you are using Braintree as your billing provider, you must include a `description` option when calling the `invoiceFor` method:
+Braintreeを課金プロバイダに使用している場合、`invoiceFor` の呼び出し時に`description`オプションを含める必要があります。
 
     $user->invoiceFor('One Time Fee', 500, [
         'description' => 'your invoice description here',

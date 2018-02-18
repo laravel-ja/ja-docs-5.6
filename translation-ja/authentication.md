@@ -75,7 +75,7 @@ Laravelの認証機能は「ガード」と「プロバイダ」を中心概念�
 
     protected $redirectTo = '/';
 
-Next, you should modify the `RedirectIfAuthenticated` middleware's `handle` method to use your new URI when redirecting the user.
+次に、ユーザーをリダイレクトさせるときの新しいURIを使用するために、`RedirectIfAuthenticated`ミドルウェアの`handle`メソッドを更新する必要があります。
 
 リダイレクトパスをカスタマイズするロジックが必要な場合は、`redirectTo`プロパティの代わりに`redirectTo`メソッドを定義してください。
 
