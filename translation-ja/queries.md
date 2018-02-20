@@ -127,9 +127,9 @@ LaravelクエリビルダはアプリケーションをSQLインジェクショ�
                     ->where('finalized', 1)
                     ->avg('price');
 
-#### Determining If Records Exist
+#### レコード存在の判定
 
-Instead of using the `count` method to determine if any records exist that match your query's constraints, you may use the `exists` and `doesntExist` methods:
+クエリの制約にマッチするレコードが存在するかを調べるため、`count`メソッドを使用する代わりに、`exists`や`doesntExist`メソッドを使うこともできます。
 
     return DB::table('orders')->where('finalized', 1)->exists();
 

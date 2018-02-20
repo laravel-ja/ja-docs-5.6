@@ -2,7 +2,7 @@
 
 - [イントロダクション](#introduction)
     - [ファサード使用の注意](#a-note-on-facades)
-- [Package Discovery](#package-discovery)
+- [パッケージディスカバリー](#package-discovery)
 - [サービスプロバイダ](#service-providers)
 - [リソース](#resources)
     - [設定](#configuration)

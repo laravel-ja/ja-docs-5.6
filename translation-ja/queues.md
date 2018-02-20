@@ -2,7 +2,7 @@
 
 - [イントロダクション](#introduction)
     - [接続 Vs. キュー](#connections-vs-queues)
-    - [Driver Notes & Prerequisites](#driver-prerequisites)
+    - [ドライバの注意事項と要件](#driver-prerequisites)
 - [ジョブの作成](#creating-jobs)
     - [ジョブクラスの生成](#generating-job-classes)
     - [クラス構成](#class-structure)
@@ -51,7 +51,7 @@ Laravelのキューに取り掛かる前に、「接続」と「キュー」の�
     php artisan queue:work --queue=high,default
 
 <a name="driver-prerequisites"></a>
-### Driver Notes & Prerequisites
+### ドライバの注意事項と要件
 
 #### データベース
 
@@ -65,7 +65,7 @@ Laravelのキューに取り掛かる前に、「接続」と「キュー」の�
 
 `redis`キュードライバーを使用するには、`config/database.php`設定ファイルでRedisのデータベースを設定する必要があります。
 
-**Redis Cluster**
+**Redisクラスタ**
 
 Redisキュー接続でRedisクラスタを使用している場合は、キュー名に[キーハッシュタグ](https://redis.io/topics/cluster-spec#keys-hash-tags)を含める必要があります。これはキューに指定した全Redisキーが同じハッシュスロットに確実に置かれるようにするためです。
 
@@ -76,11 +76,11 @@ Redisキュー接続でRedisクラスタを使用している場合は、キュ�
         'retry_after' => 90,
     ],
 
-**Blocking**
+**ブロッキング**
 
-When using the Redis queue, you may use the `block_for` configuration option to specify how long the driver should wait for a job to become available before iterating through the worker loop and re-polling the Redis database.
+Redisキューを使用する場合、ワーカのループの繰り返しとRedisデータベースに対する再ポールの前に、ジョブを実行可能にするまでどの程度待つのかを指定する、`block_for`設定オプションを使うことができます。
 
-Adjusting this value based on your queue load can be more efficient than continually polling the Redis database for new jobs. For instance, you may set the value to `5` to indicate that the driver should block for five seconds while waiting for a job to become available:
+新しいジョブのために、Redisデータベースに連続してポールするよりも効率的にできるようなキューの負荷にもとづいて、この値を調整してください。たとえば、ジョブを実行可能にするまで、ドライバーが５秒間ブロックするように指示するには、値に`5`をセットします。
 
     'redis' => [
         'driver' => 'redis',
@@ -90,7 +90,7 @@ Adjusting this value based on your queue load can be more efficient than continu
         'block_for' => 5,
     ],
 
-> {note} Blocking pop is an experimental feature. There is a small chance that a queued job could be lost if the Redis server or worker crashes at the same time the job is retrieved.
+> {note} ブロッキングは実験的な機能です。ジョブの再取得時に、Redisサーバかワーカがクラッシュすると、キュー済みのジョブが失われる可能性が僅かにあります。
 
 #### 他のドライバの要件
 
@@ -237,9 +237,9 @@ Adjusting this value based on your queue load can be more efficient than continu
         new ReleasePodcast
     ])->dispatch();
 
-#### Chain Connection & Queue
+#### チェーンの接続とキュー
 
-If you would like to specify the default connection and queue that should be used for the chained jobs, you may use the `allOnConnection` and `allOnQueue` methods. These methods specify the queue connection and queue name that should be used unless the queued job is explicitly assigned a different connection / queue:
+ジョブチェーンで使用するデフォルトの接続とキューを指定したい場合は、`allOnConnection`と`allOnQueue`メソッドを使用します。これらのメソッドは、キューされたジョブへ別の接続／キューが明確に指定されていない限り使用される、接続とキューを設定します。
 
     ProcessPodcast::withChain([
         new OptimizePodcast,
@@ -355,7 +355,7 @@ If you would like to specify the default connection and queue that should be use
 
 #### タイムアウト
 
-> {note} The `timeout` feature is optimized for PHP 7.1+ and the `pcntl` PHP extension.
+> {note} `timeout`機能はPHP7.1以上で、かつpcntl` PHP拡張に最適化されています。
 
 同様に、ジョブの最大実行秒数を指定するために、Artisanコマンドラインに`--timeout`スイッチを指定することができます。
 
@@ -601,7 +601,7 @@ Supervisorの詳細情報は、[Supervisorドキュメント](http://supervisord
 <a name="failed-job-events"></a>
 ### ジョブ失敗イベント
 
-If you would like to register an event that will be called when a job fails, you may use the `Queue::failing` method. This event is a great opportunity to notify your team via email or [Stride](https://www.stride.com). For example, we may attach a callback to this event from the `AppServiceProvider` that is included with Laravel:
+ジョブが失敗した時に呼び出されるイベントを登録したい場合、`Queue::failing`メソッドが使えます。このイベントはメールや[Stride](https://www.stride.com)により、チームへ通知する良い機会になります。例として、Laravelに含まれている`AppServiceProvider`で、このイベントのコールバックを付け加えてみましょう。
 
     <?php
 

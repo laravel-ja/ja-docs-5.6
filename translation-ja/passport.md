@@ -164,7 +164,7 @@ Passportを実働サーバへ最初にデプロイするとき、`passport:keys`
 <a name="token-lifetimes"></a>
 ### トークン持続時間
 
-By default, Passport issues long-lived access tokens that expire after one year. If you would like to configure a longer / shorter token lifetime, you may use the `tokensExpireIn` and `refreshTokensExpireIn` methods. These methods should be called from the `boot` method of your `AuthServiceProvider`:
+Passportはデフォルトで、一年間有効な、長期間持続するアクセストークンを発行します。トークンの持続時間をもっと短くしたい場合は、`tokensExpireIn`と`refreshTokensExpireIn`メソッドを使ってください。これらのメソッドは、`AuthServiceProvider`の`boot`メソッドから呼び出してください。
 
     /**
      * 全認証／認可サービスの登録
@@ -629,7 +629,7 @@ Passportには、指定されたスコープが許可されているトークン
 
 API構築時にJavaScriptアプリケーションから、自分のAPIを利用できたらとても便利です。このAPI開発のアプローチにより、世界中で共有されるのと同一のAPIを自身のアプリケーションで使用できるようになります。自分のWebアプリケーションやモバイルアプリケーション、サードパーティアプリケーション、そして様々なパッケージマネージャ上で公開するSDKにより、同じAPIが使用されます。
 
-Typically, if you want to consume your API from your JavaScript application, you would need to manually send an access token to the application and pass it with each request to your application. However, Passport includes a middleware that can handle this for you. All you need to do is add the `CreateFreshApiToken` middleware to your `web` middleware group in your `app/Http/Kernel.php` file:
+通常、皆さんのAPIをJavaScriptアプリケーションから使用しようとするなら、アプリケーションに対しアクセストークンを自分で送り、それを毎回リクエストするたび、一緒にアプリケーションへ渡す必要があります。しかし、Passportにはこれを皆さんに変わって処理するミドルウェアが用意してあります。必要なのは`app/Http/Kernel.php`ファイル中の、`web`ミドルウェアグループに対し、`CreateFreshApiToken`ミドルウェアを追加することだけです。
 
     'web' => [
         // 他のミドルウェア…

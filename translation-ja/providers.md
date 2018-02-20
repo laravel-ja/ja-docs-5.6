@@ -58,9 +58,9 @@ Laravelに含まれている`config/app.php`ファイルを開けば、`provider
 
 このサービスプロバイダでは`register`メソッドだけが定義されています。そして、サービスコンテナに`Riak\Connection`の実装を定義しています。サービスコンテナがどのように動作するのかまだ理解できていなければ、ドキュメントで調べてください。
 
-#### The `bindings` And `singletons` Properties
+#### `bindings`と`singletons`プロパティ
 
-If your service provider registers many simple bindings, you may wish to use the `bindings` and `singletons` properties instead of manually registering each container binding. When the service provider is loaded by the framework, it will automatically check for these properties and register their bindings:
+サービスプロバイダでシンプルな結合をたくさん登録しているのであれば、各コンテナ結合を自力で登録する代わりに、`bindings` と`singletons`プロパティを使いたくなるでしょう。フレームワークにより、サービスプロバイダがロードされる時点で、これらのプロパティがチェックされ、結合を登録します。
 
     <?php
 
@@ -75,7 +75,7 @@ If your service provider registers many simple bindings, you may wish to use the
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * All of the container bindings that should be registered.
+         * 登録する必要のある全コンテナ結合
          *
          * @var array
          */
@@ -84,7 +84,7 @@ If your service provider registers many simple bindings, you may wish to use the
         ];
 
         /**
-         * All of the container singletons that should be registered.
+         * 登録する必要のある全コンテナシングルトン
          *
          * @var array
          */

@@ -347,9 +347,9 @@ Laravelの`Schema`[ファサード](/docs/{{version}}/facades)は、テーブル
 
 > {note} SQLite使用時に、一つのマイグレーションによる複数カラム削除／変更はサポートされていません。
 
-#### 履行可能な別名コマンド
+#### 利用可能な別名コマンド
 
-Each index method accepts an optional second argument to specify the name of the index. If omitted, the name will be derived from the names of the table and column(s).
+各インデックスメソッドは、第２引数にオプショナルでインデックス名を指定できます。初略した場合、名前はテーブルとカラムの名前から生成されます。
 
 コマンド  |  説明
 -------  |  -----------

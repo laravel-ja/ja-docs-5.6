@@ -16,7 +16,7 @@
     - [コンポーネントのカスタマイズ](#customizing-the-components)
 - [メール送信](#sending-mail)
     - [キュー使用メール](#queueing-mail)
-- [Rendering Mailables](#rendering-mailables)
+- [Mailableのレンダリング](#rendering-mailables)
     - [Previewing Mailables In The Browser](#previewing-mailables-in-the-browser)
 - [メールとローカル開発](#mail-and-local-development)
 - [イベント](#events)
@@ -462,7 +462,7 @@ Markdown MailableではBladeコンポーネントとMarkdown記法が利用で�
         ->send(new OrderShipped($order));
 
 <a name="rendering-mailables"></a>
-## Rendering Mailables
+## Mailableのレンダリング
 
 Sometimes you may wish to capture the HTML content of a mailable without sending it. To accomplish this, you may call the `render` method of the mailable. This method will return the evaluated contents of the mailable as a string:
 
