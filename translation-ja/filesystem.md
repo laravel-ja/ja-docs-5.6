@@ -7,7 +7,7 @@
     - [ドライバ要件](#driver-prerequisites)
 - [ディスクインスタンス取得](#obtaining-disk-instances)
 - [ファイル取得](#retrieving-files)
-    - [Downloading Files](#downloading-files)
+    - [ファイルのダウンロード](#downloading-files)
     - [ファイルURL](#file-urls)
     - [ファイルメタ情報](#file-metadata)
 - [ファイル保存](#storing-files)
@@ -20,7 +20,7 @@
 <a name="introduction"></a>
 ## イントロダクション
 
-LaravelはFrank de Jongeさんが作成したありがたいほど素晴らしい、抽象ファイルシステムである[Flysystem](https://github.com/thephpleague/flysystem) PHPパッケージを提供しています。LaravelとFlysystemの統合によりローカルのファイルシステム、Amazon S3、Rackspaceクラウドストレージを操作できる、シンプルなドライバが提供できました。更に素晴らしいことにそれぞれのシステムに対し同じAPIを使用しているため、ストレージをとても簡単に変更できるのです。
+LaravelはFrank de Jongeさんが作成した拝みたいほど素晴らしい、抽象ファイルシステムである[Flysystem](https://github.com/thephpleague/flysystem) PHPパッケージを提供しています。LaravelとFlysystemの統合によりローカルのファイルシステム、Amazon S3、Rackspaceクラウドストレージを操作できる、シンプルなドライバが提供できました。更に素晴らしいことにそれぞれのシステムに対し同じAPIを使用しているため、ストレージをとても簡単に変更できるのです。
 
 <a name="configuration"></a>
 ## 設定
@@ -120,9 +120,9 @@ Laravelのファイルシステム統合はRackspaceでも動作します。し�
     $exists = Storage::disk('s3')->exists('file.jpg');
 
 <a name="downloading-files"></a>
-### Downloading Files
+### ファイルのダウンロード
 
-The `download` method may be used to generate a response that forces the user's browser to download the file at the given path. The `download` method accepts a file name as the second argument to the method, which will determine the file name that is seen by the user downloading the file. Finally, you may pass an array of HTTP headers as the third argument to the method:
+The `download` method may be used to generate a response that forces the user's browser to download the file at the given path. The `download` method accepts a file name as the second argument to the method, which will determine the file name that is seen by the user downloading the file. Finally, you may pass an array of HTTP headers as the third argument to the method: `download`メソッドは、指定したパスへファイルをダウンロードするように、ユーザーのブラウザへ強制するレスポンスを生成するために使用します。`download`メソッドはファイル名を第２引数として受け取り、
 
     return Storage::download('file.jpg');
 

@@ -915,7 +915,7 @@ Duskのテストを[Codeship](https://codeship.com)で実行するには、以�
 <a name="running-tests-on-heroku-ci"></a>
 ### Heroku CI
 
-To run Dusk tests on [Heroku CI](https://www.heroku.com/continuous-integration), add the following Google Chrome buildpack and scripts to your Heroku `app.json` file:
+Duskテストを[Heroku CI](https://www.heroku.com/continuous-integration)上で実行するには、Herokuの`app.json`ファイルへ、以下のGoogle Chromeビルドパックとスクリプトを追加してください。
 
     {
       "environments": {

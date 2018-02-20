@@ -158,16 +158,16 @@ JSONでAPIを作成する場合にはモデルとリレーションを配列やJ
 <a name="date-serialization"></a>
 ## 日付のシリアライズ
 
-#### Customizing The Date Format Per Attribute
+#### 属性ごとに日付形式をカスタマイズ
 
-You may customize the serialization format of individual Eloquent date attributes by specifying the date format in the [cast declaration](/docs/{{version}}/eloquent-mutators#attribute-casting):
+[キャスト宣言](/docs/{{version}}/eloquent-mutators#attribute-casting)で日付形式を指定することにより、Eloquent日付属性ごとにシリアライズ形式をカスタマイズできます。
 
     protected $casts = [
         'birthday' => 'date:Y-m-d',
         'joined_at' => 'datetime:Y-m-d H:00',
     ];
 
-#### Global Customization Via Carbon
+#### Carbonによる、グローバルなカスタマイズ
 
 Laravelは[Carbon](https://github.com/briannesbitt/Carbon)（日付と時刻を扱うライブラリ）を拡張しており、JSONへシリアライズするために便利なカスタマイズ方法を提供しています。アプリケーション上のすべての日付と時刻が、Carbonによりどのようにシリアライズされるかをカスタマイズするために、`Carbon::serializeUsing`メソッドを使います。`Carbon::serializeUsing`メソッドは、JSONへのシリアライズのために日付時刻の文字列形式を返すクロージャを引数に取ります。
 

@@ -92,7 +92,7 @@ Laravelでは、データベースを駆動するアプリケーションのテ�
 
 より組織立てるために、各モデルごとに追加のファクトリファイルを作成することもできます。たとえば、`database/factories`ディレクトリに`UserFactory.php`と`CommentFactory.php`ファイルを作成できます。`factories`ディレクトリ下の全ファイルは、Laravelにより自動的にロードされます。
 
-> {tip} You can set the Faker locale by adding a `faker_locale` option to your `config/app.php` configuration file.
+> {tip} Fakerのローケルは、`config/app.php`設定ファイルの`faker_locale`オプションで指定できます。
 
 <a name="factory-states"></a>
 ### ファクトリステート

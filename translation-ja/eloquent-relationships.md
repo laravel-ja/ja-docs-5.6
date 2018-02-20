@@ -761,7 +761,7 @@ Eloquentリレーションは全てメソッドとして定義されているた
 <a name="eager-loading"></a>
 ## Eagerロード
 
-When accessing Eloquent relationships as properties, the relationship data is "lazy loaded". This means the relationship data is not actually loaded until you first access the property. However, Eloquent can "eager load" relationships at the time you query the parent model. Eager loading alleviates the N + 1 query problem. To illustrate the N + 1 query problem, consider a `Book` model that is related to `Author`:
+プロパティとしてEloquentリレーションにアクセスする場合、そのリレーションデータは「遅延ロード」されます。つまり、そのリレーションデータが最初にアクセスされるまで、実際にはロードされません。しかし、Eloquentでは、親のモデルに対するクエリと同時にリレーションを「Eagerロード」可能です。EagerロードはN+1クエリ問題の解決策です。N+１クエリ問題を理解するには、`Author`と関連がある`Book`モデルを考えてみてください。
 
     <?php
 
@@ -790,7 +790,7 @@ When accessing Eloquent relationships as properties, the relationship data is "l
 
 このループではまず全ての本をテーブルから取得するために１クエリ実行され、それから著者をそれぞれの本について取得します。ですから２５冊あるならば、このループで２６クエリが発生します。
 
-ありがたいことにクエリの数を徹底的に減らすためにEagerローディングを使うことができます。`with`メソッドを使い指定してください。
+うれしいことにクエリの数を徹底的に減らすために、Eagerローディングを使うことができます。`with`メソッドを使い指定してください。
 
     $books = App\Book::with('author')->get();
 
@@ -842,7 +842,7 @@ When accessing Eloquent relationships as properties, the relationship data is "l
 <a name="lazy-eager-loading"></a>
 ### 遅延Eagerローディング
 
-既に親のモデルを取得した後にリレーションをEagerロードする必要がある場合もあるでしょう。たとえば、どの関連しているモデルをロードするかを動的に決める場合に便利です。
+既に親のモデルを取得した後に、リレーションをEagerロードする必要がある場合もあるでしょう。たとえば、どの関連しているモデルをロードするかを動的に決める場合に便利です。
 
     $books = App\Book::all();
 

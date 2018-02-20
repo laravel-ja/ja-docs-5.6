@@ -27,7 +27,7 @@
 
 Eloquent ORMはLaravelに含まれている、美しくシンプルなアクティブレコードによるデーター操作の実装です。それぞれのデータベーステーブルは関連する「モデル」と結びついています。モデルによりテーブル中のデータをクエリできますし、さらに新しいレコードを追加することもできます。
 
-使いはじめる前に確実に`config/database.php`を設定してください。データベースの詳細は[ドキュメント](/docs/{{version}}/database#configuration)で確認してください。
+使用開始前に`config/database.php`を確実に設定してください。データベースの詳細は[ドキュメント](/docs/{{version}}/database#configuration)で確認してください。
 
 <a name="defining-models"></a>
 ## モデル定義

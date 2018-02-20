@@ -1,4 +1,4 @@
-# Error Handling
+# エラー処理
 
 - [イントロダクション](#introduction)
 - [設定](#configuration)
@@ -48,7 +48,7 @@ local環境では`APP_DEBUG`環境変数を`true`に設定すべきでしょう�
         return parent::report($exception);
     }
 
-> {tip} Instead of making a lot of `instanceof` checks in your `report` method, consider using [reportable exceptions](/docs/{{version}}/errors#renderable-exceptions)
+> {tip} `report`メソッド中で数多くの`instanceof`チェックを行う代わりに、[reportable exceptions](/docs/{{version}}/errors#renderable-exceptions)の使用を考慮してください。
 
 #### `report`ヘルパ
 

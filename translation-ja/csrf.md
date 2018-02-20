@@ -12,7 +12,7 @@ Laravelでは、[クロス・サイト・リクエスト・フォージェリ](h
 
 Laravelは、アプリケーションにより管理されているアクティブなユーザーの各セッションごとに、CSRF「トークン」を自動的に生成しています。このトークンを認証済みのユーザーが、実装にアプリケーションに対してリクエストを送信しているのかを確認するために利用します。
 
-Anytime you define a HTML form in your application, you should include a hidden CSRF token field in the form so that the CSRF protection middleware can validate the request. You may use the `@csrf` Blade directive to generate the token field:
+アプリケーションでHTMLフォームを定義する場合は常に、CSRF保護ミドルウェアがリクエストを検証できるように、隠しCSRFトークンフィールドをそのフォームへ含める必要があります。トークンを生成するには、`@csrf` Bladeディレクティブが使用できます。
 
     <form method="POST" action="/profile">
         @csrf
@@ -52,7 +52,7 @@ JacaScriptで駆動するアプリケーションを構築する場合、JavaScr
         ];
     }
 
-> {tip} The CSRF middleware is automatically disabled when [running tests](/docs/{{version}}/testing).
+> {tip} [テスト実行時](/docs/{{version}}/testing)には、自動的にCSRFミドルウェアは無効になります。
 
 <a name="csrf-x-csrf-token"></a>
 ## X-CSRF-TOKEN

@@ -69,7 +69,7 @@ Nginxを実行しているサーバにアプリケーションをデプロイす
 > {tip} オートローダを最適化することに加え、プロジェクトのソースコントロールリポジトリへ、`composer.lock`ファイルをいつも確実に含めましょう。`composer.lock`ファイルが存在すると、プロジェクトの依存パッケージのインストールが、より早くなります。
 
 <a name="optimizing-configuration-loading"></a>
-### 設定ロードの最適化
+### 設定ローディングの最適化
 
 アプリケーションをプロダクションへデプロイする場合、デプロイプロセスの中で、確実に`config:cache` Artisanコマンドを実行してください。
 
@@ -77,7 +77,7 @@ Nginxを実行しているサーバにアプリケーションをデプロイす
 
 このコマンドは、Laravelの全設定ファイルをキャッシュされる一つのファイルへまとめるため、設定値をロードする場合に、フレームワークがファイルシステムを数多くアクセスする手間を大いに減らします。
 
-> {note} If you execute the `config:cache` command during your deployment process, you should be sure that you are only calling the `env` function from within your configuration files. Once the configuration has been cached, the `.env` file will not be loaded and all calls to the `env` function will return `null`.
+> {note} 開発時に`config:cache`コマンドを実行する場合は、設定ファイルの中だけで、`env`関数を呼び出していることを確認してください。設定ファイルがキャッシュされてしまうと、`.env`ファイルはロードされなくなり、`env`関数の呼び出し結果は全て`null`になります。
 
 <a name="optimizing-route-loading"></a>
 ### ルートロードの最適化
