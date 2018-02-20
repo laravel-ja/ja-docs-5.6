@@ -122,7 +122,7 @@ Laravelのファイルシステム統合はRackspaceでも動作します。し�
 <a name="downloading-files"></a>
 ### ファイルのダウンロード
 
-The `download` method may be used to generate a response that forces the user's browser to download the file at the given path. The `download` method accepts a file name as the second argument to the method, which will determine the file name that is seen by the user downloading the file. Finally, you may pass an array of HTTP headers as the third argument to the method: `download`メソッドは、指定したパスへファイルをダウンロードするように、ユーザーのブラウザへ強制するレスポンスを生成するために使用します。`download`メソッドはファイル名を第２引数として受け取り、
+`download`メソッドは、指定したパスへファイルをダウンロードするように、ユーザーのブラウザへ強制するレスポンスを生成するために使用します。`download`メソッドはファイル名を第２引数として受け取り、ダウンロード先のファイル名を指定します。最後に第３引数として、HTTPヘッダの配列を渡せます。
 
     return Storage::download('file.jpg');
 
