@@ -1,30 +1,30 @@
-# Logging
+# ログ
 
-- [Introduction](#introduction)
-- [Configuration](#configuration)
-    - [Building Log Stacks](#building-log-stacks)
-- [Writing Log Messages](#writing-log-messages)
-    - [Writing To Specific Channels](#writing-to-specific-channels)
-- [Customizing Monolog For Channels](#customizing-monolog-for-channels)
-- [Creating Custom Channels](#creating-custom-channels)
+- [イントロダクション](#introduction)
+- [設定](#configuration)
+    - [ログスタックの構築](#building-log-stacks)
+- [ログメッセージの記述](#writing-log-messages)
+    - [指定チャネルへの記述](#writing-to-specific-channels)
+- [チャネルに対するMonologのカスタマイズ](#customizing-monolog-for-channels)
+- [カスタムチャネルの生成](#creating-custom-channels)
 
 <a name="introduction"></a>
-## Introduction
+## イントロダクション
 
-To help you learn more about what's happening within your application, Laravel provides robust logging services that allow you to log messages to files, the system error log, and even to Slack to notify your entire team.
+アプリケーションで発生している事象を確実に捕らえられるように、Laravelはログメッセージをファイルやシステムエラーログ、さらにチーム全体に知らせるためのSlack通知も可能な、堅牢なログサービスを提供しています。
 
-Under the hood, Laravel utilizes the [Monolog](https://github.com/Seldaek/monolog) library, which provides support for a variety of powerful log handlers. Laravel makes it a cinch to configure these handlers, allowing you to mix and match them to customize your application's log handling.
+そのために、Laravelは多くのパワフルなログハンドラをサポートしている、[Monolog](https://github.com/Seldaek/monolog)ライブラリーを活用しています。Laravelはそうしたハンドラの設定を簡単にできるようにし、アプリケーションのログ処理に合わせカスタマイズするため、ハンドラを多重に使ったり、マッチングできるようにしています。
 
 <a name="configuration"></a>
-## Configuration
+## 設定
 
-All of the configuration for your application's logging system is housed in the `config/logging.php` configuration file. This file allows you to configure your application's log channels, so be sure to review each of the available channels and their options. Of course, we'll review a few common options below.
+アプリケーションのログシステムの設定はすべて、`config/logging.php`設定ファイルに用意されています。このファイルはアプリケーションのログチャンネルを設定できるため、使用可能なチャネルやその他のオプションをしっかりとレビューしてください。もちろん、よく使用されるオプションを以降からレビューします。
 
-By default, Laravel will use the `stack` channel when logging messages. The `stack` channel is used to aggregate multiple log channels into a single channel. For more information on building stacks, check out the [documentation below](#building-log-stacks).
+デフォルトでは、Laravelは`stack`チャンネルをメッセージをログする場合に使用します。`stack`チャネルは、複数のログチャンネルを一つのログチャンネルへ集結するために使用します。スタックの構築に関する詳細は、[このドキュメントで後ほど](#building-log-stacks)説明します。
 
-#### Configuring The Channel Name
+#### チャンネル名の設定
 
-By default, Monolog is instantiated with a "channel name" that matches the current environment, such as `production` or `local`. To change this value, add a `name` option to your channel's configuration:
+Monologはデフォルトで`production`や`local`のような、現在の環境と一致する「チャンネル名」でインスタンス化されます。この値を変更するには、チャンネルの設定に`name`オプションを追加してください。
 
     'stack' => [
         'driver' => 'stack',
@@ -32,14 +32,14 @@ By default, Monolog is instantiated with a "channel name" that matches the curre
         'channels' => ['single', 'slack'],
     ],
 
-#### Configuring The Slack Channel
+#### Slackチャンネルの設定
 
-The `slack` channel requires a `url` configuration option. This URL should match a URL for an [incoming webhook](https://slack.com/apps/A0F7XDUAZ-incoming-webhooks) that you have configured for your Slack team.
+`slack`チャンネルには、`url`設定オプションが必須です。このURLはSlackチームに対して設定されている、[incoming webhook](https://slack.com/apps/A0F7XDUAZ-incoming-webhooks)へのURLと一致させる必要があります。
 
 <a name="building-log-stacks"></a>
-### Building Log Stacks
+### ログスタックの構築
 
-As previously mentioned, the `stack` driver allows you to combine multiple channels into a single log channel. To illustrate how to use log stacks, let's take a look at an example configuration that you might see in a production application:
+先に説明した通り、`stack`ドライバーは、複数のチャンネルを一つのログチャンネルへまとめるために使用します。ログスタックの使用方法を説明するため、ある実働環境に対する設定例を見てみましょう。
 
     'channels' => [
         'stack' => [
@@ -61,24 +61,24 @@ As previously mentioned, the `stack` driver allows you to combine multiple chann
         ],
     ],
 
-Let's dissect this configuration. First, notice our `stack` channel aggregates two other channels via its `channels` option: `syslog` and `slack`. So, when logging messages, both of these channels will have the opportunity to log the message.
+では、個別にこの設定を確認しましょう。最初に、`stack`チャンネルが`channels`オプションにより`syslog`と`slack`、２つのチャンネルをまとめていることに注目してください。
 
-#### Log Levels
+#### ログレベル
 
-Take note of the `level` configuration option present on the `syslog` and `slack` channel configurations in the example above. This option determines the minimum "level" a message must be in order to be logged by the channel. Monolog, which powers Laravel's logging services, offers all of the log levels defined in the [RFC 5424 specification](https://tools.ietf.org/html/rfc5424): **emergency**, **alert**, **critical**, **error**, **warning**, **notice**, **info**, and **debug**.
+上記の例で、`syslog`と`slack`チャンネル設定の中に、`level`設定オプションが存在していることに注目です。このオプションは、そのチャネルでメッセージをログする、最低の「レベル」を定めるオプションです。Laravelのログサービスを動かしているMonologは、[RFC 5424規約](https://tools.ietf.org/html/rfc5424)で定められている全ログレベルが使用できます。**emergency**と**alert**、**critical**、**error**、**warning**、**notice**、**info**、**debug**です。
 
-So, imagine we log a message using the `debug` method:
+`debug`メソッドを使用し、メッセージをログしてみることを想像しましょう。
 
     Log::debug('An informational message.');
 
-Given our configuration, the `syslog` channel will write the message to the system log; however, since the error message is not `critical` or above, it will not be sent to Slack. However, if we log an `emergency` message, it will be sent to both the system log and Slack since the `emergency` level is above our minimum level threshold for both channels:
+上記設定では、`syslog`チャンネルにより、システムログへメッセージを書き込みます。しかしながら、エラーメッセージは`critical`以上ではないため、Slackには送られません。ところが、`emergency`メッセージをログする場合、両方のチャンネルに対する最低の基準レベル以上のため、システムログとSlackの両方へ送られます。
 
     Log::emergency('The system is down!');
 
 <a name="writing-log-messages"></a>
-## Writing Log Messages
+## ログメッセージの記述
 
-You may write information to the logs using the `Log` [facade](/docs/{{version}}/facades). As previously mentioned, the logger provides the eight logging levels defined in the [RFC 5424 specification](https://tools.ietf.org/html/rfc5424): **emergency**, **alert**, **critical**, **error**, **warning**, **notice**, **info** and **debug**:
+`Log`[ファサード](/docs/{{version}}/facades)を使い、情報をログできます。先に説明したように、ロガーは[RFC 5424規約](https://tools.ietf.org/html/rfc5424)に定義されている、**emergency**、**alert**、**critical**、**error**、**warning**、**notice**、**info**、**debug**の８ログレベルを提供しています。
 
     Log::emergency($message);
     Log::alert($message);
@@ -89,7 +89,7 @@ You may write information to the logs using the `Log` [facade](/docs/{{version}}
     Log::info($message);
     Log::debug($message);
 
-So, you may call any of these methods to log a message for the corresponding level. By default, the message will be written to the default log channel as configured by your `config/logging.php` configuration file:
+ログメッセージレベルに応じたメソッドを呼び出してください。デフォルトでは、`config/logging.php`設定ファイルで定義されているデフォルトログチャンネルへ、メッセージが書き込まれます。
 
     <?php
 
@@ -102,7 +102,7 @@ So, you may call any of these methods to log a message for the corresponding lev
     class UserController extends Controller
     {
         /**
-         * Show the profile for the given user.
+         * 指定したユーザーのプロファイルを表示
          *
          * @param  int  $id
          * @return Response
@@ -115,29 +115,29 @@ So, you may call any of these methods to log a message for the corresponding lev
         }
     }
 
-#### Contextual Information
+#### 文脈情報
 
-An array of contextual data may also be passed to the log methods. This contextual data will be formatted and displayed with the log message:
+ログメソッドには、文脈情報の配列を渡すことも可能です。この文脈情報は、ログメッセージに整形され、表示されます。
 
     Log::info('User failed to login.', ['id' => $user->id]);
 
 <a name="writing-to-specific-channels"></a>
-### Writing To Specific Channels
+### 指定チャネルへの記述
 
-Sometimes you may wish to log a message to a channel other than your application's default channel. You may use the `channel` method on the `Log` facade to retrieve and log to any channel defined in your configuration file:
+アプリケーションのデフォルトチャンネルの代わりに、別のチェンネルへメッセージをログしたい場合もあります。設定ファイルに定義してあるチャンネルを`Log`ファサードの`channel`メソッドを使い取得し、ログしてください。
 
     Log::channel('slack')->info('Something happened!');
 
-If you would like to create an on-demand logging stack consisting of multiple channels, you may use the `stack` method:
+複数チャンネルで構成されたログスタックをオンデマンドで生成したい場合は、`stack`メソッドを使います。
 
     Log::stack(['single', 'slack'])->info('Something happened!');
 
 <a name="customizing-monolog-for-channels"></a>
-## Customizing Monolog For Channels
+## チャネルに対するMonologのカスタマイズ
 
-Sometimes you may need complete control over how Monolog is configured for an existing channel. For example, you may want to configure a custom Monolog `FormatterInterface` implementation for a given channel's handlers.
+既存チャンネルに対するMonologの設定方法を複雑にコントロールする必要がある場合もあり得ます。たとえば、指定したチェンネルハンドラに対し、Monologの`FormatterInterface`カスタム実装を設定したい場合です。
 
-To get started, define a `tap` array on the channel's configuration. The `tap` array should contain a list of classes that should have an opportunity to customize (or "tap" into) the Monolog instance after it is created:
+そのためには、チャンネルの設定で、`tap`配列を定義します。`tap`配列は生成された後のMonologインスタンスをカスタマイズする（もしくは利用する："tap"" into）機会を与えるクラスのリストを含んでいる必要があります。
 
     'single' => [
         'driver' => 'single',
@@ -146,7 +146,7 @@ To get started, define a `tap` array on the channel's configuration. The `tap` a
         'level' => 'debug',
     ],
 
-Once you have configured the `tap` option on your channel, you're ready to define the class that will customize your Monolog instance. This class only needs a single method: `__invoke`, which receives the Monolog instance:
+チャンネルに対する`tap`オプションを定義したら、Monologインスタンスをカスタマイズするクラスを定義する準備が整いました。このクラスはMonologインスタンスを受け取る、`__invoke`メソッドのみ必要です。
 
     <?php
 
@@ -155,7 +155,7 @@ Once you have configured the `tap` option on your channel, you're ready to defin
     class CustomizeFormatter
     {
         /**
-         * Customize the given Monolog instance.
+         * 渡されたMonologインスタンスのカスタマイズ
          *
          * @param  \Monolog\Logger  $monolog
          * @return void
@@ -168,12 +168,12 @@ Once you have configured the `tap` option on your channel, you're ready to defin
         }
     }
 
-> {tip} All of your "tap" classes are resolved by the [service container](/docs/{{version}}/container), so any constructor dependencies they require will automatically be injected.
+> {tip} すべての"tap"クラスは、[サービスコンテナ](/docs/{{version}}/container)により、依存解決されます。そのため、コンストラクタで要求した依存は、自動的に注入されます。
 
 <a name="creating-custom-channels"></a>
-## Creating Custom Channels
+## カスタムチャネルの生成
 
-If you would like to define an entirely custom channel in which you have full control over Monolog's instantiation and configuration, you may specify a `custom` driver type in your `config/logging.php` configuration file. Additionally, your configuration should include a `via` option which specifies the class that should be invoked to create the Monolog instance:
+Monologのインスタンス化と設定を完全にコントロールするために、完全なカスタムチャンネルを定義したい場合は、`config/logging.php`設定ファイルで、`custom`ドライバータイプを指定してください。さらに、Monologインスタンスの生成を呼び出すクラスを指定する、`via`オプションを設定に含めます。
 
     'channels' => [
         'custom' => [
@@ -182,7 +182,7 @@ If you would like to define an entirely custom channel in which you have full co
         ],
     ],
 
-Once you have configured the `custom` channel, you're ready to define the class that will create your Monolog instance. This class only needs a single method: `__invoke`, which should return the Monolog instance:
+`custom`チャンネルを設定したら、Monologインスタンスを生成するクラスを定義する準備が整いました。このクラスはMonologインスタンスを返す、`__invoke`メソッドのみ必要です。
 
     <?php
 
@@ -193,7 +193,7 @@ Once you have configured the `custom` channel, you're ready to define the class 
     class CreateCustomLogger
     {
         /**
-         * Create a custom Monolog instance.
+         * カスタムMonologインスタンスの生成
          *
          * @param  array  $config
          * @return \Monolog\Logger

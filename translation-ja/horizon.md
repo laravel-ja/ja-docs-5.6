@@ -20,7 +20,7 @@ Horizon（水平線、展望）は、Laravelで動作するRedisキューのた�
 <a name="installation"></a>
 ## インストール
 
-> {note} Due to its usage of async process signals, Horizon requires PHP 7.1+.
+> {note} 非同期のプロセスシグナルを活用しているため、Horizonを動作させるにはPHP7.1以上が必要です。
 
 Composerを使い、LaravelプロジェクトにHorizonをインストールします。
 
@@ -46,7 +46,7 @@ Horizonでは３つのバランシング戦略が選択できます。`simple`�
 <a name="dashboard-authentication"></a>
 ### ダッシュボードの認可
 
-Horizon exposes a dashboard at `/horizon`. By default, you will only be able to access this dashboard in the `local` environment. To define a more specific access policy for the dashboard, you should use the `Horizon::auth` method. The `auth` method accepts a callback which should return `true` or `false`, indicating whether the user should have access to the Horizon dashboard. Typically, you should call `Horizon::auth` in the `boot` method of your `AppServiceProvider`:
+Horizonは、`/horizon`でダッシュボードを表示します。デフォルトでは`local`環境でのみ、このダッシュボードへアクセスできます。ダッシュボードへ更に多くのアクセスポリシーを割り当てるには、`Horizon::auth`メソッドを使用する必要があります。`auth`メソッドは、`true`か`false`を返すコールバックを引数に取り、そのユーザーがHorizonダッシュボードへアクセスできるかどうかを指示します。通常、`AppServiceProvider`の`boot`メソッドで、`Horizon::auth`を呼び出します。
 
     Horizon::auth(function ($request) {
         // trueかfalseを返す
@@ -91,7 +91,7 @@ Horizonを実働サーバにデプロイする場合、`php artisan horizon`コ�
     redirect_stderr=true
     stdout_logfile=/home/forge/app.com/horizon.log
 
-> {tip} If you are uncomfortable managing your own servers, consider using [Laravel Forge](https://forge.laravel.com). Forge provisions PHP 7+ servers with everything you need to run modern, robust Laravel applications with Horizon.
+> {tip} サーバ管理に自信がない場合は、[Laravel Forge](https://forge.laravel.com)の利用を考慮してください。ForgeはHorizonを利用する、モダンで堅牢なLaravelアプリケーションに必要なすべてをPHP7以上のサーバにプロビションします。
 
 <a name="tags"></a>
 ## タグ

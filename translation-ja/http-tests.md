@@ -67,7 +67,7 @@ Laravelはアプリケーションに対するHTTPリクエストを作成し、
         }
     }
 
-> {tip} The CSRF middleware is automatically disabled when running tests.
+> {tip} テスト実行時、CSRFミドルウェアは自動的に無効になります。
 
 <a name="session-and-authentication"></a>
 ## セッション／認証
@@ -381,7 +381,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 <a name="assert-see-in-order"></a>
 #### assertSeeInOrder
 
-Assert that the given strings are contained in order within the response:
+指定した文字列が、順番通りにレスポンスに含まれていることをアサート。
 
     $response->assertSeeInOrder(array $values);
 
@@ -395,7 +395,7 @@ Assert that the given strings are contained in order within the response:
 <a name="assert-see-text-in-order"></a>
 #### assertSeeTextInOrder
 
-Assert that the given strings are contained in order within the response text:
+指定した文字列が、順番通りにレンスポンステキストへ含まれていることをアサート。
 
     $response->assertSeeTextInOrder(array $values);
 

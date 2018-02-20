@@ -859,7 +859,7 @@ NULL値を指定すると、空の配列が返ってきます。
 <a name="method-str-ordered-uuid"></a>
 #### `Str::orderedUuid()` {#collection-method}
 
-The `Str::orderedUuid` method generates a "timestamp first" UUID that may be efficiently stored in an indexed database column:
+`Str::orderedUuid`メソッドはインデックスのついたデータベースカラムへ効率的に保存される、「タイムスタンプ先行」のUUIDを生成します。
 
     use Illuminate\Support\Str;
 
@@ -998,7 +998,7 @@ The `Str::orderedUuid` method generates a "timestamp first" UUID that may be eff
 <a name="method-str-uuid"></a>
 #### `Str::uuid()` {#collection-method}
 
-The `Str::uuid` method generates a UUID (version 4):
+`Str::uuid`メソッドは、UUID（バージョン４）を生成します。
 
     use Illuminate\Support\Str;
 

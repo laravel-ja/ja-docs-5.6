@@ -28,7 +28,7 @@ CSSをもっと楽しく取り扱うために役立つ、変数やmixinなどの
 <a name="writing-css"></a>
 ## CSSの出力
 
-Laravel's `package.json` file includes the `bootstrap` package to help you get started prototyping your application's frontend using Bootstrap. However, feel free to add or remove packages from the `package.json` file as needed for your own application. You are not required to use the Bootstrap framework to build your Laravel application - it is provided as a good starting point for those who choose to use it.
+Laravelの`package.json`ファイルは、アプリケーションのフロントエンドのプロトタイピングを開始するのに便利なように、`bootstrap`パッケージを含んでいます。しかし、アプリケーションでの必要性に応じ、自由にパッケージを`package.json`ファイルに追加／削除してください。Laravelアプリケーションを構築するため、Bootstrapフレームワークを使用する必要はありません。Bootstrapを選んでいる開発者にとって、開発はじめやすいように用意してあるだけです。
 
 CSSのコンパイルを始める前に、プロジェクトのフロントエンド開発に必要な依存パッケージである、[Nodeプロジェクトマネージャー(NPM)](https://www.npmjs.org)を使用し、インストールしてください。
 
