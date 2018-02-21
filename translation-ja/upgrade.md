@@ -3,57 +3,57 @@
 - [Upgrading To 5.6.0 From 5.5](#upgrade-5.6.0)
 
 <a name="upgrade-5.6.0"></a>
-## Upgrading To 5.6.0 From 5.5
+## 5.5から5.6.0へのアップグレード
 
-#### Estimated Upgrade Time: 10 - 30 Minutes
+#### 見積もり時間：１０〜３０分
 
 > {note} 私達は、互換性を失う可能性がある変更を全部ドキュメントにしようとしています。しかし、変更点のいくつかは、フレームワークの明確ではない部分で行われているため、一部の変更が実際にアプリケーションに影響を与えてしまう可能性があります。
 
 ### PHP
 
-Laravel 5.6 requires PHP 7.1.3 or higher.
+Laravel5.6の動作には、PHPバージョン7.1.3以上が必要です。
 
 ### 依存パッケージのアップデート
 
-Update your `laravel/framework` dependency to `5.6.*` and your `fideloper/proxy` dependency to `~4.0` in your `composer.json` file.
+`composer.json`ファイルの`laravel/framework`依存指定を`5.6.*`に、`fideloper/proxy`依存指定を`~4.0`へアップデートしてください。
 
-In addition, if you are using the following first-party Laravel packages, you should upgrade them to their latest release:
+さらに、以下のファーストパーティLaravelパッケージを使用している場合は、最新のリリースへアップグレードしてください。
 
 <div class="content-list" markdown="1">
-- Dusk (Upgrade To `~3.0`)
-- Passport (Upgrade To `~5.0`)
-- Scout (Upgrade To `~4.0`)
+- Dusk (`~3.0`へアップグレード)
+- Passport (`~5.0`へアップグレード)
+- Scout (`~4.0`へアップグレード)
 </div>
 
-Of course, don't forget to examine any 3rd party packages consumed by your application and verify you are using the proper version for Laravel 5.6 support.
+もちろん、アプリケーションで使用しているサードパーティパッケージについても調査し、Laravel5.6をサポートしているバージョンを使用していることを確認してください。
 
-#### Symfony 4
+#### Symfony4
 
-All of the underlying Symfony components used by Laravel have been upgraded to the Symfony `~4.0` release series. If you are directly interacting with Symfony components within your application, you should review the [Symfony change log](https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md).
+Laravelを動作させるために使用している、すべてのSymfonyコンポーネントは、Symfony `~4.0`シリーズへアップグレードされました。アプリケーションで直接Symfonyコンポーネントを取り扱っている場合は、[Symfonyの変更ログ](https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md)をレビューすべきでしょう。
 
 #### PHPUnit
 
-You should update the `phpunit/phpunit` dependency of your application to `~7.0`.
+アプリケーションの`phpunit/phpunit`依存指定は、`~7.0`にアップグレードしてください。
 
-### Arrays
+### 配列
 
-#### The `Arr::wrap` Method
+#### `Arr::wrap`メソッド
 
-Passing `null` to the `Arr::wrap` method will now return an empty array.
+`Arr::wrap`メソッドへ`null`を渡すと、空の配列が返ってくるようになりました。
 
 ### Artisan
 
 #### `optimize`コマンド
 
-The previously deprecated `optimize` Artisan command has been removed. With recent improvements to PHP itself including the OPcache, the `optimize` command no longer provides any relevant performance benefit. Therefore, you may remove `php artisan optimize` from the `scripts` within your `composer.json` file.
+以前から非推奨になっていた、`optimize` Artisanコマンドは削除されました。PHP自身がOPcacheを含んだ、最近の向上により、`optimize`コマンドは妥当なパフォーマンスの向上を提供できなくなりました。そのため、`composer.json`ファイルの`scripts`項目から、`php artisan optimize`を取り除いてください。
 
 ### Blade
 
-#### HTML Entity Encoding
+#### HTMLエンティティエンコーディング
 
-In previous versions of Laravel, Blade (and the `e` helper) would not double encode HTML entities. This was not the default behavior of the underlying `htmlspecialchars` function and could lead to unexpected behavior when rendering content or passing in-line JSON content to JavaScript frameworks.
+以前のバージョンのLaravelでは、Blade（および`e`ヘルパ）は、HTMLエンティティをダブルエンコードしませんでした。これは、裏で使用している`htmlspecialchars`関数のデフォルト動作とは異なり、コンテンツのレンダリングやインラインJSONコンテンツをJavaScriptフレームワークへ渡す際に、予想外の動作を引き起こしました。
 
-In Laravel 5.6, Blade and the `e` helper will double encode special characters by default. This brings these features into alignment with the default behavior of the underlying `htmlspecialchars` PHP function. If you would like to maintain the previous behavior of preventing double encoding, you may use the `Blade::withoutDoubleEncoding` method:
+Laravel5.6では、Bladeと`e`ヘルパはデフォルトとして、特別な文字をダブルエンコードします。これにより、裏で動作しているPHPの`htmlspecialchars`関数のデフォルトと、この機能は動作が統一されました。ダブルエンコーディングを行わない、以前の振る舞いを継続したい場合は、`Blade::withoutDoubleEncoding`メソッドを使用します。
 
     <?php
 
@@ -65,7 +65,7 @@ In Laravel 5.6, Blade and the `e` helper will double encode special characters b
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * Bootstrap any application services.
+         * アプリケーションの全サービスの初期処理
          *
          * @return void
          */
@@ -77,73 +77,73 @@ In Laravel 5.6, Blade and the `e` helper will double encode special characters b
 
 ### キャッシュ
 
-#### The Rate Limiter `tooManyAttempts` Method
+#### レートリミッターの`tooManyAttempts`メソッド
 
-The unused `$decayMinutes` parameter was removed from this method's signature. If you were overriding this method with your own implementation, you should also remove the argument from your method's signature.
+このメソッドの引数から、使用されていなかった`$decayMinutes`引数が削除されました。このメソッドを自分の実装でオーバーライドしている場合、メソッドからこの引数を削除してください。
 
-### Database
+### データベース
 
-#### Index Order Of Morph Columns
+#### morphsカラムのインデックス順
 
-The indexing of the columns built by the `morphs` migration method has been reversed for better performance. If you are using the `morphs` method in one of your migrations, you may receive an error when attempting to run the migration's `down` method. If the application is still in development, you may use the `migrate:fresh` command to rebuild the database from scratch. If the application is in production, you should pass an explicit index name to the `morphs` method.
+`morphs`マイグレーションメソッドにより作られるカラムのインデックスが、効率を改善するために改善されました。マイグレーションで`morphs`メソッドを使用している場合は、マイグレーションの`down`メッソッドを実行しようと試みると、エラーが発生します。アプリケーションが開発段階の場合は、`migrate:fresh`コマンドを使い、初めからデータベースを構築し直してください。アプリケーションが実働している場合は、明確に`morphs`メソッドにインデックス名を渡す必要があります。
 
-#### `MigrationRepositoryInterface` Method Addition
+#### `MigrationRepositoryInterface`メソッド追加
 
-A new `getMigrationsBatches` method has been added to the `MigrationRepositoryInterface`. In the very unlikely event that you were defining your own implementation of this class, you should add this method to your implementation. You may view the default implementation in the framework as an example.
+`MigrationRepositoryInterface`へ、新しく`getMigrationsBatches`メソッドが追加されました。このクラスを自分で実装するというのは、まずあり得ませんが、実装している場合は実装にこのメソッドを追加してください。フレームワークのデフォルト実装を例として参照してください。
 
 ### Eloquent
 
-#### The `getDateFormat` Method
+#### `getDateFormat`メソッド
 
-This `getDateFormat` method is now `public` instead of `protected`.
+`getDateFormat`メソッドが、`protected`の代わりに`public`になりました。
 
-### Hashing
+### ハッシュ
 
-#### New Configuration File
+#### 新しい設定ファイル
 
-All hashing configuration is now housed in its own `config/hashing.php` configuration file. You should place a copy of the [default configuration file](https://github.com/laravel/laravel/blob/develop/config/hashing.php) in your own application. Most likely, you should maintain the `bcrypt` driver as your default driver. However, `argon` is also supported.
+ハッシュの全設定は、`config/hashing.php`設定ファイルへ保存されるようになりました。[デフォルトの設定ファイル](https://github.com/laravel/laravel/blob/develop/config/hashing.php)をアプリケーションへコピーしてください。ほとんどの場合、デフォルトドライバーとして`bcrypt`を継続する必要があります。しかしながら、`argon`もサポートされました。
 
-### Helpers
+### ヘルパ
 
-#### The `e` Helper
+#### `e`ヘルパ
 
-In previous versions of Laravel, Blade (and the `e` helper) would not double encode HTML entities. This was not the default behavior of the underlying `htmlspecialchars` function and could lead to unexpected behavior when rendering content or passing in-line JSON content to JavaScript frameworks.
+以前のバージョンのLaravelでは、Blade（および`e`ヘルパ）は、HTMLエンティティをダブルエンコードしませんでした。これは、裏で使用している`htmlspecialchars`関数のデフォルト動作とは異なり、コンテンツのレンダリングやインラインJSONコンテンツをJavaScriptフレームワークへ渡す際に、予想外の動作を引き起こしました。
 
-In Laravel 5.6, Blade and the `e` helper will double encode special characters by default. This brings these features into alignment with the default behavior of the underlying `htmlspecialchars` PHP function. If you would like to maintain the previous behavior of preventing double encoding, you may pass `false` as the second argument to the `e` helper:
+Laravel5.6では、Bladeと`e`ヘルパはデフォルトとして、特別な文字をダブルエンコードします。これにより、裏で動作しているPHPの`htmlspecialchars`関数のデフォルトと、この機能は動作が統一されました。ダブルエンコーディングを行わない、以前の振る舞いを継続したい場合は、`e`ヘルパの第２引数に、`false`を渡してください。
 
     <?php echo e($string, false); ?>
 
-### Logging
+### ログ
 
-#### New Configuration File
+#### 新しい設定ファイル
 
-All logging configuration is now housed in its own `config/logging.php` configuration file. You should place a copy of the [default configuration file](https://github.com/laravel/laravel/blob/develop/config/logging.php) in your own application and tweak the settings based on your application's needs.
+新しいログ設定は、`config/logging.php`設定ファイルで全て保存されるようになりました。[デフォルト設定ファイル](https://github.com/laravel/laravel/blob/develop/config/logging.php)をアプリケーションへコピーし、必要に応じて設定を調整してください。
 
-The `log` and `log_level` configuration options may be removed from the `config/app.php` configuration file.
+`config/app.php`設定ファイルから、`log`と`log_level`設定オプションは削除されました。
 
-#### The `configureMonologUsing` Method
+#### `configureMonologUsing`メソッド
 
-If you were using the `configureMonologUsing` method to customize the Monolog instance for your application, you should now create a `custom` Log channel. For more information on how to create custom channels, check out the [full logging documentation](/docs/5.6/logging#creating-custom-channels).
+アプリケーションのために、`configureMonologUsing`メソッドを使用し、Monologインスタンスをカスタマイズしている場合は、`custom`ログチャンネルを作成する必要があります。カスタムチャンネル作成の詳細は、[ログのドキュメント](/docs/5.6/logging#creating-custom-channels)で確認してください。
 
-#### The Log `Writer` Class
+#### ログ`Writer`クラス
 
-The `Illuminate\Log\Writer` class has been renamed to `Illuminate\Log\Logger`. If you were explicitly type-hinting this class as a dependency of one of your application's classes, you should update the class reference to the new name. Or, alternatively, you should strongly consider type-hinting the standardized `Psr\Log\LoggerInterface` interface instead.
+`Illuminate\Log\Writer`クラスは、`Illuminate\Log\Logger`に名前が変更されました。アプリケーションのクラスで、このクラスをタイプヒントで明確に指定している場合は、新しい名前を参照するように変更してください。もしくは代わりに、標準化された`Psr\Log\LoggerInterface`インターフェイスをタイプヒントで使うように、よく考慮してください。
 
-#### The `Illuminate\Contracts\Logging\Log` Interface
+#### `Illuminate\Contracts\Logging\Log`インターフェイス
 
-This interface has been removed since this interface was a total duplication of the `Psr\Log\LoggerInterface` interface. You should type-hint the `Psr\Log\LoggerInterface` interface instead.
+`Psr\Log\LoggerInterface`インターフェイスと完全にダブってしまうため、このインターフェイスは削除されました。代わりに、`Psr\Log\LoggerInterface`をタイプヒントに使用してください。
 
 ### メール
 
-#### `withSwiftMessage` Callbacks
+#### `withSwiftMessage`コールバック
 
-In previous releases of Laravel, Swift Messages customization callbacks registered using `withSwiftMessage` were called _after_ the content was already encoded and added to the message. These callbacks are now called _before_ the content is added, which allows you to customize the encoding or other message options as needed.
+Laravelの以前のリリースでは、`withSwiftMessage`を使用し登録した、Swiftメッセージのカスタマイズコールバックは、コンテンツが既にエンコードされ、メッセージに追加された**後**に呼び出されていました。これらのコールバックが、コンテンツが追加される**前**に呼び出されるようになり、必要に応じてエンコードや他のメッセージオプションをカスタマイズできるようになりました。
 
-### Pagination
+### ペジネーション
 
-#### Bootstrap 4
+#### Bootstrap4
 
-The pagination links generated by the paginator now default to Bootstrap 4. To instruct the paginator to generate Bootstrap 3 links, call the `Paginator::useBootstrapThree` method from the `boot` method of your `AppServiceProvider`:
+ペジネータにより生成されるペジネーションリンクが、デフォルトでBootstrap4向けになりました。Bootstrap3向けに生成するように、ペジネータへ指示するには、`AppServiceProvider`の`boot`メソッドから、`Paginator::useBootstrapThree`メソッドを呼び出してください。
 
     <?php
 
@@ -155,7 +155,7 @@ The pagination links generated by the paginator now default to Bootstrap 4. To i
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * Bootstrap any application services.
+         * アプリケーションの全サービスの起動処理
          *
          * @return void
          */
@@ -165,41 +165,41 @@ The pagination links generated by the paginator now default to Bootstrap 4. To i
         }
     }
 
-### Resources
+### リソース
 
-#### The `original` Property
+#### `original`プロパティ
 
-The `original` property of [resource responses](/docs/5.6/eloquent-resources) is now set to the original model instead of a JSON string / array. This allows for easier inspection of the response's model during testing.
+[リソースレスポンス](/docs/5.6/eloquent-resources)の`original`プロパティへ、JSON文字列／配列の代わりにオリジナルのモデルがセットされるようになりました。これにより、テスト時にレスポンスのモデルの検査が簡単になりました。
 
-### Routing
+### ルート
 
-#### Returning Newly Created Models
+#### 新しく生成されたモデルの返却
 
-When returning a newly created Eloquent model directly from a route, the response status will now automatically be set to `201` instead of `200`. If any of your application's tests were explicitly expecting a `200` response, those tests should be updated to expect `201`.
+ルートから直接、新たに生成されたEloquentモデルをリターンする場合、レスポンス状態は`200`の代わりに、`201`が自動的にセットされます。アプリケーションのテストで明確に、`200`レスポンスを期待している場合は、`201`を期待するように変更する必要があります。
 
-### Trusted Proxies
+### 信頼するプロキシ
 
-Due to underlying changes in the trusted proxy functionality of Symfony HttpFoundation, slight changes must be made to your application's `App\Http\Middleware\TrustProxies` middleware.
+Laravelが使用しているSymfony HttpFoundationの、信頼するプロキシの機能変更により、アプリケーションの`App\Http\Middleware\TrustProxies`ミドルウェアに、僅かな変更がおきました。
 
-The `$headers` property, which was previously an array, is now a bit property that accepts several different values. For example, to trust all forwarded headers, you may update your `$headers` property to the following value:
+`$headers`プロパティは以前配列でしたが、様々な異なった値を受け付けるようになりました。たとえば、フォワーディングヘッダを全て信頼するには、`$headers`プロパティを次のように変更してください。
 
     use Illuminate\Http\Request;
 
     /**
-     * The headers that should be used to detect proxies.
+     * プロキシを検出するために使用するヘッダ
      *
      * @var string
      */
     protected $headers = Request::HEADER_X_FORWARDED_ALL;
 
-For more information on the available `$headers` values, check out the full documentation on [trusting proxies](/docs/5.6/requests#configuring-trusted-proxies).
+`$headers`に指定可能な値についての詳細は、[trusting proxies](/docs/5.6/requests#configuring-trusted-proxies)のドキュメントで確認してください。
 
 ### バリデーション
 
-#### The `ValidatesWhenResolved` Interface
+#### `ValidatesWhenResolved`インターフェイス
 
-The `validate` method of the `ValidatesWhenResolved` interface / trait has been renamed to `validateResolved` in order to avoid conflicts with the `$request->validate()` method.
+`ValidatesWhenResolved`インターフェイス／トレイトの`validate`メソッドは、`$request->validate()`によるコンフリクトを避けるために、`validateResolved`に変更されました。
 
 ### その他
 
-We also encourage you to view the changes in the `laravel/laravel` [GitHub repository](https://github.com/laravel/laravel). While many of these changes are not required, you may wish to keep these files in sync with your application. Some of these changes will be covered in this upgrade guide, but others, such as changes to configuration files or comments, will not be. You can easily view the changes with the [GitHub comparison tool](https://github.com/laravel/laravel/compare/5.5...master) and choose which updates are important to you.
+`laravel/laravel` [GitHubリポジトリ](https://github.com/laravel/laravel)で、変更を確認することも推奨します。変更の多くが必要なくても、それらのファイルを皆さんのアプリケーションで、最新版に合わせておきたいでしょう。変更のいくつかは、このアップグレードガイドで取り扱われていますが、設定ファイルやコメントの変更は取り扱っていません。変更は、[GitHub比較ツール](https://github.com/laravel/laravel/compare/5.5...master)で簡単に確認できるので、どの変更が自分にとって重要か選んでください。

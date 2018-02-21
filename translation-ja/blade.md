@@ -9,7 +9,7 @@
     - [BladeとJavaScriptフレームワーク](#blade-and-javascript-frameworks)
 - [制御構文](#control-structures)
     - [If文](#if-statements)
-    - [Switch Statements](#switch-statements)
+    - [Switch文](#switch-statements)
     - [繰り返し](#loops)
     - [ループ変数](#the-loop-variable)
     - [コメント](#comments)
@@ -19,7 +19,7 @@
 - [スタック](#stacks)
 - [サービス注入](#service-injection)
 - [Blade拡張](#extending-blade)
-    - [Custom If Statements](#custom-if-statements)
+    - [カスタムif文](#custom-if-statements)
 
 <a name="introduction"></a>
 ## イントロダクション
@@ -192,7 +192,7 @@ JavaScriptの変数を初期化するために、配列をビューに渡してJ
         var app = @json($array);
     </script>
 
-#### HTML Entity Encoding
+#### HTMLエンティティエンコーディング
 
 Blade（およびLaravelの`e`ヘルパ）はデフォルトで、HTMLエンティティをdouble encodeします。double encodeを無効にするには、`AppServiceProvider`の`boot`メソッドで、`Blade::withoutDoubleEncoding`メソッドを呼び出してください。
 
@@ -206,7 +206,7 @@ Blade（およびLaravelの`e`ヘルパ）はデフォルトで、HTMLエンテ�
     class AppServiceProvider extends ServiceProvider
     {
         /**
-         * Bootstrap any application services.
+         * アプリケーションの全サービスの初期処理
          *
          * @return void
          */
