@@ -93,7 +93,7 @@ Laravelでセッションを操作するには、主に２つの方法があり�
         }
     }
 
-When you retrieve an item from the session, you may also pass a default value as the second argument to the `get` method. This default value will be returned if the specified key does not exist in the session. If you pass a `Closure` as the default value to the `get` method and the requested key does not exist, the `Closure` will be executed and its result returned:
+`get`メソッドでセッションから値を取り出すとき、第２引数にデフォルト値も指定できます。このデフォルト値は、セッションに指定したキーが存在していなかった場合に、返されます。`get`メソッドのデフォルト値に「クロージャ」を渡した場合に、要求したキーが存在しなければ、その「クロージャ」が実行され、結果が返されます。
 
     $value = $request->session()->get('key', 'default');
 
@@ -126,13 +126,13 @@ When you retrieve an item from the session, you may also pass a default value as
 
 #### セッション中のアイテム存在を確認
 
-To determine if an item is present in the session, you may use the `has` method. The `has` method returns `true` if the item is present and is not `null`:
+セッションへ値が存在するか調べたい場合は、`has`メソッドを使います。その値が存在し、`null`でない場合は`true`が返ります。
 
     if ($request->session()->has('users')) {
         //
     }
 
-To determine if an item is present in the session, even if its value is `null`, you may use the `exists` method. The `exists` method returns `true` if the item is present:
+セッション中に、たとえ値が`null`であろうとも存在していることを確認したい場合は、`exists`メソッドを使います。`exists`メソッドは、値が存在していれば`true`を返します。
 
     if ($request->session()->exists('users')) {
         //
@@ -222,7 +222,7 @@ Laravelに組み込まれている`LoginController`を使用していれば、�
 - `open`メソッドは通常ファイルベースのセッション保存システムで使われます。Laravelは`file`セッションドライバを用意していますが、皆さんはこのメソッドに何も入れる必要はないでしょう。空のスタブのままで良いでしょう。実際、PHPが実装するように要求しているこのメソッドは、下手なインターフェイスデザインなのです。
 - `close`メソッドも`open`と同様に通常は無視できます。ほどんどのドライバでは必要ありません。
 - `read`メソッドは指定された`$sessionId`と紐付いたセッションデータの文字列バージョンを返します。取得や保存時にドライバ中でデータをシリアライズしたり、他のエンコード作業を行ったりする必要はありません。Laravelがシリアライズを行います。
-- `write`メソッドはMongoDBやDynamoなどの持続可能なストレージに、`$sessionId`に紐付け指定した`$data`文字列を書き出します。  Again, you should not perform any serialization - Laravel will have already handled that for you.
+- `write`メソッドはMongoDBやDynamoなどの持続可能なストレージに、`$sessionId`に紐付け指定した`$data`文字列を書き出します。ここでも、シリアリズを行う必要は全くありません。Laravelが既に処理しています。
 - `destroy`メソッドは持続可能なストレージから`$sessionId`に紐付いたデータを取り除きます。
 - `gc`メソッドは指定したUNIXタイムスタンプの`$lifetime`よりも古い前セッションデータを削除します。自前で破棄するMemcachedやRedisのようなシステムでは、このメソッドは空のままにしておきます。
 </div>

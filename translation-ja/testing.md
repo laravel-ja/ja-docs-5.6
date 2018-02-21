@@ -20,7 +20,7 @@ Laravelはユニットテストも考慮して構築されています。実際�
 
 必要であれば他のテスト設定環境を自由に作成することもできます。`testing`動作環境変数は`phpunit.xml`の中で設定されています。テスト実行前には、`config:clear` Artisanコマンドを実行し、設定キャッシュをクリアするのを忘れないでください。
 
-In addition, you may create a `.env.testing` file in the root of your project. This file will override the `.env` file's variables when running PHPUnit tests or executing Artisan commands with the `--env=testing` switch.
+さらに、プロジェクトのルートディレクトリで、`.env.testing`ファイルを生成することも可能です。PHPUnitテストやArtisanコマンドを`--env=testing`スイッチ付きで実行する場合、`.env`ファイルの変数をこのファイルの内容でオーバーライドします。
 
 <a name="creating-and-running-tests"></a>
 ## テストの生成と実行

@@ -156,7 +156,7 @@ Valetはローカルサイトを世界と共有するコマンドも用意して
 
 サイトを共有するには、ターミナルでサイトのディレクトリに移動し、`valet share`コマンドを実行します。公開用のURLはクリップボードにコピーされますので、ブラウザに直接ペーストしてください。これだけです。
 
-To stop sharing your site, hit `Control + C` to cancel the process.
+サイトの共有を止めるには、`Control + C`を押してプロセスをキャンセルしてください。
 
 > {note} `valet secure`コマンドを使用してセキュアにしたサイトの共有は、現在`valet share`はサポートしていません。
 

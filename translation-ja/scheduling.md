@@ -6,9 +6,9 @@
     - [キュー投入するジョブのスケジュール](#scheduling-queued-jobs)
     - [シェルコマンドのスケジュール](#scheduling-shell-commands)
     - [繰り返しのスケジュールオプション](#schedule-frequency-options)
-    - [Timezones](#timezones)
+    - [タイムゾーン](#timezones)
     - [タスク多重起動の停止](#preventing-task-overlaps)
-    - [Running Tasks On One Server](#running-tasks-on-one-server)
+    - [単一サーバ上でのタスク実行](#running-tasks-on-one-server)
     - [メンテナンスモード](#maintenance-mode)
 - [タスク出力](#task-output)
 - [タスクフック](#task-hooks)
@@ -96,7 +96,7 @@ Laravelのコマンドスケジューラは、Laravel自身の中でコマンド
 
 メソッド  | 説明
 ------------- | -------------
-`->cron('* * * * *');`  |  Run the task on a custom Cron schedule
+`->cron('* * * * *');`  |  Cron指定に基づきタスク実行
 `->everyMinute();`  |  毎分タスク実行
 `->everyFiveMinutes();`  |  ５分毎にタスク実行
 `->everyTenMinutes();`  |  １０分毎にタスク実行
@@ -174,15 +174,15 @@ Laravelのコマンドスケジューラは、Laravel自身の中でコマンド
 `when`メソッドをいくつかチェーンした場合は、全部の`when`条件が`true`を返すときのみスケジュールされたコマンドが実行されます。
 
 <a name="timezones"></a>
-### Timezones
+### タイムゾーン
 
-Using the `timezone` method, you may specify that a scheduled task's time should be interpreted within a given timezone:
+`timezone`メソッドを使い、タスクのスケジュールをどこのタイムゾーンとみなすか指定できます。
 
     $schedule->command('report:generate')
              ->timezone('America/New_York')
              ->at('02:00')
 
-> {note} Remember that some timezones utilize daylight savings time. When daylight saving time changes occur, your scheduled task may run twice or even not run at all. For this reason, we recommend avoiding timezone scheduling when possible.
+> {note} タイムゾーンの中には夏時間を取り入れているものがあることを忘れないでください。夏時間の切り替えにより、スケジュールされたタスクが2回実行されたり、全くされないことがあります。そのため、可能であればタイムゾーンによるスケジュールは使用しないことをおすすめします。
 
 <a name="preventing-task-overlaps"></a>
 ### タスク多重起動の防止
@@ -198,13 +198,13 @@ Using the `timezone` method, you may specify that a scheduled task's time should
     $schedule->command('emails:send')->withoutOverlapping(10);
 
 <a name="running-tasks-on-one-server"></a>
-### Running Tasks On One Server
+### 単一サーバ上でのタスク実行
 
-> {note} To utilize this feature, your application must be using the `memcached` or `redis` cache driver as your application's default cache driver. In addition, all servers must be communicating with the same central cache server.
+> {note} この機能を使用するには、アプリケーションのデフォルトキャッシュドライバとして、`memcached`か`redis`キャッシュドライバを使用する必要があります。更に、全サーバが同じ単一のキャッシュサーバと通信している必要があります。
 
-If your application is running on multiple servers, you may limit a scheduled job to only execute on a single server. For instance, assume you have a scheduled task that generates a new report every Friday night. If the task scheduler is running on three worker servers, the scheduled task will run on all three servers and generate the report three times. Not good!
+アプリケーションが複数のサーバで実行される場合、スケジュール済みのジョブを単一サーバ上のみで実行するよう制限できるようになりました。たとえば、毎週の金曜の夜に、新しいレポートを生成するタスクをスケジュールしていると仮定しましょう。タスクスケジューラが３つのワーカーサーバ上で実行されているなら、スケジュールされているタスクは３つ全部のサーバで実行され、３回レポートが生成されます。これではいけません。
 
-To indicate that the task should run on only one server, use the `onOneServer` method when defining the scheduled task. The first server to obtain the task will secure an atomic lock on the job to prevent other servers from running the same task at the same time:
+タスクをサーバひとつだけで実行するように指示するには、スケジュールタスクを定義するときに`onOneServer`メソッドを使用します。このタスクを最初に取得したサーバが、同じタスクを同じCronサイクルで他のサーバで実行しないように、ジョブにアトミックなロックを確保します。
 
     $schedule->command('report:generate')
                     ->fridays()

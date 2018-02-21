@@ -13,11 +13,11 @@
     - [レコード更新](#updating-records)
     - [レコード削除](#removing-records)
     - [インデックスの一時停止](#pausing-indexing)
-    - [Conditionally Searchable Model Instances](#conditionally-searchable-model-instances)
+    - [条件付き検索可能モデルインスタンス](#conditionally-searchable-model-instances)
 - [検索](#searching)
     - [Where節](#where-clauses)
     - [ペジネーション](#pagination)
-    - [Soft Deleting](#soft-deleting)
+    - [ソフトデリート](#soft-deleting)
 - [カスタムエンジン](#custom-engines)
 
 <a name="introduction"></a>
@@ -219,9 +219,9 @@ Eloquentモデルをバッチ処理するが、検索インデックスへモデ
     });
 
 <a name="conditionally-searchable-model-instances"></a>
-### Conditionally Searchable Model Instances
+### 条件付き検索可能モデルインスタンス
 
-Sometimes you may need to only make a model searchable under certain conditions. For example, imagine you have `App\Post` model that may be in one of two states: "draft" and "published". You may only want to allow "published" posts to be searchable. To accomplish this, you may define a `shouldBeSearchable` method on your model:
+特定の条件下でのみ、モデルを検索可能にする必要がある場合も起きるでしょう。たとえば、`App\Post`モデルが、"draft"か"published"の２つのうち、どちらか１つの状態を取ると想像してください。「公開済み:published」のモデルのみ検索可能にする必要があります。これを実現するには、モデルに`shouldBeSearchable`メソッドを定義してください。
 
     public function shouldBeSearchable()
     {
@@ -282,21 +282,21 @@ Scoutは検索クエリに対して"WHERE"節を単に追加する方法も提�
     {{ $orders->links() }}
 
 <a name="soft-deleting"></a>
-### Soft Deleting
+### ソフトデリート
 
-If your indexed models are [soft deleting](/docs/{{version}}/eloquent#soft-deleting) and you need to search your soft deleted models, set the `soft_delete` option of the `config/scout.php` configuration file to `true`:
+インデックス付きのモデルが[ソフトデリート](/docs/{{version}}/eloquent#soft-deleting)され、ソフトデリート済みのモデルをサーチする必要がある場合、`config/scout.php`設定ファイルの`soft_delete`オプションを`true`に設定してください。
 
     'soft_delete' => true,
 
-When this configuration option is `true`, Scout will not remove soft deleted models from the search index. Instead, it will set a hidden `__soft_deleted` attribute on the indexed record. Then, you may use the `withTrashed` or `onlyTrashed` methods to retrieve the soft deleted records when searching:
+この設定オプションを`true`にすると、Scoutは検索インデックスからソフトデリートされたモデルを削除しません。代わりに、インデックスされたレコードへ、隠し`__soft_deleted`属性をセットします。これにより、検索時にソフトデリート済みレコードを取得するために、`withTrashed`や`onlyTrashed`メソッドがつかえます。
 
-    // Include trashed records when retrieving results...
+    // 結果の取得時に、削除済みレコードも含める
     $orders = App\Order::withTrashed()->search('Star Trek')->get();
 
-    // Only include trashed records when retrieving results...
+    // 結果の取得時に、削除済みレコードのみを対象とする
     $orders = App\Order::onlyTrashed()->search('Star Trek')->get();
 
-> {tip} When a soft deleted model is permanently deleted using `forceDelete`, Scout will remove it from the search index automatically.
+> {tip} ソフトデリートされたモデルが、`forceDelete`により完全に削除されると、Scoutは自動的に検索インデックスから削除します。
 
 <a name="custom-engines"></a>
 ## カスタムエンジン

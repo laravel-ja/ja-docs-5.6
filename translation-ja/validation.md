@@ -22,7 +22,7 @@
 - [配列のバリデーション](#validating-arrays)
 - [カスタムバリデーションルール](#custom-validation-rules)
     - [ルールオブジェクトの使用](#using-rule-objects)
-    - [Using Closures](#using-closures)
+    - [クロージャの使用](#using-closures)
     - [拡張の使用](#using-extensions)
 
 <a name="introduction"></a>
@@ -1059,9 +1059,9 @@ Laravelは様々な便利なバリデーションルールを提供していま�
     ]);
 
 <a name="using-closures"></a>
-### Using Closures
+### クロージャの使用
 
-If you only need the functionality of a custom rule once throughout your application, you may use a Closure instead of a rule object. The Closure receives the attribute's name, the attribute's value, and a `$fail` callback that should be called if validation fails:
+アプリケーション全体で一回のみカスタムルールの機能が必要な場合は、ルールオブジェクトの代わりにクロージャが使えます。属性名、属性の値、バリデーション失敗時に返す必要のある`$fail`コールバックがクロージャに渡されます。
 
     $validator = Validator::make($request->all(), [
         'title' => [

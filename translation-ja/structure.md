@@ -13,7 +13,7 @@
     - [testsディレクトリ](#the-tests-directory)
     - [vendorディレクトリ](#the-vendor-directory)
 - [Appディレクトリ](#the-app-directory)
-    - [The `Broadcasting` Directory](#the-broadcasting-directory)
+    - [Broadcastingディレクトリ](#the-broadcasting-directory)
     - [Consoleディレクトリ](#the-console-directory)
     - [Eventsディレクトリ](#the-events-directory)
     - [Exceptionsディレクトリ](#the-exceptions-directory)
@@ -112,9 +112,9 @@ Laravelを学習し始めるとき、多くの開発者は`models`ディレク�
 > {tip} Artisanコマンドにより、`app`ディレクトリ下にたくさんのクラスが生成されます。使用可能なコマンドを確認するには、`php artisan list make`コマンドをターミナルで実行してください。
 
 <a name="the-broadcasting-directory"></a>
-#### The Broadcasting Directory
+#### Broadcastingディレクトリ
 
-The `Broadcasting` directory contains all of the broadcast channel classes for your application. These classes are generated using the `make:channel` command. This directory does not exist by default, but will be created for you when you create your first channel. To learn more about channels, check out the documentation on [event broadcasting](/docs/{{version}}/broadcasting).
+`Broadcasting`ディレクトリは、アプリケーションの全ブロードキャストチャンネルクラスで構成します。これらのクラスは、`make:channel`コマンドで生成されます。このディレクトリはデフォルトでは存在しませんが、最初にチャンネルを生成したときに作成されます。チャンネルについての詳細は、[イベントブロードキャスト](/docs/{{version}}/broadcasting)のドキュメントで確認してください。
 
 <a name="the-console-directory"></a>
 #### Consoleディレクトリ
