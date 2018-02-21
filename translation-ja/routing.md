@@ -17,7 +17,7 @@
 - [モデル結合ルート](#route-model-binding)
     - [暗黙の結合](#implicit-binding)
     - [明示的な結合](#explicit-binding)
-- [Rate Limiting](#rate-limiting)
+- [レート制限](#rate-limiting)
 - [擬似フォームメソッド](#form-method-spoofing)
 - [現在のルートへのアクセス](#accessing-the-current-route)
 
@@ -340,9 +340,9 @@ Laravelはタイプヒントされた変数名とルートセグメント名が�
     }
 
 <a name="rate-limiting"></a>
-## Rate Limiting
+## レート制限
 
-Laravel includes a [middleware](/docs/{{version}}/middleware) to rate limit access to routes within your application. To get started, assign the `throttle` middleware to a route or a group of routes. The `throttle` middleware accepts two parameters that determine the maximum number of requests that can be made in a given number of minutes. For example, let's specify that an authenticated user may access the following group of routes 60 times per minute:
+Laravelには、アプリケーションのルートに対してレート制限をかける[ミドルウェア](/docs/{{version}}/middleware) が用意されています。使用開始するには、ルートやルートグループに対し、`throttle`ミドルウェアを指定してください。`throttle`ミドルウェアは分数と、その時間内に許す最大リクエスト数の、２引数を取ります。例として、認証済みのユーザーが１分間に６０回のアクセスを許すルートグループを指定してみましょう。
 
     Route::middleware('auth:api', 'throttle:60,1')->group(function () {
         Route::get('/user', function () {
@@ -350,9 +350,9 @@ Laravel includes a [middleware](/docs/{{version}}/middleware) to rate limit acce
         });
     });
 
-#### Dynamic Rate Limiting
+#### 動的レート制限
 
-You may specify a dynamic request maximum based on an attribute of the authenticated `User` model. For example, if your `User` model contains a `rate_limit` attribute, you may pass the name of the attribute to the `throttle` middleware so that it is used to calculate the maximum request count:
+認証済み`User`モデルの属性に基づいて、最大リクエストを動的に指定することもできます。たとえば、`User`モデルが`rate_limit`属性を含んでいる場合、最大リクエストを計算するために使用するために、`throttle`ミドルウェアにその属性の名前を渡します。
 
     Route::middleware('auth:api', 'throttle:rate_limit,1')->group(function () {
         Route::get('/user', function () {
@@ -370,7 +370,7 @@ HTMLフォームは`PUT`、`PATCH`、`DELETE`アクションをサポートし�
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
     </form>
 
-You may use the `@method` Blade directive to generate the `_method` input:
+`_method`フィールドを生成するために、`@method` Bladeディレクティブを使用することもできます。
 
     <form action="/foo/bar" method="POST">
         @method('PUT')

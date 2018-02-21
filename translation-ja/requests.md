@@ -205,7 +205,7 @@ Laravelのデフォルトグローバルミドルウェアスタックには、`
 
     $input = $request->except('credit_card');
 
-> {tip} The `only` method returns all of the key / value pairs that you request; however, it will not return key / value pairs that are not present on the request.
+> {tip} `only` メソッドは要求したキー／値ペアを全部返しますが、リクエストに存在しない場合は、キー／値ペアを返しません。
 
 #### 入力値の存在チェック
 
@@ -367,7 +367,7 @@ Laravelフレームワークが作成するクッキーは全て暗号化され�
 
 TLS／SSL証明を行うロードバランサの裏でアプリケーションが実行されている場合、アプリケーションが時々HTTPSリンクを生成しないことに、気づくでしょう。典型的な理由は、トラフィックがロードバランサにより８０番ポートへフォワーディングされるため、セキュアなリンクを生成すべきだと判断できないからです。
 
-To solve this, you may use the `App\Http\Middleware\TrustProxies` middleware that is included in your Laravel application, which allows you to quickly customize the load balancers or proxies that should be trusted by your application. Your trusted proxies should be listed as an array on the `$proxies` property of this middleware. In addition to configuring the trusted proxies, you may configure the proxy `$headers` that should be trusted:
+これを解決するには、Laravelアプリケーションに含まれている、`App\Http\Middleware\TrustProxies`ミドルウェアを使用します。これでアプリケーションにとって信用できるロードバランサやプロキシを簡単にカスタマイズできます。信用できるプロキシをこのミドルウェアの`$proxies`プロパティへ配列としてリストしてください。信用するプロキシの設定に加え、信用できるプロキシの`$headers`も設定できます。
 
     <?php
 
@@ -389,21 +389,21 @@ To solve this, you may use the `App\Http\Middleware\TrustProxies` middleware tha
         ];
 
         /**
-         * The headers that should be used to detect proxies.
+         * プロキシを検出するために使用するヘッダ
          *
          * @var string
          */
         protected $headers = Request::HEADER_X_FORWARDED_ALL;
     }
 
-> {tip} If you are using AWS Elastic Load Balancing, your `$headers` value should be `Request::HEADER_X_FORWARDED_AWS_ELB`. For more information on the constants that may be used in the `$headers` property, check out Symfony's documentation on [trusting proxies](http://symfony.com/doc/current/deployment/proxies.html).
+> {tip} AWS Elastic Load Balancingを使用している場合、`$headers`の値は`Request::HEADER_X_FORWARDED_AWS_ELB`に設定する必要があります。`$headers`で使用する内容の詳細は、Symfonyの[trusting proxies](http://symfony.com/doc/current/deployment/proxies.html)ドキュメントを参照してください。
 
 #### 全プロキシを信用
 
 Amazon AWSや他の「クラウド」ロードバランサプロバイダを使用している場合は、実際のバランサのIPアドレスは分かりません。このような場合、全プロキシを信用するために、`**`を使います。
 
     /**
-     * The trusted proxies for this application.
+     * このアプリケーションで信用するプロキシ
      *
      * @var array
      */
