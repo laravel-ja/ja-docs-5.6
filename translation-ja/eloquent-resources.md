@@ -19,7 +19,7 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
 <a name="generating-resources"></a>
 ## リソース生成
 
-リソースクラスを生成するには、`make:resource` Artisanコマンドを使用します。リソースはデフォルトで、アプリケーションの`app/Http/Resources`ディレクトリに設置されます。リソースは、`Illuminate\Http\Resources\Json\Resource`クラスを拡張します。
+リソースクラスを生成するには、`make:resource` Artisanコマンドを使用します。リソースはデフォルトで、アプリケーションの`app/Http/Resources`ディレクトリに設置されます。リソースは、`Illuminate\Http\Resources\Json\JsonResource`クラスを拡張します。
 
     php artisan make:resource UserResource
 
@@ -44,9 +44,9 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
 
     namespace App\Http\Resources;
 
-    use Illuminate\Http\Resources\Json\Resource;
+    use Illuminate\Http\Resources\Json\JsonResource;
 
-    class UserResource extends Resource
+    class UserResource extends JsonResource
     {
         /**
          * リソースを配列へ変換する
@@ -137,9 +137,9 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
 
     namespace App\Http\Resources;
 
-    use Illuminate\Http\Resources\Json\Resource;
+    use Illuminate\Http\Resources\Json\JsonResource;
 
-    class UserResource extends Resource
+    class UserResource extends JsonResource
     {
         /**
          * リソースを配列へ変換する
@@ -184,7 +184,7 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'posts' => Post::collection($this->posts),
+            'posts' => PostResource::collection($this->posts),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -478,7 +478,7 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'posts' => Post::collection($this->whenLoaded('posts')),
+            'posts' => PostResource::collection($this->whenLoaded('posts')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -607,9 +607,9 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
 
     namespace App\Http\Resources;
 
-    use Illuminate\Http\Resources\Json\Resource;
+    use Illuminate\Http\Resources\Json\JsonResource;
 
-    class UserResource extends Resource
+    class UserResource extends JsonResource
     {
         /**
          * リソースを配列へ変換する

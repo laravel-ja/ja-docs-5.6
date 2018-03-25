@@ -54,8 +54,9 @@ LaravelはFrank de Jongeさんが作成した拝みたいほど素晴らしい�
 
 #### Composerパッケージ
 
-S3とRackspaceドライバを使用する場合は、それに適合するパッケージをComposerでインストールする必要があります。
+SFTPやS3、Rackspaceドライバを使用する場合は、それに適合するパッケージをComposerでインストールする必要があります。
 
+- SFTP: `league/flysystem-sftp ~1.0`
 - Amazon S3: `league/flysystem-aws-s3-v3 ~1.0`
 - Rackspace: `league/flysystem-rackspace ~1.0`
 
@@ -73,12 +74,32 @@ Laravelのファイルシステム統合はFTPでも動作します。しかし�
         'username' => 'your-username',
         'password' => 'your-password',
 
-        // 任意のFTP設定
+        // FTP設定のオプション
         // 'port'     => 21,
         // 'root'     => '',
         // 'passive'  => true,
         // 'ssl'      => true,
         // 'timeout'  => 30,
+    ],
+
+#### SFTPドライバ設定
+
+Laravelのファイルシステム統合はSFTPできちんと動作します。しかし、デフォルトでは、フレームワークの`filesystems.php`設定ファイルに、サンプルの設定を含めていません。SFTPファイルシステムを設定する必要がある場合は、以下の設定例を利用してください。
+
+    'sftp' => [
+        'driver' => 'sftp',
+        'host' => 'example.com',
+        'username' => 'your-username',
+        'password' => 'your-password',
+
+        // SSH keyベースの認証の設定
+        // 'privateKey' => '/path/to/privateKey',
+        // 'password' => 'encryption-password',
+
+        // FTP設定のオプション
+        // 'port' => 22,
+        // 'root' => '',
+        // 'timeout' => 30,
     ],
 
 #### Rackspaceドライバ設定

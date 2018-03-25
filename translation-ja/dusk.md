@@ -550,49 +550,333 @@ Vueコンポーネントの状態を以下のようにアサートできます�
 <a name="available-assertions"></a>
 ## 使用可能なアサート
 
-Duskはアプリケーションに対する数多くのアサートを提供しています。使用できるアサートを次の表にまとめます。
+Duskはアプリケーションに対する数多くのアサートを提供しています。使用できるアサートを以下のリストにまとめます。
 
-アサート  |  説明
-----------|----------
-`$browser->assertTitle($title)`  |  ページタイトルが指定したテキストであることをアサートする。
-`$browser->assertTitleContains($title)`  |  ページタイトルに指定したテキストが含まれることをアサートする。
-`$browser->assertUrlIs($url)`  |  クエリ文字列を除いた現在のURLが、指定文字列と一致することをアサートする。
-`$browser->assertPathBeginsWith($path)`  |  現在のURLが指定したパスで始まることをアサートする。
-`$browser->assertPathIs('/home')`  |  現在のパスが指定したパスと一致することをアサートする。
-`$browser->assertPathIsNot('/home')`  |  現在のパスが指定したパスと一致しないことをアサートする。
-`$browser->assertRouteIs($name, $parameters)`  |  現在のURLが、指定した名前付きルートのURLと一致することをアサートする。
-`$browser->assertQueryStringHas($name)`  |  Assert the given query string parameter is present.
-`$browser->assertQueryStringHas($name, $value)`  |  指定したクエリパラメータが存在し、指定した値であることをアサートする。
-`$browser->assertQueryStringMissing($name)`  |  指定したクエリ文字列パラメータが存在しないことをアサートする。
-`$browser->assertHasCookie($name)`  |  指定したクッキーが存在することをアサートする。
-`$browser->assertCookieMissing($name)`  |  指定したクッキーが存在していないことをアサートする。
-`$browser->assertCookieValue($name, $value)`  |  クッキーが指定した値であることをアサートする。
-`$browser->assertPlainCookieValue($name, $value)`  |  暗号化されていないクッキーが指定した値であることをアサートする。
-`$browser->assertSee($text)`  |  ページに指定したテキストが存在することをアサートする。
-`$browser->assertDontSee($text)`  |  ページに指定したテキストが存在しないことをアサートする。
-`$browser->assertSeeIn($selector, $text)`  |  セレクタの中に指定したテキストが存在することをアサートする。
-`$browser->assertDontSeeIn($selector, $text)`  |  セレクタの中に指定したテキストが存在していないことをアサートする。
-`$browser->assertSourceHas($code)`  |  ページに指定したソースコードが存在することをアサートする。
-`$browser->assertSourceMissing($code)`  |  ページに指定したソースコードが存在しないことをアサートする。
-`$browser->assertSeeLink($linkText)`  |  ページに指定したリンクが存在することをアサートする。
-`$browser->assertDontSeeLink($linkText)`  |  ページに指定したリンクが存在しないことをアサートする。
-`$browser->assertInputValue($field, $value)`  |  指定した入力フィールドが指定した値であることをアサートする。
-`$browser->assertInputValueIsNot($field, $value)`  |  指定した入力フィールドが指定した値でないことをアサートする。
-`$browser->assertChecked($field)`  |  指定したチェックボックスがチェック済みであることをアサートする。
-`$browser->assertNotChecked($field)`  |  指定したチェックボックスがチェックされていないことをアサートする。
-`$browser->assertRadioSelected($field, $value)`  |  指定したラジオフィールドが選択されていることをアサートする。
-`$browser->assertRadioNotSelected($field, $value)` |  指定したラジオフィールドが選択されていないことをアサートする。
-`$browser->assertSelected($field, $value)`  |  指定したドロップダウンの指定値が選択されていることをアサートする。
-`$browser->assertNotSelected($field, $value)`  |  指定したドロップダウンの指定値が選択されていないことをアサートする。
-`$browser->assertSelectHasOptions($field, $values)`  |  指定した配列の値が、選択可能であることをアサートする。
-`$browser->assertSelectMissingOptions($field, $values)`  |  指定した配列の値が、選択不可能であることをアサートする。
-`$browser->assertSelectHasOption($field, $value)`  |  指定した値が、指定フィールドで選択可能であることをアサートする。
-`$browser->assertValue($selector, $value)`  |  指定したセレクタに一致する要素が、指定値であることをアサートする。
-`$browser->assertVisible($selector)`  |  指定したセレクタに一致する要素がビジブルであることをアサートする。
-`$browser->assertMissing($selector)`  |  指定したセレクタに一致する要素がビジブルでないことをアサートする。
-`$browser->assertDialogOpened($message)`  |  指定したメッセージを表示するJavaScriptダイアログが開かれていることをアサートする。
-`$browser->assertVue($property, $value, $component)`  |  指定したVueコンポーネントのデータプロパティが、指定した値と一致することをアサートする。
-`$browser->assertVueIsNot($property, $value, $component)`  |  指定したVueコンポーネントのデータプロパティが、指定した値と一致しないことをアサートする。
+<style>
+    .collection-method-list > p {
+        column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;
+        column-gap: 2em; -moz-column-gap: 2em; -webkit-column-gap: 2em;
+    }
+
+    .collection-method-list a {
+        display: block;
+    }
+</style>
+
+<div class="collection-method-list" markdown="1">
+[assertTitle](#assert-title)
+[assertTitleContains](#assert-title-contains)
+[assertUrlIs](#assert-url-is)
+[assertPathBeginsWith](#assert-path-begins-with)
+[assertPathIs](#assert-path-is)
+[assertPathIsNot](#assert-path-is-not)
+[assertRouteIs](#assert-route-is)
+[assertQueryStringHas](#assert-query-string-has)
+[assertQueryStringHas](#assert-query-string-has)
+[assertQueryStringMissing](#assert-query-string-missing)
+[assertHasCookie](#assert-has-cookie)
+[assertCookieMissing](#assert-cookie-missing)
+[assertCookieValue](#assert-cookie-value)
+[assertPlainCookieValue](#assert-plain-cookie-value)
+[assertSee](#assert-see)
+[assertDontSee](#assert-dont-see)
+[assertSeeIn](#assert-see-in)
+[assertDontSeeIn](#assert-dont-see-in)
+[assertSourceHas](#assert-source-has)
+[assertSourceMissing](#assert-source-missing)
+[assertSeeLink](#assert-see-link)
+[assertDontSeeLink](#assert-dont-see-link)
+[assertInputValue](#assert-input-value)
+[assertInputValueIsNot](#assert-input-value-is-not)
+[assertChecked](#assert-checked)
+[assertNotChecked](#assert-not-checked)
+[assertRadioSelected](#assert-radio-selected)
+[assertRadioNotSelected](#assert-radio-not-selected)
+[assertSelected](#assert-selected)
+[assertNotSelected](#assert-not-selected)
+[assertSelectHasOptions](#assert-select-has-options)
+[assertSelectMissingOptions](#assert-select-missing-options)
+[assertSelectHasOption](#assert-select-has-option)
+[assertValue](#assert-value)
+[assertVisible](#assert-visible)
+[assertMissing](#assert-missing)
+[assertDialogOpened](#assert-dialog-opened)
+[assertVue](#assert-vue)
+[assertVueIsNot](#assert-vue-is-not)
+</div>
+
+<a name="assert-title"></a>
+#### assertTitle
+
+ページタイトルが指定した文字列と一致することを宣言します。
+
+    $browser->assertTitle($title);
+
+<a name="assert-title-contains"></a>
+#### assertTitleContains
+
+ページタイトルに、指定したテキストが含まれていることを宣言します。
+
+    $browser->assertTitleContains($title);
+
+<a name="assert-url-is"></a>
+#### assertUrlIs
+
+クエリ文字列を除いた、現在のURLが指定した文字列と一致するのを宣言します。
+
+    $browser->assertUrlIs($url);
+
+<a name="assert-path-begins-with"></a>
+#### assertPathBeginsWith
+
+現在のURLパスが指定したパスで始まることを宣言します。
+
+    $browser->assertPathBeginsWith($path);
+
+<a name="assert-path-is"></a>
+#### assertPathIs
+
+現在のパスが指定したパスであることを宣言します。
+
+    $browser->assertPathIs('/home');
+
+<a name="assert-path-is-not"></a>
+#### assertPathIsNot
+
+現在のパスが指定したパスではないことを宣言します。
+
+    $browser->assertPathIsNot('/home');
+
+<a name="assert-route-is"></a>
+#### assertRouteIs
+
+現在のURLが指定した名前付きルートのURLと一致することを宣言します。
+
+    $browser->assertRouteIs($name, $parameters);
+
+<a name="assert-query-string-has"></a>
+#### assertQueryStringHas
+
+指定したクエリ文字列パラメータが存在していることを宣言します。
+
+    $browser->assertQueryStringHas($name);
+
+<a name="assert-query-string-has"></a>
+#### assertQueryStringHas
+
+指定したクエリ文字列パラメータが存在し、指定値を持っていることを宣言します。
+
+    $browser->assertQueryStringHas($name, $value);
+
+<a name="assert-query-string-missing"></a>
+#### assertQueryStringMissing
+
+指定した文字列パラメータが存在しないことを宣言します。
+
+    $browser->assertQueryStringMissing($name);
+
+<a name="assert-has-cookie"></a>
+#### assertHasCookie
+
+指定したクッキーが存在していることを宣言します。
+
+    $browser->assertHasCookie($name);
+
+<a name="assert-cookie-missing"></a>
+#### assertCookieMissing
+
+指定したクッキーが存在していないことを宣言します。
+
+    $browser->assertCookieMissing($name);
+
+<a name="assert-cookie-value"></a>
+#### assertCookieValue
+
+クッキーが指定値を持っていることを宣言します。
+
+    $browser->assertCookieValue($name, $value);
+
+<a name="assert-plain-cookie-value"></a>
+#### assertPlainCookieValue
+
+暗号化されていないクッキーが、指定値を持っていることを宣言します。
+
+    $browser->assertPlainCookieValue($name, $value);
+
+<a name="assert-see"></a>
+#### assertSee
+
+指定したテキストが、ページ上に存在することを宣言します。
+
+    $browser->assertSee($text);
+
+<a name="assert-dont-see"></a>
+#### assertDontSee
+
+指定したテキストが、ページ上に存在しないことを宣言します。
+
+    $browser->assertDontSee($text);
+
+<a name="assert-see-in"></a>
+#### assertSeeIn
+
+指定したテキストが、セレクタに含まれていることを宣言します。
+
+    $browser->assertSeeIn($selector, $text);
+
+<a name="assert-dont-see-in"></a>
+#### assertDontSeeIn
+
+指定したテキストが、セレクタに含まれていないことを宣言します。
+
+    $browser->assertDontSeeIn($selector, $text);
+
+<a name="assert-source-has"></a>
+#### assertSourceHas
+
+指定したソースコードが、ページ上に存在していることを宣言します。
+
+    $browser->assertSourceHas($code);
+
+<a name="assert-source-missing"></a>
+#### assertSourceMissing
+
+指定したソースコードが、ページ上に存在していないことを宣言します。
+
+    $browser->assertSourceMissing($code);
+
+<a name="assert-see-link"></a>
+#### assertSeeLink
+
+指定したリンクが、ページ上に存在していることを宣言します。
+
+    $browser->assertSeeLink($linkText);
+
+<a name="assert-dont-see-link"></a>
+#### assertDontSeeLink
+
+指定したリンクが、ページ上に存在していないことを宣言します。
+
+    $browser->assertDontSeeLink($linkText);
+
+<a name="assert-input-value"></a>
+#### assertInputValue
+
+指定した入力フィールドが、指定値を持っていることを宣言します。
+
+    $browser->assertInputValue($field, $value);
+
+<a name="assert-input-value-is-not"></a>
+#### assertInputValueIsNot
+
+指定した入力フィールドが、指定値を持っていないことを宣言します。
+
+    $browser->assertInputValueIsNot($field, $value);
+
+<a name="assert-checked"></a>
+#### assertChecked
+
+指定したチェックボックスが、チェック済みであることを宣言します。
+
+    $browser->assertChecked($field);
+
+<a name="assert-not-checked"></a>
+#### assertNotChecked
+
+指定したチェックボックスが、チェックされていないことを宣言します。
+
+    $browser->assertNotChecked($field);
+
+<a name="assert-radio-selected"></a>
+#### assertRadioSelected
+
+指定したラジオフィールドが選択されていることを宣言します。
+
+    $browser->assertRadioSelected($field, $value);
+
+<a name="assert-radio-not-selected"></a>
+#### assertRadioNotSelected
+
+指定したラジオフィールドが選択されていないことを宣言します。
+
+    $browser->assertRadioNotSelected($field, $value);
+
+<a name="assert-selected"></a>
+#### assertSelected
+
+指定したドロップダウンで指定値が選択されていることを宣言します。
+
+    $browser->assertSelected($field, $value);
+
+<a name="assert-not-selected"></a>
+#### assertNotSelected
+
+指定したドロップダウンで指定値が選択されていないことを宣言します。
+
+    $browser->assertNotSelected($field, $value);
+
+<a name="assert-select-has-options"></a>
+#### assertSelectHasOptions
+
+指定した配列値が選択可能であることを宣言します。
+
+    $browser->assertSelectHasOptions($field, $values);
+
+<a name="assert-select-missing-options"></a>
+#### assertSelectMissingOptions
+
+指定した配列値が選択不可であることを宣言します。
+
+    $browser->assertSelectMissingOptions($field, $values);
+
+<a name="assert-select-has-option"></a>
+#### assertSelectHasOption
+
+指定したフィールドで、指定した値が選択可能であることを宣言します。
+
+    $browser->assertSelectHasOption($field, $value);
+
+<a name="assert-value"></a>
+#### assertValue
+
+指定したセレクタに一致する要素が、指定値であることを宣言します。
+
+    $browser->assertValue($selector, $value);
+
+<a name="assert-visible"></a>
+#### assertVisible
+
+指定したセレクタに一致する要素が、ビジブルであることを宣言します。
+
+    $browser->assertVisible($selector);
+
+<a name="assert-missing"></a>
+#### assertMissing
+
+指定したセレクタに一致する要素が、ビジブルでないことを宣言します。
+
+    $browser->assertMissing($selector);
+
+<a name="assert-dialog-opened"></a>
+#### assertDialogOpened
+
+指定したメッセージを持つ、JavaScriptダイアログが開かれていることを宣言します。
+
+    $browser->assertDialogOpened($message);
+
+<a name="assert-vue"></a>
+#### assertVue
+
+指定したVueコンポーネントのデータプロパティが、指定値と一致することを宣言します。
+
+    $browser->assertVue($property, $value, $componentSelector = null);
+
+<a name="assert-vue-is-not"></a>
+#### assertVueIsNot
+
+指定したVueコンポーネントのデータプロパティが、指定値と一致しないことを宣言します。
+
+    $browser->assertVueIsNot($property, $value, $componentSelector = null);
 
 <a name="pages"></a>
 ## ページ

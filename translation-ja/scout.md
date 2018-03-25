@@ -7,6 +7,7 @@
 - [設定](#configuration)
     - [モデルインデックスの設定](#configuring-model-indexes)
     - [検索可能データの設定](#configuring-searchable-data)
+    - [モデルIDの設定](#configuring-the-model-id)
 - [インデックス](#indexing)
     - [バッチ取り込み](#batch-import)
     - [レコード追加](#adding-records)
@@ -128,6 +129,33 @@ Algoliaドライバを使用する場合、Algolia `id`と`secret`接続情報�
             // 配列のカスタマイズ…
 
             return $array;
+        }
+    }
+
+<a name="configuring-the-model-id"></a>
+### モデルIDの設定
+
+Scoutはデフォルトとして、モデルの主キーを検索インデックスへ保存するユニークなIDとして使用します。この振る舞いをカスタマイズしたい場合は、モデルの`getScoutKey`メソッドをオーバーライドしてください。
+
+    <?php
+
+    namespace App;
+
+    use Laravel\Scout\Searchable;
+    use Illuminate\Database\Eloquent\Model;
+
+    class User extends Model
+    {
+        use Searchable;
+
+        /**
+         * モデルのインデックスに使用する値の取得
+         *
+         * @return mixed
+         */
+        public function getScoutKey()
+        {
+            return $this->email;
         }
     }
 

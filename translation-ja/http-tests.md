@@ -231,6 +231,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 [assertDontSee](#assert-dont-see)
 [assertDontSeeText](#assert-dont-see-text)
 [assertExactJson](#assert-exact-json)
+[assertForbidden](#assert-forbidden)
 [assertHeader](#assert-header)
 [assertHeaderMissing](#assert-header-missing)
 [assertJson](#assert-json)
@@ -239,6 +240,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 [assertJsonMissingExact](#assert-json-missing-exact)
 [assertJsonStructure](#assert-json-structure)
 [assertJsonValidationErrors](#assert-json-validation-errors)
+[assertNotFound](#assert-not-found)
 [assertPlainCookie](#assert-plain-cookie)
 [assertRedirect](#assert-redirect)
 [assertSee](#assert-see)
@@ -301,6 +303,13 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 
     $response->assertExactJson(array $data);
 
+<a name="assert-forbidden"></a>
+#### assertForbidden
+
+レスポンスがforbiddenステータスコードを持っていることをアサート。
+
+    $response->assertForbidden();
+
 <a name="assert-header"></a>
 #### assertHeader
 
@@ -356,6 +365,13 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 レスポンスが指定したキーの、指定したJSONバリデーションエラーを持っていることをアサート
 
     $response->assertJsonValidationErrors($keys);
+
+<a name="assert-not-found"></a>
+#### assertNotFound
+
+レスポンスがnot foundのステータスコードを持っていることをアサート。
+
+    $response->assertNotFound();
 
 <a name="assert-plain-cookie"></a>
 #### assertPlainCookie

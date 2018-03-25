@@ -34,11 +34,13 @@ JSONでAPIを作成する場合にはモデルとリレーションを配列やJ
 <a name="serializing-to-json"></a>
 ### JSONへのシリアライズ
 
-モデルをJSONへ変換するには`toJson`メソッドを使います。`toArray`と同様に`toJson`メソッドは再帰的に動作し、全属性と全リレーションをJSONへ変換します。
+モデルをJSONへ変換するには`toJson`メソッドを使います。`toArray`と同様に`toJson`メソッドは再帰的に動作し、全属性と全リレーションをJSONへ変換します。さらに、[PHPによりサポートされている](https://secure.php.net/manual/ja/function.json-encode.php)JSONエンコーディングオプションも指定できます。
 
     $user = App\User::find(1);
 
     return $user->toJson();
+
+    return $user->toJson(JSON_PRETTY_PRINT);
 
 もしくはモデルやコレクションが文字列へキャストされる場合、自動的に`toJson`メソッドが呼び出されます。
 

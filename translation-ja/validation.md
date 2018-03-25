@@ -509,8 +509,9 @@ Laravelは`TrimStrings`と`ConvertEmptyStringsToNull`ミドルウェアをアプ
 [MIMEタイプ](#rule-mimetypes)
 [MIMEタイプ(ファイル拡張子)](#rule-mimes)
 [最小値](#rule-min)
-[NULL可能](#rule-nullable)
 [非内包](#rule-not-in)
+[正規表現不一致](#rule-not-regex)
+[NULL許可](#rule-nullable)
 [数値](#rule-numeric)
 [存在](#rule-present)
 [正規表現](#rule-regex)
@@ -773,7 +774,7 @@ _ratio_制約は、横／縦比を表します。`3/2`という指定も、`1.5`
 
 フィールドで指定されたファイルが拡張子のリストの中のMIMEタイプのどれかと一致することをバリデートします。
 
-#### mimesルールの基本的な使用法
+#### MIMEルールの基本的な使用法
 
     'photo' => 'mimes:jpeg,bmp,png'
 
@@ -785,11 +786,6 @@ MIMEタイプと対応する拡張子の完全なリストは、[https://svn.apa
 #### min:_値_
 
 フィールドが最小値として指定された**値**以上であることをバリデートします。[`size`](#rule-size)ルールと同様の判定方法で、文字列、数値、配列、ファイルが評価されます。
-
-<a name="rule-nullable"></a>
-#### nullable
-
-フィールドが`null`であることをバリデートします。これは`null`値を含無ことができる文字列や整数のようなプリミティブをバリデーションするときに特に便利です。
 
 <a name="rule-not-in"></a>
 #### not_in:_foo_,_bar_,...
@@ -804,6 +800,18 @@ MIMEタイプと対応する拡張子の完全なリストは、[https://svn.apa
             Rule::notIn(['sprinkles', 'cherries']),
         ],
     ]);
+
+<a name="rule-not-regex"></a>
+#### not_regex:_pattern_
+
+フィールドが指定した正規表現と一致しないことをバリデートします。
+
+**注目：** `regex`と`not_regex`パターンを使用する場合はルールをパイプ（縦棒）で区切らず、ルールの配列で指定する必要があります。特に正規表現に縦棒を含んでいる場合に該当します。
+
+<a name="rule-nullable"></a>
+#### nullable
+
+フィールドが`null`でも良いことをバリデートします。これは特に`null`値を含む文字列や整数のようなプリミティブをバリデートする場合に便利です。
 
 <a name="rule-numeric"></a>
 #### numeric
@@ -820,7 +828,7 @@ MIMEタイプと対応する拡張子の完全なリストは、[https://svn.apa
 
 フィールドが指定された正規表現にマッチすることをバリデートします。
 
-**注目：** `regex`パターンを使用する場合はルールをパイプ（縦棒）で区切らず、配列で指定する必要があります。特に正規表現に縦棒を含んでいる場合に該当します。
+**注目：** `regex`と`not_regex`パターンを使用する場合はルールをパイプ（縦棒）で区切らず、ルールの配列で指定する必要があります。特に正規表現に縦棒を含んでいる場合に該当します。
 
 <a name="rule-required"></a>
 #### required

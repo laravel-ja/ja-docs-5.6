@@ -59,7 +59,7 @@ Cashierを使用する前に、[データベースを準備](/docs/{{version}}/m
 
     Schema::create('subscriptions', function ($table) {
         $table->increments('id');
-        $table->integer('user_id');
+        $table->unsignedInteger('user_id');
         $table->string('name');
         $table->string('stripe_id');
         $table->string('stripe_plan');
@@ -137,7 +137,7 @@ Cashierを使用する前に、[データベースも準備](/docs/{{version}}/m
 
     Schema::create('subscriptions', function ($table) {
         $table->increments('id');
-        $table->integer('user_id');
+        $table->unsignedInteger('user_id');
         $table->string('name');
         $table->string('braintree_id');
         $table->string('braintree_plan');
@@ -380,6 +380,14 @@ Stripe／Braintreeがサポートしている追加のフィールドについ�
 このメソッドはデータベースのサブスクリプションレコードへ、試用期間の終了日を設定すると同時に、Stripe／Braintreeへこの期日が過ぎるまで、顧客へ課金を始めないように指示します。
 
 > {note} 顧客のサブスクリプションが試用期間の最後の日までにキャンセルされないと、期限が切れると同時に課金されます。そのため、ユーザーに試用期間の終了日を通知しておくべきでしょう。
+
+`trialUntil`メソッドにより、使用期間の終了時を指定する、`DateTime`インスタンスを渡せます。
+
+    use Carbon\Carbon;
+
+    $user->newSubscription('main', 'monthly')
+                ->trialUntil(Carbon::now()->addDays(10))
+                ->create($stripeToken);
 
 ユーザーが使用期間中であるかを判定するには、ユーザーインスタンスに対し`onTrial`メソッドを使うか、サブスクリプションインスタンスに対して`onTrial`を使用してください。次の２つの例は、同じ目的を達します。
 

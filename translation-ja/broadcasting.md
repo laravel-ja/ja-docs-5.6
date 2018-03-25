@@ -91,13 +91,15 @@ Redisブロードキャスタがイベントを発行すると、そのイベン
 
 #### Socket.IO
 
-RedisブロードキャスタとSocket.IOサーバをペアリングする場合、アプリケーションの`head` HTML要素で、Socket.IO JavaScriptクライアントライブラリをインクルードする必要があります。Socket.IOサーバがスタートすると、自動的にクライアントJavaScriptライブラリを標準的なURLとして公開します。たとえば、Socket.IOサーバをWebアプリケーションのあるドメインで実行しているなら、以下のようにクライアントライブラリへアクセスできます。
+RedisブロードキャスタとSocket.IOサーバをペアリングする場合、アプリケーションへSocket.IO JavaScriptクライアントライブラリをインクルードする必要があります。NPMパッケージマネージャにより、インストールできます。
 
-    <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+    npm install --save socket.io-client
 
 次に、`socket.io`コネクタと`host`を指定し、Echoをインスタンス化します。
 
     import Echo from "laravel-echo"
+
+    window.io = require('socket.io-client');
 
     window.Echo = new Echo({
         broadcaster: 'socket.io',

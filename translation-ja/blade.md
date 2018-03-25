@@ -141,7 +141,7 @@ Bladeコンポーネントをサブディレクトリへ保存している場合
 
 コンポーネントへ別名を付けたら、ディレクティブでレンダーできます。」
 
-    @alert('alert', ['type' => 'danger'])
+    @alert(['type' => 'danger'])
         You are not allowed to access this resource!
     @endalert
 

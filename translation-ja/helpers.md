@@ -487,7 +487,7 @@ Laravelは様々な、グローバル「ヘルパ」PHP関数を用意してい�
         return is_string($value);
     });
 
-    // [1 => 200, 3 => 400]
+    // [1 => '200', 3 => '400']
 
 <a name="method-array-wrap"></a>
 #### `array_wrap()` {#collection-method}
@@ -729,7 +729,7 @@ NULL値を指定すると、空の配列が返ってきます。
 <a name="method-e"></a>
 #### `e()` {#collection-method}
 
-`e`関数は、PHPの`htmlspecialchars`関数を`double_encode`オプションに`false`を指定し、実行します。
+`e`関数は、PHPの`htmlspecialchars`関数を`double_encode`オプションにデフォルトで`true`を指定し、実行します。
 
     echo e('<html>foo</html>');
 

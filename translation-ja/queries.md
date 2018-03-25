@@ -420,15 +420,17 @@ WHEREの結合にチェーンで`or`節をクエリに追加できます。`orWh
 
     DB::table('users')
                 ->where('name', '=', 'John')
-                ->orWhere(function ($query) {
+                ->where(function ($query) {
                     $query->where('votes', '>', 100)
-                          ->where('title', '<>', 'Admin');
+                          ->orWhere('title', '=', 'Admin');
                 })
                 ->get();
 
-ご覧の通り、`orWhere`メソッドに渡している「クロージャ」が、クエリビルダのグルーピングを指示しています。生成するSQLの括弧内で展開される制約を指定できるように、「クロージャ」はクエリビルダのインスタンスを受け取ります。
+ご覧の通り、`Where`メソッドに渡している「クロージャ」が、クエリビルダのグルーピングを指示しています。生成するSQLの括弧内で展開される制約を指定できるように、「クロージャ」はクエリビルダのインスタンスを受け取ります。
 
-    select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+    select * from users where name = 'John' and (votes > 100 or title = 'Admin')
+
+> {tip} グローバルスコープが適用されるときに、予想外の動作を防ぐために、`orWhere`コールは常にまとめてください。
 
 <a name="where-exists-clauses"></a>
 ### Where Exists節

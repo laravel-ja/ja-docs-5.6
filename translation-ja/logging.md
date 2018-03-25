@@ -146,7 +146,7 @@ Monologはデフォルトで`production`や`local`のような、現在の環境
         'level' => 'debug',
     ],
 
-チャンネルに対する`tap`オプションを定義したら、Monologインスタンスをカスタマイズするクラスを定義する準備が整いました。このクラスはMonologインスタンスを受け取る、`__invoke`メソッドのみ必要です。
+チャンネルに対する`tap`オプションを定義したら、Monologインスタンスをカスタマイズするクラスを定義する準備が整いました。このクラスは`Illuminate\Log\Logger`インスタンスを受け取る、`__invoke`メソッドのみ必要です。`Illuminate\Log\Logger`インスタンスは、すべてのメソッドを裏で動作するMonologインスタンスへ送るプロキシクラスです。
 
     <?php
 
@@ -155,14 +155,14 @@ Monologはデフォルトで`production`や`local`のような、現在の環境
     class CustomizeFormatter
     {
         /**
-         * 渡されたMonologインスタンスのカスタマイズ
+         * 渡されたロガーインスタンスのカスタマイズ
          *
-         * @param  \Monolog\Logger  $monolog
+         * @param  \Illuminate\Log\Logger  $logger
          * @return void
          */
-        public function __invoke($monolog)
+        public function __invoke($logger)
         {
-            foreach ($monolog->getHandlers() as $handler) {
+            foreach ($logger->getHandlers() as $handler) {
                 $handler->setFormatter(...);
             }
         }

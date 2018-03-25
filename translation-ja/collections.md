@@ -141,6 +141,8 @@
 [sort](#method-sort)
 [sortBy](#method-sortby)
 [sortByDesc](#method-sortbydesc)
+[sortKeys](#method-sortkeys)
+[sortKeysDesc](#method-sortkeysdesc)
 [splice](#method-splice)
 [split](#method-split)
 [sum](#method-sum)
@@ -161,6 +163,7 @@
 [whereStrict](#method-wherestrict)
 [whereIn](#method-wherein)
 [whereInStrict](#method-whereinstrict)
+[whereInstanceOf](#method-whereinstanceof)
 [whereNotIn](#method-wherenotin)
 [whereNotInStrict](#method-wherenotinstrict)
 [wrap](#method-wrap)
@@ -1261,6 +1264,21 @@ staticの`make`メソッドは、新しいコレクションインスタンス�
 
     // ['prod-100' => 'Desk', 'prod-200' => 'Chair']
 
+重複するキーが存在している場合は、最後に一致した要素が結果のコレクションへ挿入されます。
+
+    $collection = collect([
+        ['brand' => 'Tesla',  'color' => 'red'],
+        ['brand' => 'Pagani', 'color' => 'white'],
+        ['brand' => 'Tesla',  'color' => 'black'],
+        ['brand' => 'Pagani', 'color' => 'orange'],
+    ]);
+
+    $plucked = $collection->pluck('color', 'brand');
+
+    $plucked->all();
+
+    // ['Tesla' => 'black', 'Pagani' => 'orange']
+
 <a name="method-pop"></a>
 #### `pop()` {#collection-method}
 
@@ -1560,6 +1578,34 @@ sliceメソッドはデフォルトでキー値を保持したまま返します
 #### `sortByDesc()` {#collection-method}
 
 このメソッドの使い方は[`sortBy`](#method-sortby)と同じで、コレクションを逆順にソートします。
+
+<a name="method-sortkeys"></a>
+#### `sortKeys()` {#collection-method}
+
+`sortKeys`メソッドは、内部の連想配列のキーにより、コレクションをソートします。
+
+    $collection = collect([
+        'id' => 22345,
+        'first' => 'John',
+        'last' => 'Doe',
+    ]);
+
+    $sorted = $collection->sortKeys();
+
+    $sorted->all();
+
+    /*
+        [
+            'first' => 'John',
+            'id' => 22345,
+            'last' => 'Doe',
+        ]
+    */
+
+<a name="method-sortkeysdesc"></a>
+#### `sortKeysDesc()` {#collection-method}
+
+このメソッドは、[`sortKeys`](#method-sortkeys)メソッドと使い方は同じですが、逆順にコレクションをソートします。
 
 <a name="method-splice"></a>
 #### `splice()` {#collection-method}
@@ -1975,6 +2021,19 @@ staticの`unwrap`メソッドは適用可能な場合、指定値からコレク
 
 このメソッドの使い方は、[`whereIn`](#method-wherein)メソッドと同じです。違いは全値を「厳密」に比較することです。
 
+<a name="method-whereinstanceof"></a>
+#### `whereInstanceOf()` {#collection-method}
+
+`whereInstanceOf`メソッドは、コレクションを指定したクラスタイプによりフィルタリングします。
+
+    $collection = collect([
+        new User,
+        new User,
+        new Post,
+    ]);
+
+    return $collection->whereInstanceOf(User::class);
+
 <a name="method-wherenotin"></a>
 #### `whereNotIn()` {#collection-method}
 
@@ -2044,7 +2103,7 @@ staticの`wrap`メソッドは適用可能であれば、指定値をコレク�
 <a name="higher-order-messages"></a>
 ## Higher Order Message
 
-コレクションで繁用するアクションを手短に実行できるよう、"higher order messages"をサポートしました。`average`、`avg`、`contains`、`each`、`every`、`filter`、`first`、`flatMap`、`map`、`partition`、`reject`、`sortBy`、`sortByDesc`、`sum`、`unique`コレクションメソッドでhigher order messageが使用できます。
+コレクションで繁用するアクションを手短に実行できるよう、"higher order messages"をサポートしました。`average`、`avg`、`contains`、`each`、`every`、`filter`、`first`、`flatMap`、`groupBy`、`keyBy`、`map`、`max`、`min`、`partition`、`reject`、`sortBy`、`sortByDesc`、`sum`、`unique`コレクションメソッドでhigher order messageが使用できます。
 
 各higher order messageへは、コレクションインスタンスの動的プロパティとしてアクセスできます。例として、コレクション中の各オブジェクトメソッドを呼び出す、`each` higher order messageを使用してみましょう。
 

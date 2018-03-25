@@ -254,9 +254,10 @@ Laravelの各通知は、（通常、`app/Notifications`ディレクトリに設
         /**
          * メールチャンネルに対する通知をルートする
          *
+         * @param  \Illuminate\Notifications\Notification  $notification
          * @return string
          */
-        public function routeNotificationForMail()
+        public function routeNotificationForMail($notification)
         {
             return $this->email_address;
         }
@@ -622,9 +623,10 @@ SMSメッセージにUnicode文字を含む場合は、`NexmoMessage`インス�
         /**
          * Nexmoチャンネルへの通知をルートする
          *
+         * @param  \Illuminate\Notifications\Notification  $notification
          * @return string
          */
-        public function routeNotificationForNexmo()
+        public function routeNotificationForNexmo($notification)
         {
             return $this->phone;
         }
@@ -798,9 +800,10 @@ Slackメッセージに「添付」を追加することもできます。添付
         /**
          * Slackチャンネルに対する通知をルートする
          *
+         * @param  \Illuminate\Notifications\Notification  $notification
          * @return string
          */
-        public function routeNotificationForSlack()
+        public function routeNotificationForSlack($notification)
         {
             return $this->slack_webhook_url;
         }

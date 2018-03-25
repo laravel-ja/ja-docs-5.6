@@ -232,14 +232,14 @@ JSONPレスポンスを生成したい場合は、`json`メソッドと`withCall
 
 > {note} ファイルダウンロードを管理しているSymfony HttpFoundationクラスは、ASCIIのダウンロードファイル名を指定するよう要求しています。
 
-#### Streamed Downloads
+#### ストリームダウンロード
 
-Sometimes you may wish to turn the string response of a given operation into a downloadable response without having to write the contents of the operation to disk. You may use the `streamDownload` method in this scenario. This method accepts a callback, file name, and an optional array of headers as its arguments:
+操作するコンテンツをディスクへ書き込まずに、指定した操作の文字列レスポンスをダウンロード可能なレスポンスへ変えたい場合もあります。そうしたシナリオでは、`streamDownload`メソッドを使用します。このメソッドは引数として、コールバック、ファイル名、それにオプションとしてヘッダの配列を受け取ります。
 
     return response()->streamDownload(function () {
         echo GitHub::api('repo')
                     ->contents()
-                    ->readme('laravel', 'laravel')['contents']
+                    ->readme('laravel', 'laravel')['contents'];
     }, 'laravel-readme.md');
 
 <a name="file-responses"></a>

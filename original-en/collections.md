@@ -141,6 +141,8 @@ For the remainder of this documentation, we'll discuss each method available on 
 [sort](#method-sort)
 [sortBy](#method-sortby)
 [sortByDesc](#method-sortbydesc)
+[sortKeys](#method-sortkeys)
+[sortKeysDesc](#method-sortkeysdesc)
 [splice](#method-splice)
 [split](#method-split)
 [sum](#method-sum)
@@ -161,6 +163,7 @@ For the remainder of this documentation, we'll discuss each method available on 
 [whereStrict](#method-wherestrict)
 [whereIn](#method-wherein)
 [whereInStrict](#method-whereinstrict)
+[whereInstanceOf](#method-whereinstanceof)
 [whereNotIn](#method-wherenotin)
 [whereNotInStrict](#method-wherenotinstrict)
 [wrap](#method-wrap)
@@ -1261,6 +1264,21 @@ You may also specify how you wish the resulting collection to be keyed:
 
     // ['prod-100' => 'Desk', 'prod-200' => 'Chair']
 
+If duplicate keys exist, the last matching element will be inserted into the plucked collection:
+
+    $collection = collect([
+        ['brand' => 'Tesla',  'color' => 'red'],
+        ['brand' => 'Pagani', 'color' => 'white'],
+        ['brand' => 'Tesla',  'color' => 'black'],
+        ['brand' => 'Pagani', 'color' => 'orange'],
+    ]);
+
+    $plucked = $collection->pluck('color', 'brand');
+
+    $plucked->all();
+
+    // ['Tesla' => 'black', 'Pagani' => 'orange']
+
 <a name="method-pop"></a>
 #### `pop()` {#collection-method}
 
@@ -1560,6 +1578,34 @@ You can also pass your own callback to determine how to sort the collection valu
 #### `sortByDesc()` {#collection-method}
 
 This method has the same signature as the [`sortBy`](#method-sortby) method, but will sort the collection in the opposite order.
+
+<a name="method-sortkeys"></a>
+#### `sortKeys()` {#collection-method}
+
+The `sortKeys` method sorts the collection by the keys of the underlying associative array:
+
+    $collection = collect([
+        'id' => 22345,
+        'first' => 'John',
+        'last' => 'Doe',
+    ]);
+
+    $sorted = $collection->sortKeys();
+
+    $sorted->all();
+
+    /*
+        [
+            'first' => 'John',
+            'id' => 22345,
+            'last' => 'Doe',
+        ]
+    */
+
+<a name="method-sortkeysdesc"></a>
+#### `sortKeysDesc()` {#collection-method}
+
+This method has the same signature as the [`sortKeys`](#method-sortkeys) method, but will sort the collection in the opposite order.
 
 <a name="method-splice"></a>
 #### `splice()` {#collection-method}
@@ -1975,6 +2021,19 @@ The `whereIn` method uses "loose" comparisons when checking item values, meaning
 
 This method has the same signature as the [`whereIn`](#method-wherein) method; however, all values are compared using "strict" comparisons.
 
+<a name="method-whereinstanceof"></a>
+#### `whereInstanceOf()` {#collection-method}
+
+The `whereInstanceOf` method filters the collection by a given class type:
+
+    $collection = collect([
+        new User,
+        new User,
+        new Post,
+    ]);
+
+    return $collection->whereInstanceOf(User::class);
+
 <a name="method-wherenotin"></a>
 #### `whereNotIn()` {#collection-method}
 
@@ -2044,7 +2103,7 @@ The `zip` method merges together the values of the given array with the values o
 <a name="higher-order-messages"></a>
 ## Higher Order Messages
 
-Collections also provide support for "higher order messages", which are short-cuts for performing common actions on collections. The collection methods that provide higher order messages are: `average`, `avg`, `contains`, `each`, `every`, `filter`, `first`, `flatMap`, `map`, `partition`, `reject`, `sortBy`, `sortByDesc`, `sum`, and `unique`.
+Collections also provide support for "higher order messages", which are short-cuts for performing common actions on collections. The collection methods that provide higher order messages are: `average`, `avg`, `contains`, `each`, `every`, `filter`, `first`, `flatMap`, `groupBy`, `keyBy`, `map`, `max`, `min`, `partition`, `reject`, `sortBy`, `sortByDesc`, `sum`, and `unique`.
 
 Each higher order message can be accessed as a dynamic property on a collection instance. For instance, let's use the `each` higher order message to call a method on each object within a collection:
 

@@ -165,7 +165,18 @@ Laravelのペジネーター結果クラスは`Illuminate\Contracts\Support\Json
 
     php artisan vendor:publish --tag=laravel-pagination
 
-このコマンドは、`resources/views/vendor/pagination`ディレクトリへビューを設置します。このディレクトリの`default.blade.php`ファイルが、デフォルトペジネーションビューに対応します。ペジネーションのHTMLを変更するには、このファイルを編集してください。
+このコマンドは、`resources/views/vendor/pagination`ディレクトリへビューを設置します。このディレクトリの`bootstrap-4.blade.php`ファイルが、デフォルトのペジネーションビューに当ります。ペジネーションHTMLを変更するために、このファイルを編集できます。
+
+デフォルトのペジネーションビューとして、他のファイルを指定したい場合は、`AppServiceProvider`の中で、ペジネータの`defaultView`と`defaultSimpleView`メソッドを使用します。
+
+    use Illuminate\Pagination\Paginator;
+
+    public function boot()
+    {
+        Paginator::defaultView('pagination::view');
+
+        Paginator::defaultSimpleView('pagination::view');
+    }
 
 <a name="paginator-instance-methods"></a>
 ## ペジネータインスタンスメソッド

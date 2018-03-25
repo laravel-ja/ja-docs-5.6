@@ -59,7 +59,7 @@ Before using Cashier, we'll also need to [prepare the database](/docs/{{version}
 
     Schema::create('subscriptions', function ($table) {
         $table->increments('id');
-        $table->integer('user_id');
+        $table->unsignedInteger('user_id');
         $table->string('name');
         $table->string('stripe_id');
         $table->string('stripe_plan');
@@ -137,7 +137,7 @@ Before using Cashier, we'll need to [prepare the database](/docs/{{version}}/mig
 
     Schema::create('subscriptions', function ($table) {
         $table->increments('id');
-        $table->integer('user_id');
+        $table->unsignedInteger('user_id');
         $table->string('name');
         $table->string('braintree_id');
         $table->string('braintree_plan');
@@ -380,6 +380,14 @@ If you would like to offer trial periods to your customers while still collectin
 This method will set the trial period ending date on the subscription record within the database, as well as instruct Stripe / Braintree to not begin billing the customer until after this date.
 
 > {note} If the customer's subscription is not cancelled before the trial ending date they will be charged as soon as the trial expires, so you should be sure to notify your users of their trial ending date.
+
+The `trialUntil` method allows you to provide a `DateTime` instance to specify when the trial period should end:
+
+    use Carbon\Carbon;
+
+    $user->newSubscription('main', 'monthly')
+                ->trialUntil(Carbon::now()->addDays(10))
+                ->create($stripeToken);
 
 You may determine if the user is within their trial period using either the `onTrial` method of the user instance, or the `onTrial` method of the subscription instance. The two examples below are identical:
 

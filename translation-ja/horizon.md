@@ -74,10 +74,6 @@ Horizonプロセスを`horizon:pause` Artisanコマンドで一時停止した�
 
 Horizonを実働サーバにデプロイする場合、`php artisan horizon`コマンドをプロセスモニタで監視し、予期せず終了した場合には再起動をかけるように設定する必要があります。サーバに新しいコードをデプロイしたときに、Horizonプロセスを停止指示する必要があります。その結果、プロセスモニタにより再起動され、コードの変更が反映されます。
 
-マシン上のマスタHorizonプロセスを穏やかに終了させたい場合は、`horizon:terminate` Artisanコマンドを使用します。現在処理中のジョブが完了した後に、Horizonは停止します。
-
-    php artisan horizon:terminate
-
 #### Supervisor設定
 
 `horizon`プロセスを管理するため、Supervisorプロセスモニタを使用する場合は、以下の設定ファイルが利用できるでしょう。

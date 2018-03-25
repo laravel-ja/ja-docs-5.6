@@ -39,7 +39,7 @@ LaravelのソースコードはGitHubで管理され、各Laravelプロジェク
 <a name="core-development-discussion"></a>
 ## コア開発の議論
 
-新機能や、現存のLaravelの振る舞いについて改善を提言したい場合は、Laravel内部の[issueボード](https://github.com/laravel/internals/issues)へおねがいします。新機能を提言する場合は自発的に、それを完動させるのに必要な、コードを最低限でも実装してください。
+新機能や、現存のLaravelの振る舞いについて改善を提言したい場合は、Laravelアイデア[issueボード](https://github.com/laravel/ideas/issues)へおねがいします。新機能を提言する場合は自発的に、それを完動させるのに必要な、コードを最低限でも実装してください。
 
 バグ、新機能、既存機能の実装についてのざっくばらんな議論は、Slackの[LaraChat](https://larachat.co)チームにある`#internals`チャンネルで行っています。LaravelのメンテナーであるTaylor Otwellは、通常ウイークエンドの午前８時から５時まで（America/Chicago標準時、UTC-6:00）接続しています。他の時間帯では、時々接続しています。
 

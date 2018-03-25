@@ -61,6 +61,7 @@ HomesteadはWindowsやMac、Linuxシステム上で実行でき、Nginx Webサ�
 - Mailhog
 - Elasticsearch (オプション)
 - ngrok
+- wp-cli
 </div>
 
 <a name="installation-and-setup"></a>
@@ -96,7 +97,7 @@ VirtualBox/VMwareとVagrantをインストールし終えたら、`laravel/homes
     cd ~/Homestead
 
     // クローンしたいリリースバージョン
-    git checkout v7.1.2
+    git checkout v7.3.0
 
 Homesteadリポジトリをクローンしたら、`Homestead.yaml`設定ファイルを生成するために、`bash init.sh`コマンドをHomesteadディレクトリで実行します。
 
@@ -214,7 +215,7 @@ MySQLの代わりにMariaDBを使用したい場合は、`mariadb`オプショ�
 <a name="installing-elasticsearch"></a>
 ### Elasticsearchのインストール
 
-Elasticsearchをインストールするには、`Homestead.yaml`ファイルへ`elasticsearch`オプションを追加してください。デフォルトのインストールでは、`homestead`という名前のクラスタが作成されます。Elasticsearchにオペレーティングシステムのメモリの半分以上を割り当ててはいけません。つまり、Elasticsearchに割り当てる量の最低でも２倍以上のメモリをHomesteadマシンに割り当てます。
+Elasticsearchをインストールするには、`Homestead.yaml`ファイルへ`elasticsearch`オプションを追加し、メジャーバージョンか、major.minor.patch形式で厳密なバージョンを指定してください。デフォルトのインストールでは、`homestead`という名前のクラスタが作成されます。Elasticsearchにオペレーティングシステムのメモリの半分以上を割り当ててはいけません。つまり、Elasticsearchに割り当てる量の最低でも２倍以上のメモリをHomesteadマシンに割り当てます。
 
     box: laravel/homestead
     ip: "192.168.10.10"

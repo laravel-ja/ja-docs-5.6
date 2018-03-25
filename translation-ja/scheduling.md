@@ -82,6 +82,9 @@ Laravelのコマンドスケジューラは、Laravel自身の中でコマンド
 
     $schedule->job(new Heartbeat)->everyFiveMinutes();
 
+    // ジョブを"heartbeats"キューへ投入する
+    $schedule->job(new Heartbeat, 'heartbeats')->everyFiveMinutes();
+
 <a name="scheduling-shell-commands"></a>
 ### シェルコマンドのスケジュール
 
