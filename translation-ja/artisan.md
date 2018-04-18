@@ -403,7 +403,7 @@ HTTPルートは定義していませんが、このファイルはアプリケ�
 <a name="programmatically-executing-commands"></a>
 ## プログラムによるコマンド実行
 
-ArtisanコマンドをCLI以外から実行したい場合もあるでしょう。たとえばルートやコントローラからArtisanコマンドを起動したい場合です。`Artisan`ファサードの`call`メソッドで実行できます。`call`メソッドでは第１引数にコマンド名を指定します。第２引数にコマンドのパラメーターを配列で指定します。exitコードが返されます。
+ArtisanコマンドをCLI以外から実行したい場合もあります。たとえばルートやコントローラからArtisanコマンドを起動したい場合です。`Artisan`ファサードの`call`メソッドで実行できます。`call`メソッドは、第１引数にコマンド名かクラス、第２引数にコマンドのパラメーターを配列で指定します。exitコードが返されます。
 
     Route::get('/foo', function () {
         $exitCode = Artisan::call('email:send', [

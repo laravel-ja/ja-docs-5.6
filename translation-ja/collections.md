@@ -470,13 +470,13 @@
 
 `each`メソッドはコレクションのアイテムを繰り返しで処理し、コールバックに各アイテムを渡します。
 
-    $collection = $collection->each(function ($item, $key) {
+    $collection->each(function ($item, $key) {
         //
     });
 
 アイテム全体への繰り返しを停止したい場合は、`false`をコールバックから返してください。
 
-    $collection = $collection->each(function ($item, $key) {
+    $collection->each(function ($item, $key) {
         if (/* 条件 */) {
             return false;
         }
@@ -1377,6 +1377,8 @@ staticの`make`メソッドは、新しいコレクションインスタンス�
 
     // [2, 4, 5] - (ランダムに取得)
 
+要求されたアイテム数がコレクションに足りない場合、このメソッドは`InvalidArgumentException`を投げます。
+
 <a name="method-reduce"></a>
 #### `reduce()` {#collection-method}
 
@@ -2103,7 +2105,7 @@ staticの`wrap`メソッドは適用可能であれば、指定値をコレク�
 <a name="higher-order-messages"></a>
 ## Higher Order Message
 
-コレクションで繁用するアクションを手短に実行できるよう、"higher order messages"をサポートしました。`average`、`avg`、`contains`、`each`、`every`、`filter`、`first`、`flatMap`、`groupBy`、`keyBy`、`map`、`max`、`min`、`partition`、`reject`、`sortBy`、`sortByDesc`、`sum`、`unique`コレクションメソッドでhigher order messageが使用できます。
+コレクションで繁用するアクションを手短に実行できるよう、"higher order messages"をサポートしました。[`average`](#method-average)、[`avg`](#method-avg)、[`contains`](#method-contains)、[`each`](#method-each)、[`every`](#method-every)、[`filter`](#method-filter)、[`first`](#method-first)、[`flatMap`](#method-flatmap)、[`groupBy`](#method-groupby)、[`keyBy`](#method-keyby)、[`map`](#method-map)、[`max`](#method-max)、[`min`](#method-min)、[`partition`](#method-partition)、[`reject`](#method-reject)、[`sortBy`](#method-sortby)、[`sortByDesc`](#method-sortbydesc)、[`sum`](#method-sum)、[`unique`](#method-unique)コレクションメソッドでhigher order messageが使用できます。
 
 各higher order messageへは、コレクションインスタンスの動的プロパティとしてアクセスできます。例として、コレクション中の各オブジェクトメソッドを呼び出す、`each` higher order messageを使用してみましょう。
 

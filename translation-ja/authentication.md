@@ -14,6 +14,8 @@
     - [その他の認証方法](#other-authentication-methods)
 - [HTTP基本認証](#http-basic-authentication)
     - [ステートレスHTTP基本認証](#stateless-http-basic-authentication)
+- [ログアウト](#logging-out)
+    - [他のデバイス上のセッションを無効化](#invalidating-sessions-on-other-devices)
 - [ソーシャル認証](https://github.com/laravel/socialite)
 - [カスタムガードの追加](#adding-custom-guards)
 - [カスタムユーザープロバイダの追加](#adding-custom-user-providers)
@@ -217,6 +219,7 @@ Laravelの認証サービスには`Auth`[ファサード](/docs/{{version}}/faca
 
     namespace App\Http\Controllers;
 
+    use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
 
     class LoginController extends Controller
@@ -224,11 +227,15 @@ Laravelの認証サービスには`Auth`[ファサード](/docs/{{version}}/faca
         /**
          * 認証を処理する
          *
+         * @param  \Illuminate\Http\Request $request
+         *
          * @return Response
          */
-        public function authenticate()
+        public function authenticate(Request $request)
         {
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
                 // 認証に成功した
                 return redirect()->intended('dashboard');
             }
@@ -367,6 +374,34 @@ PHP FastCGIを使用している場合、初期状態のままでHTTP基本認�
     Route::get('api/user', function() {
         // 認証済みのユーザーのみが入れる
     })->middleware('auth.basic.once');
+
+<a name="logging-out"></a>
+## ログアウト
+
+アプリケーションからユーザーをログアウトさせる場合、`Auth`ファサードの`logout`メソッドを使用してください。これにより、ユーザーセッションの認証情報はクリアされます。
+
+    use Illuminate\Support\Facades\Auth;
+
+    Auth::logout();
+
+<a name="invalidating-sessions-on-other-devices"></a>
+### 他のデバイス上のセッションを無効化
+
+さらにLaravelは、現在のユーザーの現在のデバイス上のセッションを切らずに、他のデバイス上のセッションを無効化し、「ログアウト」させるメカニズムを提供しています。これを使用するには、`app/Http/Kernel.php`クラスの`web`ミドルウェアグループ中に、`Illuminate\Session\Middleware\AuthenticateSession`ミドルウェアが存在し、コメントを外すのを確実に行ってください。
+
+    'web' => [
+        // ...
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        // ...
+    ],
+
+それから、`Auth`ファサードの`logoutOtherDevices`メソッドを使用してください。このメソッドは、入力フォームからアプリケーションが受け取る、現在のパスワードを引数に渡す必要があります。
+
+    use Illuminate\Support\Facades\Auth;
+
+    Auth::logoutOtherDevices($password);
+
+> {note} `logoutOtherDevices`メソッドが起動すると、ユーザーの他のセッションは全て無効になります。つまり、以前に認証済みの全てのガードが、「ログアウト」されます。
 
 <a name="adding-custom-guards"></a>
 ## カスタムガードの追加

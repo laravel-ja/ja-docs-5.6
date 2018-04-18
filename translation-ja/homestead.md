@@ -21,6 +21,7 @@
     - [環境の共有](#sharing-your-environment)
     - [複数のPHPバージョン](#multiple-php-versions)
     - [Webサービス](#web-servers)
+    - [メール](#mail)
 - [ネットワークインターフェイス](#network-interfaces)
 - [Homesteadの更新](#updating-homestead)
 - [プロパイダ固有の設定](#provider-specific-settings)
@@ -62,6 +63,8 @@ HomesteadはWindowsやMac、Linuxシステム上で実行でき、Nginx Webサ�
 - Elasticsearch (オプション)
 - ngrok
 - wp-cli
+- Zend Z-Ray
+- Go
 </div>
 
 <a name="installation-and-setup"></a>
@@ -430,6 +433,11 @@ Homestead6から、同一仮想マシン上での複数PHPバージョンをサ�
 HomesteadはNginxをデフォルトのWebサーバとして利用しています。しかし、サイトタイプとして`apache`が指定されると、Apacheをインストールします。両方のWebサーバを一度にインストールすることもできますが、同時に両方を**実行**することはできません。`flip`シェルコマンドがWebサーバを切り替えるために用意されています。`flip`コマンドはどちらのWebサーバが実行中かを自動的に判断し、シャットダウンし、もう一方のWebサーバを起動します。このコマンドを実行するには、HomesteadへSSH接続し、コマンドをターミナルで実行してください。
 
     flip
+
+<a name="mail"></a>
+### Mail
+
+Homesteadは、デフォルトで`1025`ポートをリッスンする、Postfixメールトランスファーエージェントを用意しています。そのため、`localhost`の`1025`ポートに対して、`smtp`メールドライバーを使用するように、アプリケーションへ指示できます。その結果、すべての送信メールはPostfixにより処理され、Mailhogにより補足されます。送信済みメールを確認するには、Webブラウザで[http://localhost:8025](http://localhost:8025)を開いてください。
 
 <a name="network-interfaces"></a>
 ## ネットワークインターフェイス

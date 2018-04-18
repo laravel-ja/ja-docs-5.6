@@ -185,13 +185,13 @@ HTMLフォームは`PUT`、`PATCH`、`DELETE`リクエストを作成できま�
 
 リソースルートの宣言時に、デフォルトアクション全部を指定する代わりに、ルートで処理するアクションの一部を指定可能です。
 
-    Route::resource('photos', 'PhotoController', ['only' => [
+    Route::resource('photos', 'PhotoController')->only([
         'index', 'show'
-    ]]);
+    ]);
 
-    Route::resource('photos', 'PhotoController', ['except' => [
+    Route::resource('photos', 'PhotoController')->except([
         'create', 'store', 'update', 'destroy'
-    ]]);
+    ]);
 
 #### APIリソースルート
 
@@ -215,18 +215,18 @@ APIに使用するリソースルートを宣言する場合、`create`や`edit`
 
 全てのリソースコントローラアクションは、デフォルトのルート名が決められています。しかし、オプションに`names`配列を渡せば、こうした名前をオーバーライドできます。
 
-    Route::resource('photos', 'PhotoController', ['names' => [
+    Route::resource('photos', 'PhotoController')->names([
         'create' => 'photos.build'
-    ]]);
+    ]);
 
 <a name="restful-naming-resource-route-parameters"></a>
 ### リソースルートパラメータの命名
 
 `Route::resource`はデフォルトで、リソース名の「単数形」にもとづき、リソースルートのルートパラメータを生成します。オプション配列で`parameters`を指定することで簡単に、このリソース毎の基本的な命名規約をオーバーライドできます。`parameters`配列は、リソース名とパラメータ名の連想配列で指定します。
 
-    Route::resource('user', 'AdminUserController', ['parameters' => [
+    Route::resource('user', 'AdminUserController')->parameters([
         'user' => 'admin_user'
-    ]]);
+    ]);
 
 上記のサンプルコードは、リソースの`show`ルートで次のURIを生成します。
 

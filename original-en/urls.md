@@ -72,7 +72,7 @@ You will often be generating URLs using the primary key of [Eloquent models](/do
 
 Laravel allows you to easily create "signed" URLs to named routes. These URLs have a "signature" hash appended to the query string which allows Laravel to verify that the URL has not been modified since it was created. Signed URLs are especially useful for routes that are publicly accessible yet need a layer of protection against URL manipulation.
 
-For example, you might used signed URLs to implement a public "unsubscribe" link that is emailed to your customers. To create a signed URL to a named route, use the `signedRoute` method of the `URL` facade:
+For example, you might use signed URLs to implement a public "unsubscribe" link that is emailed to your customers. To create a signed URL to a named route, use the `signedRoute` method of the `URL` facade:
 
     use Illuminate\Support\Facades\URL;
 
@@ -113,7 +113,7 @@ Alternatively, you may assign the `Illuminate\Routing\Middleware\ValidateSignatu
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
     ];
 
-Once you have registered the middleware in your kernel, you may attach it to a route. If the incoming request does not have a valid signature, the middleware will automatically return a `401` error response:
+Once you have registered the middleware in your kernel, you may attach it to a route. If the incoming request does not have a valid signature, the middleware will automatically return a `403` error response:
 
     Route::post('/unsubscribe/{user}', function (Request $request) {
         // ...

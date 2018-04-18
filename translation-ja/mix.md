@@ -273,7 +273,7 @@ Mixはオーバーライドする短いWebpack設定をマージできるよう�
 
 #### カスタム設定ファイル
 
-Webpack設置をすべてカスタマイズしたい場合は、`node_modules/laravel-mix/setup/webpack.config.js`をプロジェクトのルートディレクトリへコピーしてください。次に、`package.json`ファイル中の`--config`参照を全て新しくコピーした設定ファイルに変更します。カスタマイズにこのアプローチを取る場合は、Mixの`webpack.config.js`に対するアップストリームの機能変更を自分でカスタマイズするファイルへマージする必要があります。
+Webpack設定をすべてカスタマイズしたい場合は、`node_modules/laravel-mix/setup/webpack.config.js`をプロジェクトのルートディレクトリへコピーしてください。次に、`package.json`ファイル中の`--config`参照を全て新しくコピーした設定ファイルに変更します。カスタマイズにこのアプローチを取る場合は、Mixの`webpack.config.js`に対するアップストリームの機能変更を自分でカスタマイズするファイルへマージする必要があります。
 
 <a name="copying-files-and-directories"></a>
 ## ファイル／ディレクトリコピー

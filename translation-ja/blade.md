@@ -493,6 +493,18 @@ Bladeはさらに、他のビューやレイアウトでレンダーできるよ
         @stack('scripts')
     </head>
 
+スタックの先頭に内容を追加したい場合は、`@prepend`ディレクティブを使用してください。
+
+    @push('scripts')
+        ここは２番目
+    @endpush
+
+    // …後から
+
+    @prepend('scripts')
+        ここは最初
+    @endprepend
+
 <a name="service-injection"></a>
 ## サービス注入
 

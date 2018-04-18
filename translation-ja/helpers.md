@@ -1389,6 +1389,12 @@ NULL値を指定すると、空の配列が返ってきます。
 
     {!! old('name', optional($user)->name) !!}
 
+`optional`関数は、第２引数にクロージャを指定できます。このクロージャは、最初の引数がNULLでない場合に実行されます。
+
+    return optional(User::find($id), function ($user) {
+        return new DummyUser;
+    });
+
 <a name="method-policy"></a>
 #### `policy()` {#collection-method}
 

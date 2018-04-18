@@ -36,13 +36,13 @@ Eloquent ORMはLaravelに含まれている、美しくシンプルなアクテ�
 
 モデルを作成する一番簡単な方法は`make:model` [Artisanコマンド](/docs/{{version}}/artisan)を使用することです。
 
-    php artisan make:model User
+    php artisan make:model Flight
 
 モデル作成時に[データベースマイグレーション](/docs/{{version}}/migrations)も生成したければ、`--migration`か`-m`オプションを使ってください。
 
-    php artisan make:model User --migration
+    php artisan make:model Flight --migration
 
-    php artisan make:model User -m
+    php artisan make:model Flight -m
 
 <a name="eloquent-model-conventions"></a>
 ### Eloquentモデル規約
@@ -627,7 +627,7 @@ Eloquentではクロージャを使ったグローバルスコープも定義で
 特定のクエリからグローバルスコープを削除した場合は、`withoutGlobalScope`メソッドを使います。唯一の引数として、クラス名を受けます。
 
     User::withoutGlobalScope(AgeScope::class)->get();
-    
+
 Or, if you defined the global scope using a Closure:
 
     User::withoutGlobalScope('age')->get();

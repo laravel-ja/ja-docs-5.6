@@ -2,6 +2,7 @@
 
 - [イントロダクション](#introduction)
 - [環境設定](#environment-configuration)
+    - [環境変数タイプ](#environment-variable-types)
     - [環境設定の取得](#retrieving-environment-configuration)
     - [現在環境の決定](#determining-the-current-environment)
 - [設定値へのアクセス](#accessing-configuration-values)
@@ -25,6 +26,26 @@ Laravelフレームワークの前設定ファイルは、`config`ディレク�
 チーム開発を行っている場合、`.env.example`ファイルをアプリケーションに含めたいと思うでしょう。サンプルの設定ファイルに、プレースホルダーとして値を設定しておけば、チームの他の開発者は、アプリケーションを実行するために必要な環境変数をはっきりと理解できるでしょう。さらに、`.env.testing`ファイルを作成することもできます。このファイルは、PHPUnitテスト実行時やArtisanコマンドへ`--env=testing`オプションを指定した場合に、`.env`ファイルをオーバーライドします。
 
 > {tip} `.env`ファイルにあるすべての変数は、サーバレベルやシステムレベルで定義されている、外部の環境変数によってオーバーライドすることができます。
+
+<a name="environment-variable-types"></a>
+### 環境変数タイプ
+
+`.env`ファイル中の全変数は、文字列としてパースされます。`env()`関数で様々なタイプを返すために、予約語があります。
+
+`.env`値  | `env()`値
+------------- | -------------
+true | (bool) true
+(true) | (bool) true
+false | (bool) false
+(false) | (bool) false
+empty | (string) ''
+(empty) | (string) ''
+null | (null) null
+(null) | (null) null
+
+空白を含む値を環境変数に定義する場合は、ダブル引用符で囲ってください。
+
+    APP_NAME="My Application"
 
 <a name="retrieving-environment-configuration"></a>
 ### 環境設定の取得

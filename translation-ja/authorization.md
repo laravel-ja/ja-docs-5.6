@@ -4,6 +4,7 @@
 - [ゲート](#gates)
     - [ゲートの記述](#writing-gates)
     - [アクションの認可](#authorizing-actions-via-gates)
+    - [ゲートチェックのインターセプト](#intercepting-gate-checks)
 - [ポリシーの作成](#creating-policies)
     - [ポリシーの生成](#generating-policies)
     - [ポリシーの登録](#registering-policies)
@@ -66,16 +67,16 @@ Laravelは組み込み済みの[認証](/docs/{{version}}/authentication)サー�
 
 `resource`メソッドを使用すれば、一度に複数のゲートを定義できます。
 
-    Gate::resource('posts', 'PostPolicy');
+    Gate::resource('posts', 'App\Policies\PostPolicy');
 
 これは次のゲート定義とまったく同じです。
 
-    Gate::define('posts.view', 'PostPolicy@view');
-    Gate::define('posts.create', 'PostPolicy@create');
-    Gate::define('posts.update', 'PostPolicy@update');
-    Gate::define('posts.delete', 'PostPolicy@delete');
+    Gate::define('posts.view', 'App\Policies\PostPolicy@view');
+    Gate::define('posts.create', 'App\Policies\PostPolicy@create');
+    Gate::define('posts.update', 'App\Policies\PostPolicy@update');
+    Gate::define('posts.delete', 'App\Policies\PostPolicy@delete');
 
-デフォルトとして、`view`、`create`、`update`、`delete`アビリティが定義されます。`resource`メソッドに第３引数として配列を渡し、デフォルトのアビリティのオーバーライドや追加ができます。配列のキーでアビリティの名前、値でメソッド名を定義します。例として、以下のコードで新しい`posts.image`と`posts.photo`のゲート定義を作成してみます。
+`view`、`create`、`update`、`delete`アビリティが、デフォルトで定義されます。`resource`メソッドに第３引数として配列を渡し、デフォルトのアビリティのオーバーライドが可能です。配列のキーでアビリティの名前、値でメソッド名を定義します。例として、新しく`posts.image`と`posts.photo`のゲート定義を２つだけ作成してみましょう。
 
     Gate::resource('posts', 'PostPolicy', [
         'image' => 'updateImage',
@@ -104,6 +105,25 @@ Laravelは組み込み済みの[認証](/docs/{{version}}/authentication)サー�
     if (Gate::forUser($user)->denies('update-post', $post)) {
         // ユーザーはこのポストを更新できない
     }
+
+<a name="intercepting-gate-checks"></a>
+#### ゲートチェックのインターセプト
+
+特定のユーザーに全アビリティーへ許可を与えたい場合もあります。`before`メソッドは、他の全ての認可チェック前に実行される、コールバックを定義します。
+
+    Gate::before(function ($user, $ability) {
+        if ($user->isSuperAdmin()) {
+            return true;
+        }
+    });
+
+`before`コールバックでNULL以外の結果を返すと、チェックの結果とみなされます。
+
+`after`メソッドで、すべての認可チャックの後で実行されるコールバックを定義することも可能です。しかしながら、`after`のコールバックから、認可チェックの結果を変更できません。
+
+    Gate::after(function ($user, $ability, $result, $arguments) {
+        //
+    });
 
 <a name="creating-policies"></a>
 ## ポリシー作成

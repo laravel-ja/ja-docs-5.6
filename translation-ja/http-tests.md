@@ -60,7 +60,7 @@ Laravelはアプリケーションに対するHTTPリクエストを作成し、
             ])->json('POST', '/user', ['name' => 'Sally']);
 
             $response
-                ->assertStatus(200)
+                ->assertStatus(201)
                 ->assertJson([
                     'created' => true,
                 ]);
@@ -126,7 +126,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
             $response = $this->json('POST', '/user', ['name' => 'Sally']);
 
             $response
-                ->assertStatus(200)
+                ->assertStatus(201)
                 ->assertJson([
                     'created' => true,
                 ]);
@@ -154,7 +154,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
             $response = $this->json('POST', '/user', ['name' => 'Sally']);
 
             $response
-                ->assertStatus(200)
+                ->assertStatus(201)
                 ->assertExactJson([
                     'created' => true,
                 ]);

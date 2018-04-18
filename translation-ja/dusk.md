@@ -271,7 +271,7 @@ PHPUnitテストランナが通常受け付ける引数は、`dusk`コマンド�
 
     $browser->click('.login-page .container div > button');
 
-Duskセレクタにより、CSSセレクタを記憶するのではなく、効率的にテストを書くことに集中できるようになります。セレクタを定義するには、HTMLエレメントに`dusk`属性を追加します。それから、Duskテスト中の要素を操作するために、セレクタの先頭に`@`を付けてください。
+Duskセレクタにより、CSSセレクタを記憶するのではなく、効率的にテストを書くことに集中できるようになります。セレクタを定義するには、HTML要素に`dusk`属性を追加します。それから、Duskテスト中の要素を操作するために、セレクタの先頭に`@`を付けてください。
 
     // HTML
 
@@ -398,7 +398,7 @@ Duskはフォームと入力要素を操作する、様々なメソッドを提�
 
 #### ドラッグ＆ドロップ
 
-`drag`メソッドは指定したセレクタに一致する要素をドラッグし、もう一つのエレメントへドロップします。
+`drag`メソッドは指定したセレクタに一致する要素をドラッグし、もう一つの要素へドロップします。
 
     $browser->drag('.from-selector', '.to-selector');
 
@@ -480,6 +480,10 @@ Duskはフォームと入力要素を操作する、様々なメソッドを提�
 `$browser->assertPathIs('/home')`のようなパスをアサートするときに、`window.location.pathname`が非同期更新中の場合、アサートは失敗するでしょう。指定値のロケーションを待機するために、`waitForLocation`メソッドを使ってください。
 
     $browser->waitForLocation('/secret');
+
+名前付きルートのロケーションを待機することも可能です。
+
+    $browser->waitForRoute($routeName, $parameters);
 
 #### ページリロードの待機
 
@@ -572,8 +576,10 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 [assertPathIsNot](#assert-path-is-not)
 [assertRouteIs](#assert-route-is)
 [assertQueryStringHas](#assert-query-string-has)
-[assertQueryStringHas](#assert-query-string-has)
 [assertQueryStringMissing](#assert-query-string-missing)
+[assertFragmentIs](#assert-fragment-is)
+[assertFragmentBeginsWith](#assert-fragment-begins-with)
+[assertFragmentIsNot](#assert-fragment-is-not)
 [assertHasCookie](#assert-has-cookie)
 [assertCookieMissing](#assert-cookie-missing)
 [assertCookieValue](#assert-cookie-value)
@@ -599,10 +605,17 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 [assertSelectHasOption](#assert-select-has-option)
 [assertValue](#assert-value)
 [assertVisible](#assert-visible)
+[assertPresent](#assert-present)
 [assertMissing](#assert-missing)
 [assertDialogOpened](#assert-dialog-opened)
+[assertEnabled](#assert-enabled)
+[assertDisabled](#assert-disabled)
+[assertFocused](#assert-focused)
+[assertNotFocused](#assert-not-focused)
 [assertVue](#assert-vue)
 [assertVueIsNot](#assert-vue-is-not)
+[assertVueContains](#assert-vue-contains)
+[assertVueDoesNotContain](#assert-vue-does-not-contain)
 </div>
 
 <a name="assert-title"></a>
@@ -661,9 +674,6 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 
     $browser->assertQueryStringHas($name);
 
-<a name="assert-query-string-has"></a>
-#### assertQueryStringHas
-
 指定したクエリ文字列パラメータが存在し、指定値を持っていることを宣言します。
 
     $browser->assertQueryStringHas($name, $value);
@@ -674,6 +684,27 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 指定した文字列パラメータが存在しないことを宣言します。
 
     $browser->assertQueryStringMissing($name);
+
+<a name="assert-fragment-is"></a>
+#### assertFragmentIs
+
+現在のフラグメントが、指定したフラグメントと一致することを宣言します。
+
+    $browser->assertFragmentIs('anchor');
+
+<a name="assert-fragment-begins-with"></a>
+#### assertFragmentBeginsWith
+
+現在のフラグメントが、指定したフラグメントで始まることを宣言します。
+
+    $browser->assertFragmentBeginsWith('anchor');
+
+<a name="assert-fragment-is-not"></a>
+#### assertFragmentIsNot
+
+現在のフラグメントが、指定したフラグメントと一致しないことを宣言します。
+
+    $browser->assertFragmentIsNot('anchor');
 
 <a name="assert-has-cookie"></a>
 #### assertHasCookie
@@ -850,6 +881,13 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 
     $browser->assertVisible($selector);
 
+<a name="assert-present"></a>
+#### assertPresent
+
+指定したセレクタに一致する要素が、存在することを宣言します。
+
+    $browser->assertPresent($selector);
+
 <a name="assert-missing"></a>
 #### assertMissing
 
@@ -864,6 +902,34 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 
     $browser->assertDialogOpened($message);
 
+<a name="assert-enabled"></a>
+#### assertEnabled
+
+指定したフィールドが、enabledであることを宣言します。
+
+    $browser->assertEnabled($field);
+
+<a name="assert-disabled"></a>
+#### assertDisabled
+
+指定したフィールドが、disabledであることを宣言します。
+
+    $browser->assertDisabled($field);
+
+<a name="assert-focused"></a>
+#### assertFocused
+
+指定したフィールドに、フォーカスがあることを宣言します。
+
+    $browser->assertFocused($field);
+
+<a name="assert-not-focused"></a>
+#### assertNotFocused
+
+指定したフィールドから、フォーカスが外れていることを宣言します。
+
+    $browser->assertNotFocused($field);
+
 <a name="assert-vue"></a>
 #### assertVue
 
@@ -877,6 +943,20 @@ Duskはアプリケーションに対する数多くのアサートを提供し�
 指定したVueコンポーネントのデータプロパティが、指定値と一致しないことを宣言します。
 
     $browser->assertVueIsNot($property, $value, $componentSelector = null);
+
+<a name="assert-vue-contains"></a>
+#### assertVueContains
+
+指定したVueコンポーネントのデータプロパティが配列で、指定値を含むことを宣言します。
+
+    $browser->assertVueContains($property, $value, $componentSelector = null);
+
+<a name="assert-vue-does-not-contain"></a>
+#### assertVueDoesNotContain
+
+指定したVueコンポーネントのデータプロパティが配列で、指定値を含まないことを宣言します。
+
+    $browser->assertVueDoesNotContain($property, $value, $componentSelector = null);
 
 <a name="pages"></a>
 ## ページ

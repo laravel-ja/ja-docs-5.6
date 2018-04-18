@@ -414,21 +414,19 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'secret' => $this->when($this->isAdmin(), 'secret-value'),
+            'secret' => $this->when(Auth::user()->isAdmin(), 'secret-value'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }
 
-この例では、`$this->isAdmin()`メソッドが`true`を返す場合のみ、最終的なリソースレスポンスに`secret`キーが返されます。メソッドが`false`の場合、クライアントへ送り返される前に、リソースレスポンスから`secret`キーは完全に削除されます。`when`メソッドにより、配列の構築時に条件文に頼らずに、リソースを記述的に定義できます。
+この例では、認証済みユーザーの`isAdmin`メソッドが`true`を返す場合のみ、最終的なリソースレスポンスに`secret`キーが返されます。メソッドが`false`の場合、クライアントへ送り返される前に、リソースレスポンスから`secret`キーは完全に削除されます。`when`メソッドにより、配列の構築時に条件文に頼らずに、リソースを記述的に定義できます。
 
 `when`メソッドは、第２引数にクロージャを引き受け、指定した条件が`true`の場合のみ、結果の値を算出することもできます。
 
-    'secret' => $this->when($this->isAdmin(), function () {
+    'secret' => $this->when(Auth::user()->isAdmin(), function () {
         return 'secret-value';
     }),
-
-> {tip} リソースで呼び出されるメソッドは、元のモデルインスタンスへの呼び出しを仲介することを思い出してください。ですからこの場合、`isAdmin`メソッドはリソースを提供するオリジナルのEloquentモデルへと仲介されます。
 
 #### 条件付き属性のマージ
 
@@ -446,7 +444,7 @@ API構築時、Eloquentモデルと、アプリケーションユーザーに対
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            $this->mergeWhen($this->isAdmin(), [
+            $this->mergeWhen(Auth::user()->isAdmin(), [
                 'first-secret' => 'value',
                 'second-secret' => 'value',
             ]),

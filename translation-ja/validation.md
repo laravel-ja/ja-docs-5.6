@@ -209,6 +209,9 @@ Laravelは`TrimStrings`と`ConvertEmptyStringsToNull`ミドルウェアをアプ
     public function store(StoreBlogPost $request)
     {
         // 送信されたリクエストは正しい
+
+        // バリデーション済みデータの取得
+        $validated = $request->validated();
     }
 
 バリデーションに失敗すると、前のアドレスにユーザーを戻すために、リダイレクトレスポンスが生成されます。エラーも表示できるように、フラッシュデーターとしてセッションに保存されます。もしリクエストがAJAXリクエストであれば、バリデーションエラーを表現するJSONを含んだ、422ステータスコードのHTTPレスポンスがユーザーに返されます。
@@ -482,6 +485,7 @@ Laravelは`TrimStrings`と`ConvertEmptyStringsToNull`ミドルウェアをアプ
 [アルファベット記号](#rule-alpha-dash)
 [アルファベット数字](#rule-alpha-num)
 [配列](#rule-array)
+[継続終了](#rule-bail)
 [（日付）より前](#rule-before)
 [（日付）以前](#rule-before-or-equal)
 [範囲](#rule-between)
@@ -576,6 +580,11 @@ Laravelは`TrimStrings`と`ConvertEmptyStringsToNull`ミドルウェアをアプ
 #### array
 
 フィールドが配列タイプであることをバリデートします。
+
+<a name="rule-bail"></a>
+#### bail
+
+バリデーションに初めて失敗した時点で、残りのルールのバリデーションを中止します。
 
 <a name="rule-before"></a>
 #### before:_日付_
@@ -1063,7 +1072,7 @@ Laravelは様々な便利なバリデーションルールを提供していま�
     use App\Rules\Uppercase;
 
     $request->validate([
-        'name' => ['required', new Uppercase],
+        'name' => ['required', 'string', new Uppercase],
     ]);
 
 <a name="using-closures"></a>
