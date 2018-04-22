@@ -26,7 +26,7 @@ Socialiteを使用開始するには、Composerを使い、プロジェクトの
 <a name="configuration"></a>
 ## 設定
 
-Socialiteを使用する前に、アプリケーションで使用するOAUthサービスの認証情報も追加する必要があります。認証情報は`config/services.php`設定ファイルで指定し、アプリケーションの必要に合わせ、`facebook`、`twitter`、`linkedin`、`google`、`github`、`bitbucket`キーを使用してください。一例をご覧ください。
+Socialiteを使用する前に、アプリケーションで使用するOAuthサービスの認証情報も追加する必要があります。認証情報は`config/services.php`設定ファイルで指定し、アプリケーションの必要に合わせ、`facebook`、`twitter`、`linkedin`、`google`、`github`、`bitbucket`キーを使用してください。一例をご覧ください。
 
     'github' => [
         'client_id' => env('GITHUB_CLIENT_ID'),         // GitHubのClient ID
