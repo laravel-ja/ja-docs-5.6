@@ -5,6 +5,7 @@
     - [The Public Disk](#the-public-disk)
     - [The Local Driver](#the-local-driver)
     - [Driver Prerequisites](#driver-prerequisites)
+    - [Caching](#caching)
 - [Obtaining Disk Instances](#obtaining-disk-instances)
 - [Retrieving Files](#retrieving-files)
     - [Downloading Files](#downloading-files)
@@ -60,6 +61,10 @@ Before using the SFTP, S3, or Rackspace drivers, you will need to install the ap
 - Amazon S3: `league/flysystem-aws-s3-v3 ~1.0`
 - Rackspace: `league/flysystem-rackspace ~1.0`
 
+An absolute must for performance is to use a cached adapter. You will need an additional package for this:
+
+- CachedAdapter: `league/flysystem-cached-adapter ~1.0`
+
 #### S3 Driver Configuration
 
 The S3 driver configuration information is located in your `config/filesystems.php` configuration file. This file contains an example configuration array for an S3 driver. You are free to modify this array with your own S3 configuration and credentials. For convenience, these environment variables match the naming convention used by the AWS CLI.
@@ -114,6 +119,23 @@ Laravel's Flysystem integrations works great with Rackspace; however, a sample c
         'endpoint'  => 'https://identity.api.rackspacecloud.com/v2.0/',
         'region'    => 'IAD',
         'url_type'  => 'publicURL',
+    ],
+
+<a name="caching"></a>
+### Caching
+
+To enable caching for a given disk, you may add a `cache` directive to the disk's configuration options. The `cache` option should be an array of caching options containing the `disk` name, the `expire` time in seconds, and the cache `prefix`:
+
+    's3' => [
+        'driver' => 's3',
+
+        // Other Disk Options...
+
+        'cache' => [
+            'store' => 'memcached',
+            'expire' => 600,
+            'prefix' => 'cache-prefix',
+        ],
     ],
 
 <a name="obtaining-disk-instances"></a>

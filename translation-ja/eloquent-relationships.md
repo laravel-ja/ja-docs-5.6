@@ -189,7 +189,7 @@ Eloquentは、`Comment`モデルに対する外部キーを自動的に決める
 
 もちろん、全リレーションはクエリビルダとしても働きますから、`comments`メソッドを呼び出すときにどのコメントを取得するのかという制約を追加でき、クエリに条件を続けてチェーンでつなげます。
 
-    $comments = App\Post::find(1)->comments()->where('title', 'foo')->first();
+    $comment = App\Post::find(1)->comments()->where('title', 'foo')->first();
 
 `hasOne`メソッドと同様に、外部キーとローカルキーを`hasMany`メソッドに追加の引数として渡すことでオーバーライドできます。
 

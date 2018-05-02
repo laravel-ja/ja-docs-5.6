@@ -15,25 +15,25 @@ Laravel5.6の動作には、PHPバージョン7.1.3以上が必要です。
 
 ### 依存パッケージのアップデート
 
-`composer.json`ファイルの`laravel/framework`依存指定を`5.6.*`に、`fideloper/proxy`依存指定を`~4.0`へアップデートしてください。
+`composer.json`ファイルの`laravel/framework`依存指定を`5.6.*`に、`fideloper/proxy`依存指定を`^4.0`へアップデートしてください。
 
 さらに、以下のファーストパーティLaravelパッケージを使用している場合は、最新のリリースへアップグレードしてください。
 
 <div class="content-list" markdown="1">
-- Dusk (`~3.0`へアップグレード)
-- Passport (`~5.0`へアップグレード)
-- Scout (`~4.0`へアップグレード)
+- Dusk (`^3.0`へアップグレード)
+- Passport (`^5.0`へアップグレード)
+- Scout (`^4.0`へアップグレード)
 </div>
 
 もちろん、アプリケーションで使用しているサードパーティパッケージについても調査し、Laravel5.6をサポートしているバージョンを使用していることを確認してください。
 
 #### Symfony4
 
-Laravelを動作させるために使用している、すべてのSymfonyコンポーネントは、Symfony `~4.0`シリーズへアップグレードされました。アプリケーションで直接Symfonyコンポーネントを取り扱っている場合は、[Symfonyの変更ログ](https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md)をレビューすべきでしょう。
+Laravelを動作させるために使用している、すべてのSymfonyコンポーネントは、Symfony `^4.0`シリーズへアップグレードされました。アプリケーションで直接Symfonyコンポーネントを取り扱っている場合は、[Symfonyの変更ログ](https://github.com/symfony/symfony/blob/master/UPGRADE-4.0.md)をレビューすべきでしょう。
 
 #### PHPUnit
 
-アプリケーションの`phpunit/phpunit`依存指定は、`~7.0`にアップグレードしてください。
+アプリケーションの`phpunit/phpunit`依存指定は、`^7.0`にアップグレードしてください。
 
 ### 配列
 

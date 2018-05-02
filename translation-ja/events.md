@@ -92,7 +92,7 @@ Laravelアプリケーションに含まれている`EventServiceProvider`は、
         /**
          * 新しいイベントインスタンスの生成
          *
-         * @param  Order  $order
+         * @param  \App\Order  $order
          * @return void
          */
         public function __construct(Order $order)
@@ -129,7 +129,7 @@ Laravelアプリケーションに含まれている`EventServiceProvider`は、
         /**
          * イベントの処理
          *
-         * @param  OrderShipped  $event
+         * @param  \App\Events\OrderShipped  $event
          * @return void
          */
         public function handle(OrderShipped $event)
@@ -325,7 +325,7 @@ Laravelアプリケーションに含まれている`EventServiceProvider`は、
         /**
          * 購読するリスナの登録
          *
-         * @param  Illuminate\Events\Dispatcher  $events
+         * @param  \Illuminate\Events\Dispatcher  $events
          */
         public function subscribe($events)
         {

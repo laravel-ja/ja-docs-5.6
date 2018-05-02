@@ -79,13 +79,15 @@ Laravelにはイベント、ジョブ、ファサードを最初からモック�
                 return $e->order->id === $order->id;
             });
 
-            // Assert an event was dispatched twice...
+            // イベントが２回ディスパッチされることをアサート
             Event::assertDispatched(OrderShipped::class, 2);
 
-            // Assert an event was not dispatched...
+            // イベントがディスパッチされないことをアサート
             Event::assertNotDispatched(OrderFailedToShip::class);
         }
     }
+
+> {note} `Event::fake()`を呼び出したあとは、イベントリスナは実行されなくなります。そのため例えば、モデルの`creating`イベントでUUIDを生成するなど、イベントに結びつけたモデルファクトリの使用をテストする場合は、ファクトリを呼び出した**後に**、`Event::fake()`を呼び出す必要があります。
 
 <a name="mail-fake"></a>
 ## Mail Fake

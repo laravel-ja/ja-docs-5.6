@@ -237,7 +237,7 @@ Laravelの`Schema`[ファサード](/docs/{{version}}/facades)は、テーブル
 `$table->mediumIncrements('id');`  |  符号なしMEDIUMINTを使用した自動増分ID（主キー）
 `$table->mediumInteger('votes');`  |  MEDIUMINTカラム
 `$table->mediumText('description');`  |  MEDIUMTEXTカラム
-`$table->morphs('taggable');`  |  符号なしINTERGERの`taggable_id`と文字列の`taggable_type`を追加
+`$table->morphs('taggable');`  |  符号なしBIGINTの`taggable_id`と文字列の`taggable_type`を追加
 `$table->multiLineString('positions');`  |  MULTILINESTRINGカラム
 `$table->multiPoint('positions');`  |  MULTIPOINTカラム
 `$table->multiPolygon('positions');`  |  MULTIPOLYGONカラム

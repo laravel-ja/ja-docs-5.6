@@ -220,3 +220,17 @@
     $user->options = $options;
 
     $user->save();
+
+<a name="date-casting"></a>
+### 日付のキャスト
+
+`date`や`datetime`キャストタイプを使用する場合、日付のフォーマットを指定できます。このフォーマットは、[モデルを配列やJSONへシリアライズする](/docs/{{version}}/eloquent-serialization)場合に使用します。
+
+    /**
+     * ネイティブのタイプへキャストする属性
+     *
+     * @var array
+     */
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+    ];

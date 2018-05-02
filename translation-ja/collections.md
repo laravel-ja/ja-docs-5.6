@@ -1227,6 +1227,14 @@ staticの`make`メソッドは、新しいコレクションインスタンス�
         return $i < 3;
     });
 
+    $underThree->all();
+
+    // [1, 2]
+
+    $aboveThree->all();
+
+    // [3, 4, 5, 6]
+
 <a name="method-pipe"></a>
 #### `pipe()` {#collection-method}
 
@@ -1751,7 +1759,7 @@ sliceメソッドはデフォルトでキー値を保持したまま返します
 
     // [9, 18, 27, 36, 45, 54, 63, 72, 81, 90]
 
-このメソッドはファクトリーと組み合わせ、[Eloquent](/docs/{{version}}/eloquent)モデルを生成する場合に便利です。
+このメソッドはファクトリと組み合わせ、[Eloquent](/docs/{{version}}/eloquent)モデルを生成する場合に便利です。
 
     $categories = Collection::times(3, function ($number) {
         return factory(Category::class)->create(['name' => 'Category #'.$number]);
