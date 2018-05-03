@@ -1235,7 +1235,7 @@ CircleCI1.0を使用し、Duskテストを実行する場合、以下の設定�
         override:
             - php artisan dusk
 
- #### CircleCI 2.0
+#### CircleCI 2.0
 
 DuskテストにCircleCI2.0を使用する場合、ビルドに以下のステップを追加してください。
 
