@@ -388,7 +388,7 @@ WHEREの結合にチェーンで`or`節をクエリに追加できます。`orWh
 `whereTime`メソッドはカラム地と、指定した時間を比較します。
 
     $users = DB::table('users')
-                    ->whereTime('created_at', '=', '11:20')
+                    ->whereTime('created_at', '=', '11:20:45')
                     ->get();
 
 **whereColumn**

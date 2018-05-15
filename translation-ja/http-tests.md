@@ -227,6 +227,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 
 [assertCookie](#assert-cookie)
 [assertCookieExpired](#assert-cookie-expired)
+[assertCookieNotExpired](#assert-cookie-not-expired)
 [assertCookieMissing](#assert-cookie-missing)
 [assertDontSee](#assert-dont-see)
 [assertDontSeeText](#assert-dont-see-text)
@@ -275,6 +276,13 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 レスポンスが指定したクッキーを持っており、期限切れであることを宣言。
 
     $response->assertCookieExpired($cookieName);
+
+<a name="assert-cookie-not-expired"></a>
+#### assertCookieNotExpired
+
+レスポンスが指定したクッキーを持っており、期限切れでないことを宣言。
+
+    $response->assertCookieNotExpired($cookieName);
 
 <a name="assert-cookie-missing"></a>
 #### assertCookieMissing

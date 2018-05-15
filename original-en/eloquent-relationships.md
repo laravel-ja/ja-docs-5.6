@@ -725,6 +725,12 @@ If you need even more power, you may use the `whereDoesntHave` and `orWhereDoesn
         $query->where('content', 'like', 'foo%');
     })->get();
 
+You may use "dot" notation to execute a query against a nested relationship. For example, the following query will retrieve all posts with comments from authors that are not banned:
+
+    $posts = App\Post::whereDoesntHave('comments.author', function ($query) {
+        $query->where('banned', 1);
+    })->get();
+
 <a name="counting-related-models"></a>
 ### Counting Related Models
 

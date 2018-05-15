@@ -8,6 +8,7 @@
     - [Per Project Installation](#per-project-installation)
     - [Installing MariaDB](#installing-mariadb)
     - [Installing Elasticsearch](#installing-elasticsearch)
+    - [Installing Neo4j](#installing-neo4j)
     - [Aliases](#aliases)
 - [Daily Usage](#daily-usage)
     - [Accessing Homestead Globally](#accessing-homestead-globally)
@@ -17,6 +18,7 @@
     - [Environment Variables](#environment-variables)
     - [Configuring Cron Schedules](#configuring-cron-schedules)
     - [Configuring Mailhog](#configuring-mailhog)
+    - [Configuring Minio](#configuring-minio)
     - [Ports](#ports)
     - [Sharing Your Environment](#sharing-your-environment)
     - [Multiple PHP Versions](#multiple-php-versions)
@@ -42,7 +44,7 @@ Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web 
 ### Included Software
 
 <div class="content-list" markdown="1">
-- Ubuntu 16.04
+- Ubuntu 18.04
 - Git
 - PHP 7.2
 - PHP 7.1
@@ -65,6 +67,7 @@ Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web 
 - wp-cli
 - Zend Z-Ray
 - Go
+- Minio
 </div>
 
 <a name="installation-and-setup"></a>
@@ -100,7 +103,7 @@ You should check out a tagged version of Homestead since the `master` branch may
     cd ~/Homestead
 
     // Clone the desired release...
-    git checkout v7.4.0
+    git checkout v7.4.2
 
 Once you have cloned the Homestead repository, run the `bash init.sh` command from the Homestead directory to create the `Homestead.yaml` configuration file. The `Homestead.yaml` file will be placed in the Homestead directory:
 
@@ -228,6 +231,15 @@ To install Elasticsearch, add the `elasticsearch` option to your `Homestead.yaml
     elasticsearch: 6
 
 > {tip} Check out the [Elasticsearch documentation](https://www.elastic.co/guide/en/elasticsearch/reference/current) to learn how to customize your configuration.
+
+<a name="installing-neo4j"></a>
+### Installing Neo4j
+
+[Neo4j](https://neo4j.com/) is a graph database management system. To install Neo4j Community Edition, update your `Homestead.yaml` file with the following configuration option:
+
+    neo4j: true
+
+The default installation will set the database username to `homestead` and corresponding password to `secret`. To access the Neo4j browser, visit `http://homestead.test:7474` via your web browser. The ports `7687` (Bolt), `7474` (HTTP), and `7473` (HTTPS) are ready to serve requests from the Neo4j client.
 
 <a name="aliases"></a>
 ### Aliases
@@ -369,11 +381,38 @@ Mailhog allows you to easily catch your outgoing email and examine it without ac
     MAIL_PASSWORD=null
     MAIL_ENCRYPTION=null
 
+<a name="configuring-minio"></a>
+### Configuring Minio
+
+Minio provides an S3 compatible storage layer on your Homestead machine via port 9600. To use Minio, update your `Homestead.yaml` file with the following configuration option:
+
+    minio: true
+
+Next, you will need to adjust the S3 disk configuration in your `config/filesystems.php` configuration file. You should add the `use_path_style_endpoint` option to the disk configuration, as well as update the `url` key to `endpoint`:
+
+    's3' => [
+        'driver' => 's3',
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION'),
+        'bucket' => env('AWS_BUCKET'),
+        'endpoint' => env('AWS_URL'),
+        'use_path_style_endpoint' => true
+    ]
+
+Finally, you should update your `.env` file with the proper `AWS_URL`:
+
+    AWS_ACCESS_KEY_ID=homestead
+    AWS_SECRET_ACCESS_KEY=secretkey
+    AWS_DEFAULT_REGION=us-east-1
+    AWS_URL=http://homestead:9600
+
 <a name="ports"></a>
 ### Ports
 
 By default, the following ports are forwarded to your Homestead environment:
 
+<div class="content-list" markdown="1">
 - **SSH:** 2222 &rarr; Forwards To 22
 - **ngrok UI:** 4040 &rarr; Forwards To 4040
 - **HTTP:** 8000 &rarr; Forwards To 80
@@ -381,6 +420,8 @@ By default, the following ports are forwarded to your Homestead environment:
 - **MySQL:** 33060 &rarr; Forwards To 3306
 - **PostgreSQL:** 54320 &rarr; Forwards To 5432
 - **Mailhog:** 8025 &rarr; Forwards To 8025
+- **Minio:** 9600 &rarr; Forwards To 9600
+</div>
 
 #### Forwarding Additional Ports
 

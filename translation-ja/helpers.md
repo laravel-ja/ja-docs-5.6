@@ -1188,7 +1188,7 @@ NULL値を指定すると、空の配列が返ってきます。
 <a name="method-class-uses-recursive"></a>
 #### `class_uses_recursive()` {#collection-method}
 
-`class_uses_recursive`関数は、全サブクラスで使われているものも含め、クラス中で使用されているトレイトを全て返します。
+`class_uses_recursive`関数は、すべての親で使われているものも含め、クラス中で使用されているトレイトを全て返します。
 
     $traits = class_uses_recursive(App\User::class);
 

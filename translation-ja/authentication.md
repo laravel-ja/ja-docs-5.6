@@ -527,7 +527,7 @@ PHP FastCGIを使用している場合、初期状態のままでHTTP基本認�
 <a name="the-authenticatable-contract"></a>
 ### Authenticatable契約
 
-これで`UserProvider`の各メソッドが明らかになりました。続いて`Authenticatable`契約を見てみましょう。プロバイダは`retrieveById`と`retrieveByCredentials`メソッドでこのインターフェイスの実装を返していたことを思い出してください。
+これで`UserProvider`の各メソッドが明らかになりました。続いて`Authenticatable`契約を見てみましょう。プロバイダは`retrieveById`と`retrieveByToken`、`retrieveByCredentials`メソッドでこのインターフェイスの実装を返していたことを思い出してください。
 
     <?php
 

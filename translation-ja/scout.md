@@ -169,6 +169,10 @@ Scoutはデフォルトとして、モデルの主キーを検索インデック
 
     php artisan scout:import "App\Post"
 
+`flush`コマンドは、検索インデックスからモデルの全レコードを削除するために使用します。
+
+    php artisan scout:flush "App\Post"
+
 <a name="adding-records"></a>
 ### レコード追加
 

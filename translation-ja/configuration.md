@@ -108,6 +108,10 @@ null | (null) null
 
     php artisan down --message="Upgrading Database" --retry=60
 
+コマンドの`allow`オプションを使用し、メンテナンスモードであっても、アプリケーションへアクセスを許すIPアドレスやネットワークを指定できます。
+
+    php artisan down --allow=127.0.0.1 --allow=192.168.0.0/16
+
 メンテナンスモードから抜けるには、`up`コマンドを使います。
 
     php artisan up

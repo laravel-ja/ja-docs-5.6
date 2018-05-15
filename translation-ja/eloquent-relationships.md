@@ -725,6 +725,12 @@ Eloquentリレーションは全てメソッドとして定義されているた
         $query->where('content', 'like', 'foo%');
     })->get();
 
+「ドット」記法を使い、ネストしたリレーションに対してクエリを実行できます。たとえば、以下のクエリにより、アカウントを無効(ban)されていない著者の、コメントが存在するすべてのポストを取得できます。
+
+    $posts = App\Post::whereDoesntHave('comments.author', function ($query) {
+        $query->where('banned', 1);
+    })->get();
+
 <a name="counting-related-models"></a>
 ### 関連するモデルのカウント
 

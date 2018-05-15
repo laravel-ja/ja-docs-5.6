@@ -317,6 +317,7 @@ Laravelアプリケーションに含まれる`User`モデルは、アクショ�
          * @param  Request  $request
          * @param  Post  $post
          * @return Response
+         * @throws \Illuminate\Auth\Access\AuthorizationException
          */
         public function update(Request $request, Post $post)
         {
@@ -335,6 +336,7 @@ Laravelアプリケーションに含まれる`User`モデルは、アクショ�
      *
      * @param  Request  $request
      * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create(Request $request)
     {

@@ -8,6 +8,7 @@
     - [プロジェクトごとのインストール](#per-project-installation)
     - [MariaDBのインストール](#installing-mariadb)
     - [Elasticsearchのインストール](#installing-elasticsearch)
+    - [Neo4jのインストール](#installing-neo4j)
     - [エイリアス](#aliases)
 - [使用方法](#daily-usage)
     - [Homesteadへのグローバルアクセス](#accessing-homestead-globally)
@@ -17,6 +18,7 @@
     - [環境変数](#environment-variables)
     - [Cronスケジュール設定](#configuring-cron-schedules)
     - [Mailhogの設定](#configuring-mailhog)
+    - [Minioの設定](#configuring-minio)
     - [ポート](#ports)
     - [環境の共有](#sharing-your-environment)
     - [複数のPHPバージョン](#multiple-php-versions)
@@ -42,7 +44,7 @@ HomesteadはWindowsやMac、Linuxシステム上で実行でき、Nginx Webサ�
 ### 含まれるソフトウェア
 
 <div class="content-list" markdown="1">
-- Ubuntu 16.04
+- Ubuntu 18.04
 - Git
 - PHP 7.2
 - PHP 7.1
@@ -65,6 +67,7 @@ HomesteadはWindowsやMac、Linuxシステム上で実行でき、Nginx Webサ�
 - wp-cli
 - Zend Z-Ray
 - Go
+- Minio
 </div>
 
 <a name="installation-and-setup"></a>
@@ -100,7 +103,7 @@ VirtualBox/VMwareとVagrantをインストールし終えたら、`laravel/homes
     cd ~/Homestead
 
     // クローンしたいリリースバージョン
-    git checkout v7.4.0
+    git checkout v7.4.2
 
 Homesteadリポジトリをクローンしたら、`Homestead.yaml`設定ファイルを生成するために、`bash init.sh`コマンドをHomesteadディレクトリで実行します。
 
@@ -228,6 +231,15 @@ Elasticsearchをインストールするには、`Homestead.yaml`ファイルへ
     elasticsearch: 6
 
 > {tip} 設定のカスタマイズについては、[Elasticsearchのドキュメント](https://www.elastic.co/guide/en/elasticsearch/reference/current)を確認してください。
+
+<a name="installing-neo4j"></a>
+### Neo4jのインストール
+
+[Neo4j](https://neo4j.com/)はグラフデータベース管理システムです。Neo4jコミュニティエディションをインストールするには、`Homestead.yaml`で以下の設定オプションを指定してください。
+
+    neo4j: true
+
+デフォルトのインストール状態では、データベースのユーザー名を`homestead`、パスワードを`secret`に設定します。Neo4jへアクセスするには、ブラウザで`http://homestead.test:7474`を訪れてください。Neo4jクライアントから、`7687` (Bolt)、`7474` (HTTP)、`7473` (HTTPS)ポートで、リクエストを受け付けるようになっています。
 
 <a name="aliases"></a>
 ### エイリアス
@@ -369,11 +381,38 @@ Mailhogを使用すると、簡単に送信するメールを捉えることが�
     MAIL_PASSWORD=null
     MAIL_ENCRYPTION=null
 
+<a name="configuring-minio"></a>
+### Minioの設定
+
+Minioは9600ポートを使用し、Homesteadマシン上でS3互換のストレージ層を提供します。Minioを使用するには、`Homestead.yaml`の以下の項目を設定してください。
+
+    minio: true
+
+次に、`config/filesystems.php`設定ファイルのS3ディスク設定を調整する必要があります。`use_path_style_endpoint`オプションを追加し、同時に`endpoint`の`url`を更新してください。
+
+    's3' => [
+        'driver' => 's3',
+        'key' => env('AWS_ACCESS_KEY_ID'),
+        'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        'region' => env('AWS_DEFAULT_REGION'),
+        'bucket' => env('AWS_BUCKET'),
+        'endpoint' => env('AWS_URL'),
+        'use_path_style_endpoint' => true
+    ]
+
+最後に、実際の`AWS_URL`を`.env`ファイルで指定してください。
+
+    AWS_ACCESS_KEY_ID=homestead
+    AWS_SECRET_ACCESS_KEY=secretkey
+    AWS_DEFAULT_REGION=us-east-1
+    AWS_URL=http://homestead:9600
+
 <a name="ports"></a>
 ### ポート
 
 以下のポートが、Homestead環境へポートフォワードされています。
 
+<div class="content-list" markdown="1">
 - **SSH:** 2222 &rarr;  フォワード先 22
 - **ngrok UI:** 4040 &rarr; フォワード先 4040
 - **HTTP:** 8000 &rarr; フォワード先 80
@@ -381,6 +420,8 @@ Mailhogを使用すると、簡単に送信するメールを捉えることが�
 - **MySQL:** 33060 &rarr; フォワード先 3306
 - **PostgreSQL:** 54320 &rarr; フォワード先 5432
 - **Mailhog:** 8025 &rarr; フォワード先 8025
+- **Minio:** 9600 &rarr; フォワード先 9600
+</div>
 
 #### 追加のフォワードポート
 
