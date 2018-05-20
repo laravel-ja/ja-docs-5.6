@@ -120,7 +120,7 @@ Laravelのサービスコンテナを深く理解することは、パワフル�
         'App\Services\RedisEventPusher'
     );
 
-上記の例は、`EventPusher`の実装クラスが必要な時に、コンテナが`RedisEventPusher`を注入するという意味です。ではコンストラクタか、もしくはサービスコンテナが依存を注入できる場所で、`EventPusher`インターフェイスをタイプヒントで指定してみましょう。。
+上記の例は、`EventPusher`の実装クラスが必要な時に、コンテナが`RedisEventPusher`を注入するという意味です。ではコンストラクタか、もしくはサービスコンテナが依存を注入できる場所で、`EventPusher`インターフェイスをタイプヒントで指定してみましょう。
 
     use App\Contracts\EventPusher;
 
