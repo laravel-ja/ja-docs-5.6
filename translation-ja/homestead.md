@@ -328,7 +328,7 @@ Laravelベースではないプロジェクトも簡単に実行できるよう�
           to: /home/vagrant/code/Symfony/web
           type: "symfony2"
 
-指定できるサイトタイプは`apache`、`laravel`（デフォルト）、`proxy`、`silverstripe`、`statamic`、`symfony2`、`symfony4`です。
+指定できるサイトタイプは`apache`、`apigility`、`expressive`、`laravel`（デフォルト）、`proxy`、`silverstripe`、`statamic`、`symfony2`、`symfony4`、`zf`です。
 
 <a name="site-parameters"></a>
 #### サイトパラメータ

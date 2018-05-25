@@ -64,7 +64,7 @@ Nginxを実行しているサーバにアプリケーションをデプロイす
 
 プロダクションへデプロイする場合、Composerのクラスオートローダマップを最適し、Composerが素早く指定されたクラスのファイルを確実に見つけ、ロードできるようにします。
 
-    composer install --optimize-autoloader
+    composer install --optimize-autoloader --no-dev
 
 > {tip} オートローダを最適化することに加え、プロジェクトのソースコントロールリポジトリへ、`composer.lock`ファイルをいつも確実に含めましょう。`composer.lock`ファイルが存在すると、プロジェクトの依存パッケージのインストールが、より早くなります。
 
