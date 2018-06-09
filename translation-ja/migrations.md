@@ -15,6 +15,7 @@
     - [カラム削除](#dropping-columns)
 - [インデックス](#indexes)
     - [インデックス作成](#creating-indexes)
+    - [インデックス名変更](#renaming-indexes)
     - [インデックス削除](#dropping-indexes)
     - [外部キー制約](#foreign-key-constraints)
 
@@ -408,6 +409,13 @@ Laravelはデータベース中への「絵文字」保存をサポートする�
     }
 
 もしくは、データベースの`innodb_large_prefix`オプションを有効にする方法もあります。このオプションを各自に有効にする方法は、使用するデータベースのドキュメントを参照してください。
+
+<a name="renaming-indexes"></a>
+### インデックス名変更
+
+インデックス名を変更するためには、`renameIndex`メソッドを使用します。このメソッドは最初の引数として現在のインデックス名を受け取り、２つ目の引数として変更後の名前を受け取ります。
+
+    $table->renameIndex('from', 'to')
 
 <a name="dropping-indexes"></a>
 ### インデックス削除

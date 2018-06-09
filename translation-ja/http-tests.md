@@ -242,6 +242,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 [assertJsonMissingExact](#assert-json-missing-exact)
 [assertJsonStructure](#assert-json-structure)
 [assertJsonValidationErrors](#assert-json-validation-errors)
+[assertLocation](#assert-location)
 [assertNotFound](#assert-not-found)
 [assertPlainCookie](#assert-plain-cookie)
 [assertRedirect](#assert-redirect)
@@ -253,6 +254,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 [assertSessionHasAll](#assert-session-has-all)
 [assertSessionHasErrors](#assert-session-has-errors)
 [assertSessionHasErrorsIn](#assert-session-has-errors-in)
+[assertSessionHasNoErrors](#assert-session-has-no-errors)
 [assertSessionMissing](#assert-session-missing)
 [assertStatus](#assert-status)
 [assertSuccessful](#assert-successful)
@@ -382,6 +384,13 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 
     $response->assertJsonValidationErrors($keys);
 
+<a name="assert-location"></a>
+#### assertLocation
+
+レスポンスの`Location`ヘッダが、指定したURIを持つことを宣言。
+
+    $response->assertLocation($uri);
+
 <a name="assert-not-found"></a>
 #### assertNotFound
 
@@ -458,6 +467,13 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 セッションが指定したエラーを持っていることを宣言。
 
     $response->assertSessionHasErrorsIn($errorBag, $keys = [], $format = null);
+
+<a name="assert-session-has-no-errors"></a>
+#### assertSessionHasNoErrors
+
+セッションがエラーを持っていないことを宣言。
+
+    $response->assertSessionHasNoErrors();
 
 <a name="assert-session-missing"></a>
 #### assertSessionMissing

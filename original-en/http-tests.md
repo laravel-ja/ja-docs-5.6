@@ -242,6 +242,7 @@ Laravel provides a variety of custom assertion methods for your [PHPUnit](https:
 [assertJsonMissingExact](#assert-json-missing-exact)
 [assertJsonStructure](#assert-json-structure)
 [assertJsonValidationErrors](#assert-json-validation-errors)
+[assertLocation](#assert-location)
 [assertNotFound](#assert-not-found)
 [assertPlainCookie](#assert-plain-cookie)
 [assertRedirect](#assert-redirect)
@@ -253,6 +254,7 @@ Laravel provides a variety of custom assertion methods for your [PHPUnit](https:
 [assertSessionHasAll](#assert-session-has-all)
 [assertSessionHasErrors](#assert-session-has-errors)
 [assertSessionHasErrorsIn](#assert-session-has-errors-in)
+[assertSessionHasNoErrors](#assert-session-has-no-errors)
 [assertSessionMissing](#assert-session-missing)
 [assertStatus](#assert-status)
 [assertSuccessful](#assert-successful)
@@ -382,6 +384,13 @@ Assert that the response has the given JSON validation errors for the given keys
 
     $response->assertJsonValidationErrors($keys);
 
+<a name="assert-location"></a>
+#### assertLocation
+
+Assert that the response has the given URI value in the `Location` header:
+
+    $response->assertLocation($uri);
+
 <a name="assert-not-found"></a>
 #### assertNotFound
 
@@ -458,6 +467,13 @@ Assert that the session contains an error for the given field:
 Assert that the session has the given errors:
 
     $response->assertSessionHasErrorsIn($errorBag, $keys = [], $format = null);
+
+<a name="assert-session-has-no-errors"></a>
+#### assertSessionHasNoErrors
+
+Assert that the session has no errors:
+
+    $response->assertSessionHasNoErrors();
 
 <a name="assert-session-missing"></a>
 #### assertSessionMissing

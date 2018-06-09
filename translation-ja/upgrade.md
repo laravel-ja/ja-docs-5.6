@@ -188,7 +188,7 @@ Laravelが使用しているSymfony HttpFoundationの、信頼するプロキシ
     /**
      * プロキシを検出するために使用するヘッダ
      *
-     * @var string
+     * @var int
      */
     protected $headers = Request::HEADER_X_FORWARDED_ALL;
 

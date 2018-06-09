@@ -724,12 +724,12 @@ _ratio_制約は、横／縦比を表します。`3/2`という指定も、`1.5`
 <a name="rule-gt"></a>
 #### gt:_field_
 
-フィールドが、指定した**フィールド**より大きいことをバリデーションします。２つのフィールドは、同じタイプである必要があります。文字列、数値、配列、ファイルは`size`ルールと同じ規約により評価します。
+The field under validation must be greater than the given _field_. The two fields must be of the same type. Strings, numerics, arrays, and files are evaluated using the same conventions as the `size` rule.
 
 <a name="rule-gte"></a>
 #### gte:_field_
 
-フィールドが、指定した**フィールド**以上であることをバリデーションします。２つのフィールドは、同じタイプである必要があります。文字列、数値、配列、ファイルは`size`ルールと同じ規約により評価します。
+The field under validation must be greater than or equal to the given _field_. The two fields must be of the same type. Strings, numerics, arrays, and files are evaluated using the same conventions as the `size` rule.
 
 <a name="rule-image"></a>
 #### image
@@ -781,12 +781,12 @@ _ratio_制約は、横／縦比を表します。`3/2`という指定も、`1.5`
 <a name="rule-lt"></a>
 #### lt:_field_
 
-フィールドが、指定した**フィールド**より小さいことをバリデーションします。２つのフィールドは、同じタイプである必要があります。文字列、数値、配列、ファイルは`size`ルールと同じ規約により評価します。
+The field under validation must be less than the given _field_. The two fields must be of the same type. Strings, numerics, arrays, and files are evaluated using the same conventions as the `size` rule.
 
 <a name="rule-lte"></a>
 #### lte:_field_
 
-フィールドが、指定した**フィールド**以下であることをバリデーションします。２つのフィールドは、同じタイプである必要があります。文字列、数値、配列、ファイルは`size`ルールと同じ規約により評価します。
+The field under validation must be less than or equal to the given _field_. The two fields must be of the same type. Strings, numerics, arrays, and files are evaluated using the same conventions as the `size` rule.
 
 <a name="rule-max"></a>
 #### max:_値_

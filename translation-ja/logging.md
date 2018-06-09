@@ -196,22 +196,36 @@ Monologはデフォルトで`production`や`local`のような、現在の環境
 
 Monologはバラエティーに富んだ[利用可能なハンドラ](https://github.com/Seldaek/monolog/tree/master/src/Monolog/Handler)を用意しています。あるケースでは、生成したいロガーのタイプが、単に特定のハンドラを持つMonologドライバであることがあります。こうしたチャンネルは`monolog`ドライバーを使用し、生成できます。
 
-`monolog`ドライバーを使用時、`handler`設定オプションでインスタンス化するハンドラを指定します。
-
-    'newrelic' => [
-        'driver'  => 'monolog',
-        'handler' => Monolog\Handler\NewRelicHandler::class,
-    ],
-
-ハンドラが必要とするコンストラクタパラメータは、`with`設定オプションで指定できます。
+`monolog`ドライバーを使用する場合、インスタンス化するハンドラを指定するために、`handler`設定オプションを使います。任意のコンストラクタパラメータを指定する必要がある場合は、`handler_with`設定オプションを使用します。
 
     'logentries' => [
         'driver'  => 'monolog',
         'handler' => Monolog\Handler\SyslogUdpHandler::class,
-        'with'    => [
+        'handler_with' => [
             'host' => 'my.logentries.internal.datahubhost.company.com',
             'port' => '10000',
         ],
+    ],
+
+#### Monologフォーマッター
+
+`monolog`ドライバーを使用する場合、Monolog `LineFormatter`をデフォルトフォーマッターとして使用します。しかし、フォーマッターのタイプをカスタマイズする必要がある場合は、`formatter`と`formatter_with`設定オプションを使用します。
+
+    'browser' => [
+        'driver' => 'monolog',
+        'handler' => Monolog\Handler\BrowserConsoleHandler::class,
+        'formatter' => Monolog\Formatter\HtmlFormatter::class,
+        'formatter_with' => [
+            'dateFormat' => 'Y-m-d',
+        ],
+    ],
+
+Monologハンドラが提供する自身のフォーマッターを使用する場合は、`formatter`設定オプションに`default`を値として指定してください。
+
+    'newrelic' => [
+        'driver' => 'monolog',
+        'handler' => Monolog\Handler\NewRelicHandler::class,
+        'formatter' => 'default',
     ],
 
 <a name="creating-channels-via-factories"></a>

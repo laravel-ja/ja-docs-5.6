@@ -53,7 +53,7 @@ Read/Write接続を理解してもらうため、以下の例をご覧くださ�
         'database'  => 'database',
         'username'  => 'root',
         'password'  => '',
-        'charset' => 'utf8mb4',
+        'charset'   => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
         'prefix'    => '',
     ],

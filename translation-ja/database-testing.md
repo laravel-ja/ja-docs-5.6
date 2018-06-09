@@ -5,6 +5,7 @@
 - [各テスト後のデータベースリセット](#resetting-the-database-after-each-test)
 - [ファクトリの記述](#writing-factories)
     - [ファクトリステート](#factory-states)
+    - [ファクトリコールバック](#factory-callbacks)
 - [ファクトリの使用](#using-factories)
     - [モデルの生成](#creating-models)
     - [モデルの保存](#persisting-models)
@@ -109,6 +110,29 @@ Laravelでは、データベースを駆動するアプリケーションのテ�
         return [
             'address' => $faker->address,
         ];
+    });
+
+<a name="factory-callbacks"></a>
+### ファクトリコールバック
+
+ファクトリコールバックは`afterMaking`と`afterCreating`メソッドを使用し登録し、モデルを作成、もしくは生成した後の追加タスクを実行できるようにします。例として、生成したモデルに追加のモデルを関係づけるコールバックを利用してみましょう。
+
+    $factory->afterMaking(App\User::class, function ($user, $faker) {
+        // ...
+    });
+
+    $factory->afterCreating(App\User::class, function ($user, $faker) {
+        $user->accounts()->save(factory(App\Account::class)->make());
+    });
+
+[ファクトリステート](#factory-states)のために、コールバックを定義することも可能です。
+
+    $factory->afterMakingState(App\User::class, 'delinquent', function ($user, $faker) {
+        // ...
+    });
+
+    $factory->afterCreatingState(App\User::class, 'delinquent', function ($user, $faker) {
+        // ...
     });
 
 <a name="using-factories"></a>
