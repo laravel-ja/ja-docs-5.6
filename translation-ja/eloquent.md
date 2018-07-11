@@ -19,6 +19,7 @@
 - [クエリスコープ](#query-scopes)
     - [グローバルスコープ](#global-scopes)
     - [ローカルスコープ](#local-scopes)
+- [モデルの比較](#comparing-models)
 - [イベント](#events)
     - [オブザーバ](#observers)
 
@@ -715,6 +716,15 @@ Or, if you defined the global scope using a Closure:
 
     $users = App\User::ofType('admin')->get();
 
+<a name="comparing-models"></a>
+## モデルの比較
+
+時に２つのモデルが「同じ」であるかを判定する必要が起きるでしょう。`is`メソッドは２つのモデルが、同じ主キー、テーブル、データベース接続を持っているかを確認します。
+
+    if ($post->is($anotherPost)) {
+        //
+    }
+
 <a name="events"></a>
 ## イベント
 
@@ -751,7 +761,13 @@ Eloquentモデルは多くのイベントを発行します。`creating`、`crea
 <a name="observers"></a>
 ### オブザーバ
 
-特定のモデルに対し、多くのイベントをリスニングしている場合、全リスナのグループに対するオブザーバを一つのクラスの中で使用できます。オブザーバクラスは、リッスンしたいEloquentイベントに対応する名前のメソッドを持ちます。これらのメソッドは、唯一の引数としてモデルを受け取ります。Laravelはオブザーバのためのデフォルトディレクトリを用意していませんので、オブザーバクラスを設置するディレクトリを作成してください。
+#### オブザーバの定義
+
+特定のモデルに対し、多くのイベントをリスニングしている場合、全リスナのグループに対するオブザーバを一つのクラスの中で使用できます。オブザーバクラスは、リッスンしたいEloquentイベントに対応する名前のメソッドを持ちます。これらのメソッドは、唯一の引数としてモデルを受け取ります。`make:observer`　Artisanコマンドで、新しいオブザーバクラスを簡単に生成できます。
+
+    php artisan make:observer UserObserver --model=User
+
+このコマンドは、`App/Observers`ディレクトリへ新しいオブザーバを設置します。このディレクトリが存在しなければ、Artisanが作成します。真新しいオブザーバは、次の通りです。
 
     <?php
 
@@ -762,7 +778,7 @@ Eloquentモデルは多くのイベントを発行します。`creating`、`crea
     class UserObserver
     {
         /**
-         * User作成イベントのリッスン
+         * ユーザーの"created"イベントを処理
          *
          * @param  \App\User  $user
          * @return void
@@ -773,12 +789,23 @@ Eloquentモデルは多くのイベントを発行します。`creating`、`crea
         }
 
         /**
-         * User削除イベントのリッスン
+         * ユーザーの"updated"イベントを処理
          *
          * @param  \App\User  $user
          * @return void
          */
-        public function deleting(User $user)
+        public function updated(User $user)
+        {
+            //
+        }
+
+        /**
+         * ユーザーの"deleted"イベントを処理
+         *
+         * @param  \App\User  $user
+         * @return void
+         */
+        public function deleted(User $user)
         {
             //
         }

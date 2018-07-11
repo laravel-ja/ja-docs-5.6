@@ -7,6 +7,7 @@
     - [Vagrant Boxの実行](#launching-the-vagrant-box)
     - [プロジェクトごとのインストール](#per-project-installation)
     - [MariaDBのインストール](#installing-mariadb)
+    - [MongoDBのインストール](#installing-mongodb)
     - [Elasticsearchのインストール](#installing-elasticsearch)
     - [Neo4jのインストール](#installing-neo4j)
     - [エイリアス](#aliases)
@@ -14,6 +15,7 @@
     - [Homesteadへのグローバルアクセス](#accessing-homestead-globally)
     - [SSH接続](#connecting-via-ssh)
     - [データベース接続](#connecting-to-databases)
+    - [データベースのバックアップ](#database-backups)
     - [サイトの追加](#adding-additional-sites)
     - [環境変数](#environment-variables)
     - [Cronスケジュール設定](#configuring-cron-schedules)
@@ -62,6 +64,8 @@ HomesteadはWindowsやMac、Linuxシステム上で実行でき、Nginx Webサ�
 - Memcached
 - Beanstalkd
 - Mailhog
+- Neo4j (Optional)
+- MongoDB (Optional)
 - Elasticsearch (オプション)
 - ngrok
 - wp-cli
@@ -103,7 +107,7 @@ VirtualBox/VMwareとVagrantをインストールし終えたら、`laravel/homes
     cd ~/Homestead
 
     // クローンしたいリリースバージョン
-    git checkout v7.4.2
+    git checkout v7.9.0
 
 Homesteadリポジトリをクローンしたら、`Homestead.yaml`設定ファイルを生成するために、`bash init.sh`コマンドをHomesteadディレクトリで実行します。
 
@@ -218,6 +222,15 @@ MySQLの代わりにMariaDBを使用したい場合は、`mariadb`オプショ�
     provider: virtualbox
     mariadb: true
 
+<a name="installing-mongodb"></a>
+### Installing MongoDB
+
+MongoDBのコミュニティエディションをインストールするには、以下のように`Homestead.yaml`ファイルを変更してください。
+
+    mongodb: true
+
+デフォルト状態のMongoDBでは、データベースのユーザー名を`homestead`、パスワードを`secret`に設定します。
+
 <a name="installing-elasticsearch"></a>
 ### Elasticsearchのインストール
 
@@ -239,7 +252,7 @@ Elasticsearchをインストールするには、`Homestead.yaml`ファイルへ
 
     neo4j: true
 
-デフォルトのインストール状態では、データベースのユーザー名を`homestead`、パスワードを`secret`に設定します。Neo4jへアクセスするには、ブラウザで`http://homestead.test:7474`を訪れてください。Neo4jクライアントから、`7687` (Bolt)、`7474` (HTTP)、`7473` (HTTPS)ポートで、リクエストを受け付けるようになっています。
+デフォルト状態のNeo4jでは、データベースのユーザー名を`homestead`、パスワードを`secret`として設定します。Neo4jブラウザにアクセスするには、Webブラウザで`http://homestead.test:7474`にアクセスしてください。Neo4jクライアントのために、`7687` (Bolt)、`7474` (HTTP)、`7473` (HTTPS)ポートが用意されています。
 
 <a name="aliases"></a>
 ### エイリアス
@@ -299,6 +312,15 @@ Homesteadディレクトリで`vagrant ssh`端末コマンドを実行すれば�
 ホストマシンのデータベースクライアントから、MySQLかPostgreSQLデータベースへ接続するには、`127.0.0.1`のポート`33060`(MySQL)か、ポート`54320`(PostgreSQL)へ接続する必要があります。ユーザー名は`homestead`、パスワードは`secret`です。
 
 > {note} ホストマシンからデータベースへ接続するには、標準的ではないポートだけを使用してください。Laravelのデータベース設定ファイル中では、デフォルトの3306と5432ポートを使用することができます。Laravelは仮想マシンの内部で動作しているからです。
+
+<a name="database-backups"></a>
+### データベースのバックアップ
+
+Homesteadでは、Vagrant boxを壊した時点で、自動的にデータベースをバックアップできます。この機能を利用するには、Vagrant2.1.0以上を使用しなくてはなりません。もしくは、古いバージョンのVagrantを使用している場合は、`vagrant-triggers`プラグインをインストールしてください。自動データベースバックアップを有効にするには、`Homestead.yaml`ファイルに以下の行を追加してください。
+
+    backup: true
+
+一度設定すれば、Homesteadは`vagrant destroy`コマンドが実行されると、データベースを`mysql_backup`、`postgres_backup`ディレクトリへエクスポートします。これらのディレクトリは、Homesteadをクローンしたフォルダ中、もしくは[プロジェクトごとのインストール](#per-project-installation)を利用している場合は、プロジェクトルートの中で見つけられます。
 
 <a name="adding-additional-sites"></a>
 ### サイトの追加
@@ -419,6 +441,7 @@ Minioは9600ポートを使用し、Homesteadマシン上でS3互換のストレ
 - **HTTPS:** 44300 &rarr; フォワード先 443
 - **MySQL:** 33060 &rarr; フォワード先 3306
 - **PostgreSQL:** 54320 &rarr; フォワード先 5432
+- **MongoDB:** 27017 &rarr; フォワード先 27017
 - **Mailhog:** 8025 &rarr; フォワード先 8025
 - **Minio:** 9600 &rarr; フォワード先 9600
 </div>

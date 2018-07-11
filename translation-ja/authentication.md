@@ -552,7 +552,7 @@ HTTPリクエストをベースとした、カスタム認証システムを実�
 
 `retrieveByToken`関数は一意の`$identifier`と`remember_token`フィールドに保存されている"remember me" `$token`からユーザーを取得します。前のメソッドと同じく、`Authenticatable`実装が返されます。
 
-`updateRememberToken`メソッドは`$user`の`remember_token`フィールドを新しい`$token`で更新します。新しいトークンは真新しいものでも、「Remember me」ログインに成功した時の値でも、ログアウト時の値でも受け付けます。
+`updateRememberToken`メソッドは`$user`の`remember_token`フィールドを新しい`$token`で更新します。真新しいトークンは、"remember me"ログインの試みに成功するか、そのユーザーがログアウトしたときに、アサインされます。
 
 `retrieveByCredentials`メソッドはアプリケーションへログイン時に`Auth::attempt`メソッドに指定するのと同じく、ユーザー認証情報の配列を引数に取ります。メソッドは認証情報に一致するユーザーを裏の持続ストレージから「クエリ」する必要があります。典型的な使用方法の場合、このメソッドは`$credentials['username']`の"where"条件でクエリを実行するでしょう。メソッドは`Authenticatable`の実装を返します。**このメソッドはパスワードバリデーションや認証を行ってはいけません**
 

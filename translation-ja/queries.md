@@ -190,12 +190,12 @@ LaravelクエリビルダはアプリケーションをSQLインジェクショ�
 
 #### `havingRaw / orHavingRaw`
 
-`havingRaw`と`orHavingRaw`メソッドは、文字列を`having`節の値として指定するために使用します。
+`havingRaw`と`orHavingRaw`メソッドは、文字列を`having`節の値として指定するために使用します。両メソッドは、第２引数にオプションとして、バインドの配列を渡すことができます。
 
     $orders = DB::table('orders')
                     ->select('department', DB::raw('SUM(price) as total_sales'))
                     ->groupBy('department')
-                    ->havingRaw('SUM(price) > 2500')
+                    ->havingRaw('SUM(price) > ?', [2500])
                     ->get();
 
 #### `orderByRaw`
@@ -253,6 +253,20 @@ JOINに"where"節を使用したい場合はjoinの中で`where`や`orWhere`を�
                      ->where('contacts.user_id', '>', 5);
             })
             ->get();
+
+#### サブクエリのJOIN
+
+サブクエリへクエリをJOINするために、`joinSub`、`leftJoinSub`、`rightJoinSub`メソッドを利用できます。各メソッドは３つの引数を取ります。サブクエリ、テーブルのエイリアス、関連するカラムを定義するクロージャです。
+
+    $latestPosts = DB::table('posts')
+                       ->select('user_id', DB::raw('MAX(created_at) as last_post_created_at'))
+                       ->where('is_published', true)
+                       ->groupBy('user_id');
+
+    $users = DB::table('users')
+            ->joinSub($latestPosts, 'latest_posts', function($join) {
+                $join->on('users.id', '=', 'latest_posts.user_id');
+            })->get();
 
 <a name="unions"></a>
 ## UNION
@@ -531,7 +545,7 @@ Laravelはデータベース上のJSONタイプをサポートするカラムに
     $role = $request->input('role');
 
     $users = DB::table('users')
-                    ->when($role, function ($query) use ($role) {
+                    ->when($role, function ($query, $role) {
                         return $query->where('role_id', $role);
                     })
                     ->get();
@@ -543,7 +557,7 @@ Laravelはデータベース上のJSONタイプをサポートするカラムに
     $sortBy = null;
 
     $users = DB::table('users')
-                    ->when($sortBy, function ($query) use ($sortBy) {
+                    ->when($sortBy, function ($query, $sortBy) {
                         return $query->orderBy($sortBy);
                     }, function ($query) {
                         return $query->orderBy('name');

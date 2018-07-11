@@ -147,7 +147,7 @@ Laravelの各通知は、（通常、`app/Notifications`ディレクトリに設
 
 場合により、アプリケーションの「ユーザー」として保存されていない誰かに対し、通知を送る必要が起きることがあります。`Notification::route`メソッドを使い、通知を送る前にアドホックな通知ルーティング情報を指定できます。
 
-    Notification::route('mail', 'taylor@laravel.com')
+    Notification::route('mail', 'taylor@example.com')
                 ->route('nexmo', '5555555555')
                 ->notify(new InvoicePaid($invoice));
 

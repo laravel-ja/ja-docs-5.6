@@ -955,7 +955,7 @@ NULL値を指定すると、空の配列が返ってきます。
 
     // /this/string
 
-    $adjusted = str_start('/this/string/', '/');
+    $adjusted = str_start('/this/string', '/');
 
     // /this/string
 

@@ -50,6 +50,15 @@ SparkPostドライバを使用するには、最初にGuzzleをインストー�
         'secret' => 'your-sparkpost-key',
     ],
 
+必要であれば、利用されるべき[APIエンドポイント](https://developers.sparkpost.com/api/#header-endpoints)を設定することもできます。
+
+    'sparkpost' => [
+        'secret' => 'your-sparkpost-key',
+        'options' => [
+            'endpoint' => 'https://api.eu.sparkpost.com/api/v1',
+        ]
+    ],
+
 #### SESドライバ
 
 Amazon SESドライバを使う場合、Amazon AWS SDK for PHPをインストールしてください。`composer.json`ファイルの`require`セクションに以下の行を追加し、`composer update`コマンドを実行します。

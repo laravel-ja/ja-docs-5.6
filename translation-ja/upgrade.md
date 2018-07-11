@@ -101,7 +101,7 @@ Laravel5.6では、Bladeと`e`ヘルパはデフォルトとして、特別な�
 
 #### 新しい設定ファイル
 
-ハッシュの全設定は、`config/hashing.php`設定ファイルへ保存されるようになりました。[デフォルトの設定ファイル](https://github.com/laravel/laravel/blob/develop/config/hashing.php)をアプリケーションへコピーしてください。ほとんどの場合、デフォルトドライバーとして`bcrypt`を継続する必要があります。しかしながら、`argon`もサポートされました。
+ハッシュの全設定は、`config/hashing.php`設定ファイルへ保存されるようになりました。[デフォルトの設定ファイル](https://github.com/laravel/laravel/blob/master/config/hashing.php)をアプリケーションへコピーしてください。ほとんどの場合、デフォルトドライバーとして`bcrypt`を継続する必要があります。しかしながら、`argon`もサポートされました。
 
 ### ヘルパ
 
@@ -117,7 +117,7 @@ Laravel5.6では、Bladeと`e`ヘルパはデフォルトとして、特別な�
 
 #### 新しい設定ファイル
 
-新しいログ設定は、`config/logging.php`設定ファイルで全て保存されるようになりました。[デフォルト設定ファイル](https://github.com/laravel/laravel/blob/develop/config/logging.php)をアプリケーションへコピーし、必要に応じて設定を調整してください。
+新しいログ設定は、`config/logging.php`設定ファイルで全て保存されるようになりました。[デフォルト設定ファイル](https://github.com/laravel/laravel/blob/master/config/logging.php)をアプリケーションへコピーし、必要に応じて設定を調整してください。
 
 `config/app.php`設定ファイルから、`log`と`log_level`設定オプションは削除されました。
 

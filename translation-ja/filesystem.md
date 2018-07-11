@@ -416,7 +416,7 @@ LaravelのFlysystem統合には、最初から様々な「ドライバ」が含�
         {
             Storage::extend('dropbox', function ($app, $config) {
                 $client = new DropboxClient(
-                    $config['authorizationToken']
+                    $config['authorization_token']
                 );
 
                 return new Filesystem(new DropboxAdapter($client));

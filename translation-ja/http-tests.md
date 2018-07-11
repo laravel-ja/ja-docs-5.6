@@ -244,6 +244,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 [assertJsonValidationErrors](#assert-json-validation-errors)
 [assertLocation](#assert-location)
 [assertNotFound](#assert-not-found)
+[assertOk](#assert-ok)
 [assertPlainCookie](#assert-plain-cookie)
 [assertRedirect](#assert-redirect)
 [assertSee](#assert-see)
@@ -398,6 +399,13 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 
     $response->assertNotFound();
 
+<a name="assert-ok"></a>
+#### assertOk
+
+レスポンスが200のステータスコードを持っていることを宣言。
+
+    $response->assertOk();
+
 <a name="assert-plain-cookie"></a>
 #### assertPlainCookie
 
@@ -452,7 +460,7 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
 
 セッションが指定したリストの値を持っていることを宣言。
 
-    $response->assertSessionHasAll($key, $value = null);
+    $response->assertSessionHasAll(array $data);
 
 <a name="assert-session-has-errors"></a>
 #### assertSessionHasErrors

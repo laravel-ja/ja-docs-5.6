@@ -7,6 +7,7 @@
     - [Launching The Vagrant Box](#launching-the-vagrant-box)
     - [Per Project Installation](#per-project-installation)
     - [Installing MariaDB](#installing-mariadb)
+    - [Installing MongoDB](#installing-mongodb)
     - [Installing Elasticsearch](#installing-elasticsearch)
     - [Installing Neo4j](#installing-neo4j)
     - [Aliases](#aliases)
@@ -14,6 +15,7 @@
     - [Accessing Homestead Globally](#accessing-homestead-globally)
     - [Connecting Via SSH](#connecting-via-ssh)
     - [Connecting To Databases](#connecting-to-databases)
+    - [Database Backups](#database-backups)
     - [Adding Additional Sites](#adding-additional-sites)
     - [Environment Variables](#environment-variables)
     - [Configuring Cron Schedules](#configuring-cron-schedules)
@@ -62,6 +64,8 @@ Homestead runs on any Windows, Mac, or Linux system, and includes the Nginx web 
 - Memcached
 - Beanstalkd
 - Mailhog
+- Neo4j (Optional)
+- MongoDB (Optional)
 - Elasticsearch (Optional)
 - ngrok
 - wp-cli
@@ -103,7 +107,7 @@ You should check out a tagged version of Homestead since the `master` branch may
     cd ~/Homestead
 
     // Clone the desired release...
-    git checkout v7.4.2
+    git checkout v7.9.0
 
 Once you have cloned the Homestead repository, run the `bash init.sh` command from the Homestead directory to create the `Homestead.yaml` configuration file. The `Homestead.yaml` file will be placed in the Homestead directory:
 
@@ -218,6 +222,15 @@ If you prefer to use MariaDB instead of MySQL, you may add the `mariadb` option 
     provider: virtualbox
     mariadb: true
 
+<a name="installing-mongodb"></a>
+### Installing MongoDB
+
+To install MongoDB Community Edition, update your `Homestead.yaml` file with the following configuration option:
+
+    mongodb: true
+
+The default MongoDB installation will set the database username to `homestead` and the corresponding password to `secret`.
+
 <a name="installing-elasticsearch"></a>
 ### Installing Elasticsearch
 
@@ -239,7 +252,7 @@ To install Elasticsearch, add the `elasticsearch` option to your `Homestead.yaml
 
     neo4j: true
 
-The default installation will set the database username to `homestead` and corresponding password to `secret`. To access the Neo4j browser, visit `http://homestead.test:7474` via your web browser. The ports `7687` (Bolt), `7474` (HTTP), and `7473` (HTTPS) are ready to serve requests from the Neo4j client.
+The default Neo4j installation will set the database username to `homestead` and corresponding password to `secret`. To access the Neo4j browser, visit `http://homestead.test:7474` via your web browser. The ports `7687` (Bolt), `7474` (HTTP), and `7473` (HTTPS) are ready to serve requests from the Neo4j client.
 
 <a name="aliases"></a>
 ### Aliases
@@ -299,6 +312,15 @@ A `homestead` database is configured for both MySQL and PostgreSQL out of the bo
 To connect to your MySQL or PostgreSQL database from your host machine's database client, you should connect to `127.0.0.1` and port `33060` (MySQL) or `54320` (PostgreSQL). The username and password for both databases is `homestead` / `secret`.
 
 > {note} You should only use these non-standard ports when connecting to the databases from your host machine. You will use the default 3306 and 5432 ports in your Laravel database configuration file since Laravel is running _within_ the virtual machine.
+
+<a name="database-backups"></a>
+### Database Backups
+
+Homestead can automatically backup your database when your Vagrant box is destroyed. To utilize this feature, you must be using Vagrant 2.1.0 or greater. Or, if you are using an older version of Vagrant, you must install the `vagrant-triggers` plug-in. To enable automatic database backups, add the following line to your `Homestead.yaml` file:
+
+    backup: true
+
+Once configured, Homestead will export your databases to `mysql_backup` and `postgres_backup` directories when the `vagrant destroy` command is executed. These directories can be found in the folder where you cloned Homestead or in the root of your project if you are using the [per project installation](#per-project-installation) method.
 
 <a name="adding-additional-sites"></a>
 ### Adding Additional Sites
@@ -419,6 +441,7 @@ By default, the following ports are forwarded to your Homestead environment:
 - **HTTPS:** 44300 &rarr; Forwards To 443
 - **MySQL:** 33060 &rarr; Forwards To 3306
 - **PostgreSQL:** 54320 &rarr; Forwards To 5432
+- **MongoDB:** 27017 &rarr; Forwards To 27017
 - **Mailhog:** 8025 &rarr; Forwards To 8025
 - **Minio:** 9600 &rarr; Forwards To 9600
 </div>

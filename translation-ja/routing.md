@@ -170,7 +170,7 @@ Laravelの全ルートは、`routes`ディレクトリ下に設置されてい�
 
 コントローラアクションに対しても名前を付けることができます。
 
-    Route::get('user/profile', 'UserController@showProfile')->name('profile');
+    Route::get('user/profile', 'UserProfileController@show')->name('profile');
 
 #### 名前付きルートへのURLを生成する
 

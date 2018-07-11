@@ -10,7 +10,7 @@
 <a name="installation"></a>
 ## インストール
 
-> {video} 動画で学びたい？このフレームワークを学んでいる初心者のために、Laracastsは[Laravelの概略を無料動画](http://laravelfromscratch.com)で提供しています。学び始めるには、最適のサイトです。
+> {video} Laracastsはフレームワーク初心者のために、[無料でLaravelの全体に渡るイントロダクション](http://laravelfromscratch.com)を提供しています。学習を始めるには最適の場所です。
 
 <a name="server-requirements"></a>
 ### サーバ要件
