@@ -3,6 +3,7 @@
 - [イントロダクション](#イントロダクション)
 - [Bus Fake](#bus-fake)
 - [Event Fake](#event-fake)
+    - [限定的なEvent Fakes](#scoped-event-fakes)
 - [Mail Fake](#mail-fake)
 - [Notification Fake](#notification-fake)
 - [Queue Fake](#queue-fake)
@@ -88,6 +89,42 @@ Laravelにはイベント、ジョブ、ファサードを最初からモック�
     }
 
 > {note} `Event::fake()`を呼び出したあとは、イベントリスナは実行されなくなります。そのため例えば、モデルの`creating`イベントでUUIDを生成するなど、イベントに結びつけたモデルファクトリの使用をテストする場合は、ファクトリを呼び出した**後に**、`Event::fake()`を呼び出す必要があります。
+
+<a name="scoped-event-fakes"></a>
+### 限定的なEvent Fakes
+
+テストの一部分だけでイベントをフェイクしたい場合は、`fakeFor`メソッドを使用します。
+
+    <?php
+
+    namespace Tests\Feature;
+
+    use App\Order;
+    use Tests\TestCase;
+    use App\Events\OrderCreated;
+    use Illuminate\Support\Facades\Event;
+    use Illuminate\Foundation\Testing\RefreshDatabase;
+    use Illuminate\Foundation\Testing\WithoutMiddleware;
+
+    class ExampleTest extends TestCase
+    {
+        /**
+         * 注文発送のテスト
+         */
+        public function testOrderProcess()
+        {
+            $order = Event::fakeFor(function () {
+                $order = factory(Order::class)->create();
+
+                Event::assertDispatched(OrderCreated::class);
+
+                return $order;
+            });
+
+            // イベントは通常通りにディスパッチされ、オブザーバが実行される
+            $order->update([...]);
+        }
+    }
 
 <a name="mail-fake"></a>
 ## Mail Fake

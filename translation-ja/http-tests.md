@@ -182,12 +182,14 @@ LaravelはJSON APIとレスポンスをテストする数多くのヘルパを�
         {
             Storage::fake('avatars');
 
+            $file = UploadedFile::fake()->image('avatar.jpg');
+
             $response = $this->json('POST', '/avatar', [
-                'avatar' => UploadedFile::fake()->image('avatar.jpg')
+                'avatar' => $file,
             ]);
 
             // ファイルが保存されたことをアサートする
-            Storage::disk('avatars')->assertExists('avatar.jpg');
+            Storage::disk('avatars')->assertExists($file->hashName());
 
             // ファイルが存在しないことをアサートする
             Storage::disk('avatars')->assertMissing('missing.jpg');

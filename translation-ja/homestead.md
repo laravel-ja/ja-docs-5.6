@@ -107,7 +107,7 @@ VirtualBox/VMwareとVagrantをインストールし終えたら、`laravel/homes
     cd ~/Homestead
 
     // クローンしたいリリースバージョン
-    git checkout v7.9.0
+    git checkout v7.14.2
 
 Homesteadリポジトリをクローンしたら、`Homestead.yaml`設定ファイルを生成するために、`bash init.sh`コマンドをHomesteadディレクトリで実行します。
 
@@ -406,11 +406,13 @@ Mailhogを使用すると、簡単に送信するメールを捉えることが�
 <a name="configuring-minio"></a>
 ### Minioの設定
 
-Minioは9600ポートを使用し、Homesteadマシン上でS3互換のストレージ層を提供します。Minioを使用するには、`Homestead.yaml`の以下の項目を設定してください。
+MinioはAmazon S3と互換性のあるAPIを持つ、オープンソースなオブジェクトストレージサーバです。Minioをインストールするには、`Homestead.yaml`に以下の設定オプションを加えてください。
 
     minio: true
 
-次に、`config/filesystems.php`設定ファイルのS3ディスク設定を調整する必要があります。`use_path_style_endpoint`オプションを追加し、同時に`endpoint`の`url`を更新してください。
+デフォルトのMinioは、9600ポートで使用します。`http://homestead:9600/`を閲覧すると、Minioのコントロールパネルへアクセスできます。デフォルトアクセスキーは`homestead`、デフォルトのシークレットキーは`secretkey`です。Minioへアクセスする場合、常にリージョン`us-east-1`を使用する必要があります。
+
+Minioを使用するために、`config/filesystems.php`設定ファイルの中の、S3ディスク設定を調整する必要があります。ディスク設定へ、`use_path_style_endpoint`オプションを追加し、同時に`url`キーを`endpoint`へ変更する必要があります。
 
     's3' => [
         'driver' => 's3',
@@ -422,7 +424,7 @@ Minioは9600ポートを使用し、Homesteadマシン上でS3互換のストレ
         'use_path_style_endpoint' => true
     ]
 
-最後に、実際の`AWS_URL`を`.env`ファイルで指定してください。
+最後に、`.env`ファイルへ以下のオプションを確実に用意してください。
 
     AWS_ACCESS_KEY_ID=homestead
     AWS_SECRET_ACCESS_KEY=secretkey

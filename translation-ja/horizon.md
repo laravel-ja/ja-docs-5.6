@@ -20,7 +20,7 @@ Horizon（水平線、展望）は、Laravelで動作するRedisキューのた�
 <a name="installation"></a>
 ## インストール
 
-> {note} 非同期のプロセスシグナルを活用しているため、Horizonを動作させるにはPHP7.1以上が必要です。
+> {note} 非同期のプロセスシグナルを活用しているため、Horizonを動作させるにはPHP7.1以上が必要です。次に、`queue`設定で、`redis`をキュードライバーへ確実に指定してください。
 
 Composerを使い、LaravelプロジェクトにHorizonをインストールします。
 

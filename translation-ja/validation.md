@@ -198,6 +198,8 @@ Laravelは`TrimStrings`と`ConvertEmptyStringsToNull`ミドルウェアをアプ
         ];
     }
 
+> {tip} `rules`メソッドの引数として、必要な依存をタイプヒントで指定できます。それらはLaravelの[サービスコンテナ](/docs/{{version}}/container)により、自動的に依存解決されます。
+
 では、どのようにバリデーションルールを実行するのでしょうか？必要なのは、コントローラのメソッドで、このリクエストをタイプヒントで指定することです。やって来たフォームリクエストはコントローラメソッドが呼び出される前にバリデーションを行います。つまり、コントローラにバリデーションロジックを取っ散らかす必要はありません。
 
     /**
@@ -269,6 +271,8 @@ Laravelは`TrimStrings`と`ConvertEmptyStringsToNull`ミドルウェアをアプ
     {
         return true;
     }
+
+> {tip} `authorize`メソッドの引数として、必要な依存をタイプヒントで指定できます。それらはLaravelの[サービスコンテナ](/docs/{{version}}/container)により、自動的に依存解決されます。
 
 <a name="customizing-the-error-messages"></a>
 ### エラーメッセージのカスタマイズ

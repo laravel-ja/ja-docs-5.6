@@ -55,8 +55,8 @@ SparkPostドライバを使用するには、最初にGuzzleをインストー�
     'sparkpost' => [
         'secret' => 'your-sparkpost-key',
         'options' => [
-            'endpoint' => 'https://api.eu.sparkpost.com/api/v1',
-        ]
+            'endpoint' => 'https://api.eu.sparkpost.com/api/v1/transmissions',
+        ],
     ],
 
 #### SESドライバ

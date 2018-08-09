@@ -96,6 +96,10 @@
 
     Route::get('user/{id}', 'ShowProfile');
 
+`make:controller` Artisanコマンドに、`--invokable`オプションを指定すると、`__invoke`メソッドを含んだコントローラを生成できます。
+
+    php artisan make:controller ShowProfile --invokable
+
 <a name="controller-middleware"></a>
 ## コントローラミドルウェア
 
@@ -222,15 +226,15 @@ APIに使用するリソースルートを宣言する場合、`create`や`edit`
 <a name="restful-naming-resource-route-parameters"></a>
 ### リソースルートパラメータの命名
 
-`Route::resource`はデフォルトで、リソース名の「単数形」にもとづき、リソースルートのルートパラメータを生成します。オプション配列で`parameters`を指定することで簡単に、このリソース毎の基本的な命名規約をオーバーライドできます。`parameters`配列は、リソース名とパラメータ名の連想配列で指定します。
+By default, `Route::resource` will create the route parameters for your resource routes based on the "singularized" version of the resource name. You can easily override this on a per resource basis by using the `parameters` method. The array passed into the `parameters` method should be an associative array of resource names and parameter names:
 
-    Route::resource('user', 'AdminUserController')->parameters([
-        'user' => 'admin_user'
+    Route::resource('users', 'AdminUserController')->parameters([
+        'users' => 'admin_user'
     ]);
 
 上記のサンプルコードは、リソースの`show`ルートで次のURIを生成します。
 
-    /user/{admin_user}
+    /users/{admin_user}
 
 <a name="restful-localizing-resource-uris"></a>
 ### リソースURIのローカライズ

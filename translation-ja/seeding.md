@@ -46,6 +46,8 @@
         }
     }
 
+> {tip} `run`メソッドの引数として、タイプヒントにより必要な依存を指定できます。それらはLaravelの[サービスコンテナ](/docs/{{version}}/container)により、自動的に依存解決されます。
+
 <a name="using-model-factories"></a>
 ### モデルファクトリの利用
 

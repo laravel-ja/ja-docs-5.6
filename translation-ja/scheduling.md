@@ -24,7 +24,7 @@ Laravelのコマンドスケジューラは、Laravel自身の中でコマンド
 
 スケジューラを使用するには、サーバに以下のCronエントリを追加するだけです。サーバにどうやってCronエントリを追加するかわからない場合は、Cronエントリを管理できる[Laravel Forge](https://forge.laravel.com)のようなサービスを使用することを考慮してください。
 
-    * * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+    * * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 
 このCronはLaravelコマンドスケジューラを毎分呼び出します。`schedule:run`コマンドが実行されると、Laravelはスケジュールされているジョブを評価し、実行する必要のあるジョブを起動します。
 
@@ -65,6 +65,10 @@ Laravelのコマンドスケジューラは、Laravel自身の中でコマンド
             })->daily();
         }
     }
+
+さらにクロージャを使用したスケジュールでは、[invoke可能なオブジェクト](http://php.net/manual/en/language.oop5.magic.php#object.invoke)も使用できます。Invoke可能なオブジェクトとは、単に`__invoke`メソッドを含むPHPクラスのことです。
+
+    $schedule->call(new DeleteRecentUsers)->daily();
 
 <a name="scheduling-artisan-commands"></a>
 ### Artisanコマンドのスケジュール

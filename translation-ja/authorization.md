@@ -60,7 +60,7 @@ Laravelは組み込み済みの[認証](/docs/{{version}}/authentication)サー�
     {
         $this->registerPolicies();
 
-        Gate::define('update-post', 'PostPolicy@update');
+        Gate::define('update-post', 'App\Policies\PostPolicy@update');
     }
 
 #### リソースゲート

@@ -469,7 +469,7 @@ WHEREの結合にチェーンで`or`節をクエリに追加できます。`orWh
 <a name="json-where-clauses"></a>
 ### JSON WHERE節
 
-Laravelはデータベース上のJSONタイプをサポートするカラムに対するクエリに対応しています。現在、MySQL5.7とPostgreSQLに対応しています。JSONカラムをクエリするには`->`オペレータを使ってください。
+Laravelはデータベース上のJSONタイプをサポートするカラムに対するクエリに対応しています。現在、MySQL5.7とPostgreSQL、SQL Server2016に対応しています。JSONカラムをクエリするには`->`オペレータを使ってください。
 
     $users = DB::table('users')
                     ->where('options->language', 'en')
@@ -477,6 +477,18 @@ Laravelはデータベース上のJSONタイプをサポートするカラムに
 
     $users = DB::table('users')
                     ->where('preferences->dining->meal', 'salad')
+                    ->get();
+
+JSON配列をクエリするには、`whereJsonContains`を使用します。
+
+    $users = DB::table('users')
+                    ->whereJsonContains('options->languages', 'en')
+                    ->get();
+
+MySQLとPostgreSQLでは、`whereJsonContains`で複数の値をサポートしています。
+
+    $users = DB::table('users')
+                    ->whereJsonContains('options->languages', ['en', 'de'])
                     ->get();
 
 <a name="ordering-grouping-limit-and-offset"></a>

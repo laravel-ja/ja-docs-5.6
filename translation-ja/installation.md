@@ -111,7 +111,7 @@ URLパスにフロントコントローラの`index.php`を付けなくても良
 
 Laravelに用意されている`.htaccess`ファイルが、インストールしたApacheで動作しない場合は、以下の代替設定を試してください。
 
-    Options +FollowSymLinks
+    Options +FollowSymLinks -Indexes
     RewriteEngine On
 
     RewriteCond %{REQUEST_FILENAME} !-d
