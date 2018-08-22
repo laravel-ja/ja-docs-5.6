@@ -694,6 +694,8 @@ _ratio_制約は、横／縦比を表します。`3/2`という指定も、`1.5`
 
     'state' => 'exists:states'
 
+`column`オプションを指定しない場合、フィールド名が利用されます。
+
 #### カスタムカラム名の指定
 
     'state' => 'exists:states,abbreviation'

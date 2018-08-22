@@ -17,6 +17,7 @@
 - [モデル結合ルート](#route-model-binding)
     - [暗黙の結合](#implicit-binding)
     - [明示的な結合](#explicit-binding)
+- [フォールバックルート](#fallback-routes)
 - [レート制限](#rate-limiting)
 - [擬似フォームメソッド](#form-method-spoofing)
 - [現在のルートへのアクセス](#accessing-the-current-route)
@@ -338,6 +339,15 @@ Laravelはタイプヒントされた変数名とルートセグメント名が�
             return App\User::where('name', $value)->first() ?? abort(404);
         });
     }
+
+<a name="fallback-routes"></a>
+## フォールバックルート
+
+`Route::fallback`メソッドを使用すれば受け取ったリクエストが、他のルートに一致しない場合に実行するルートを定義できます。通常、アプリケーションの例外ハンドラにより、処理できないリクエストに対し自動的に"404"ページがレンダ−されます。しかしながら、`routes/web.php`ファイルに`fallback`ルートが定義されていれば、`web`ミドルウェアグループの中の全てのミドルウェアで、このルートが適用されます。もちろん必要に応じ、このルートを他のミドルウェに追加するかどうかは、皆さんの自由です。
+
+    Route::fallback(function () {
+        //
+    });
 
 <a name="rate-limiting"></a>
 ## レート制限

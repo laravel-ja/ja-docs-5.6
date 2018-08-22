@@ -190,6 +190,7 @@ Laravelのペジネーター結果クラスは`Illuminate\Contracts\Support\Json
 - `$results->lastItem()`
 - `$results->lastPage() (simplePaginateでは使用不可)`
 - `$results->nextPageUrl()`
+- `$results->onFirstPage()`
 - `$results->perPage()`
 - `$results->previousPageUrl()`
 - `$results->total() (simplePaginateでは使用不可)`

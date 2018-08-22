@@ -7,6 +7,7 @@
     - [キャッシュからアイテム取得](#retrieving-items-from-the-cache)
     - [キャッシュへアイテム保存](#storing-items-in-the-cache)
     - [キャッシュからのアイテム削除](#removing-items-from-the-cache)
+    - [アトミックロック](#atomic-locks)
     - [cacheヘルパ](#the-cache-helper)
 - [キャッシュタグ](#cache-tags)
     - [タグ付けしたキャッシュアイテムの保存](#storing-tagged-cache-items)
@@ -199,6 +200,42 @@ Redisの設定についての詳細は、[Laravelドキュメントページ](/d
     Cache::flush();
 
 > {note} `flush`メソッドは、キャッシュのプレフィックスを考慮せずに、キャッシュから全アイテムを削除します。他のアプリケーションと共有するキャッシュを削除するときは、利用を熟考してください。
+
+<a name="atomic-locks"></a>
+### アトミックロック
+
+> {note} この機能を利用するには、アプリケーションのデフォルトキャッシュドライバに、 `memcached`か`redis`ドライバを使用する必要があります。さらに、全てのサーバが、同じ中央キャッシュサーバに接続する必要があります。
+
+アトミックロックにより競合状態を心配することなく、分散型のロック操作を実現できます。たとえば、[Laravel Forge](https://forge.laravel.com)では、一度に１つのリモートタスクを１つのサーバで実行するために、アトミックロックを使用しています。ロックを生成し、管理するには`Cache::lock`メソッドを使用します。
+
+    if (Cache::lock('foo', 10)->get()) {
+        // １０秒間ロックを獲得する
+
+        Cache::lock('foo')->release();
+    }
+
+`get`メソッドは、クロージャも引数に取ります。クロージャ実行後、Laravelは自動的にロックを解除します。
+
+    Cache::lock('foo')->get(function () {
+        // 無期限のロックを獲得し、自動的に開放する
+    });
+
+リクエスト時にロックが獲得できないときに、利用可能になるまで待機するようにLaravelに指示できます。
+
+    if (Cache::lock('foo', 10)->block()) {
+        // 待機後、ロックを獲得
+    }
+
+`block`メソッドはデフォルトで、ロックが利用できるまで無期限に待機します。指定秒数だけ待機したい場合は、`blockFor`メソッドを使用します。指定された時間内にロックが獲得できない場合は、`Illuminate\Contracts\Cache\LockTimeoutException`が投げられます。
+
+    if (Cache::lock('foo', 10)->blockFor(5)) {
+        // 最大５秒待機し、ロックを獲得
+    }
+
+    Cache::lock('foo', 10)->blockFor(5, function () {
+        // 最大５秒待機し、ロックを獲得
+    });
+
 
 <a name="the-cache-helper"></a>
 ### cacheヘルパ

@@ -120,41 +120,6 @@ If your parent model does not use `id` as its primary key, or you wish to join t
         return $this->belongsTo('App\User', 'foreign_key', 'other_key');
     }
 
-<a name="default-models"></a>
-#### Default Models
-
-The `belongsTo` relationship allows you to define a default model that will be returned if the given relationship is `null`. This pattern is often referred to as the [Null Object pattern](https://en.wikipedia.org/wiki/Null_Object_pattern) and can help remove conditional checks in your code. In the following example, the `user` relation will return an empty `App\User` model if no `user` is attached to the post:
-
-    /**
-     * Get the author of the post.
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User')->withDefault();
-    }
-
-To populate the default model with attributes, you may pass an array or Closure to the `withDefault` method:
-
-    /**
-     * Get the author of the post.
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User')->withDefault([
-            'name' => 'Guest Author',
-        ]);
-    }
-
-    /**
-     * Get the author of the post.
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User')->withDefault(function ($user) {
-            $user->name = 'Guest Author';
-        });
-    }
-
 <a name="one-to-many"></a>
 ### One To Many
 
@@ -360,7 +325,7 @@ You can also filter the results returned by `belongsToMany` using the `wherePivo
 
 #### Defining Custom Intermediate Table Models
 
-If you would like to define a custom model to represent the intermediate table of your relationship, you may call the `using` method when defining the relationship. All custom models used to represent intermediate tables of relationships must extend the `Illuminate\Database\Eloquent\Relations\Pivot` class. For example, we may define a `Role` which uses a custom `UserRole` pivot model:
+If you would like to define a custom model to represent the intermediate table of your relationship, you may call the `using` method when defining the relationship. Custom many-to-many pivot models should extend the `Illuminate\Database\Eloquent\Relations\Pivot` class while custom polymorphic many-to-many pivot models should extend the `Illuminate\Database\Eloquent\Relations\MorphPivot` class. For example, we may define a `Role` which uses a custom `UserRole` pivot model:
 
     <?php
 
@@ -941,6 +906,41 @@ When removing a `belongsTo` relationship, you may use the `dissociate` method. T
     $user->account()->dissociate();
 
     $user->save();
+
+<a name="default-models"></a>
+#### Default Models
+
+The `belongsTo` relationship allows you to define a default model that will be returned if the given relationship is `null`. This pattern is often referred to as the [Null Object pattern](https://en.wikipedia.org/wiki/Null_Object_pattern) and can help remove conditional checks in your code. In the following example, the `user` relation will return an empty `App\User` model if no `user` is attached to the post:
+
+    /**
+     * Get the author of the post.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withDefault();
+    }
+
+To populate the default model with attributes, you may pass an array or Closure to the `withDefault` method:
+
+    /**
+     * Get the author of the post.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withDefault([
+            'name' => 'Guest Author',
+        ]);
+    }
+
+    /**
+     * Get the author of the post.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withDefault(function ($user) {
+            $user->name = 'Guest Author';
+        });
+    }
 
 <a name="updating-many-to-many-relationships"></a>
 ### Many To Many Relationships

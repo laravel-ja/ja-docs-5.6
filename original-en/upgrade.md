@@ -12,9 +12,9 @@ Laravel 5.6.30 is a security release of Laravel and is recommended as an immedia
 
 ### Cookie Serialization
 
-Laravel 5.6.30 disables all serialization / unserialization of cookie values. Since all Laravel cookies are encrypted and signed, cookie values are typically considered safe from client tampering. **However, if your application's encryption key is in the hands of a malicious party, that party could craft cookie values using the encryption key and exploit vulnerabilities inherit to PHP object serialization / unserialization, such as calling arbitary class methods within your application.**
+Laravel 5.6.30 disables all serialization / unserialization of cookie values. Since all Laravel cookies are encrypted and signed, cookie values are typically considered safe from client tampering. **However, if your application's encryption key is in the hands of a malicious party, that party could craft cookie values using the encryption key and exploit vulnerabilities inherent to PHP object serialization / unserialization, such as calling arbitrary class methods within your application.**
 
-Disabling serialization on all cookie values will invalidate all of your application's sessions and users will need to log into the application again. In addition, any other encrypted cookies your application is setting will have invalid values. For this reason, you may wish to add additional logic to your application to validate that your custom cookie values match an expected list of values you expect; otherwise, you should discard them.
+Disabling serialization on all cookie values will invalidate all of your application's sessions and users will need to log into the application again. In addition, any other encrypted cookies your application is setting will have invalid values. For this reason, you may wish to add additional logic to your application to validate that your custom cookie values match an expected list of values; otherwise, you should discard them.
 
 #### Configuring Cookie Serialization
 
@@ -28,6 +28,14 @@ Since this vulnerability is not able to be exploited without access to your appl
     protected static $serialize = true;
 
 > **Note:** When encrypted cookie serialization is enabled, your application will be vulnerable to attack if its encryption key is accessed by a malicious party. If you believe your key may be in the hands of a malicious party, you should rotate the key to a new value before enabling encrypted cookie serialization.
+
+### Dusk 4.0.0
+
+Dusk 4.0.0 has been released and does not serialize cookies. If you choose to enable cookie serialization, you should continue to use Dusk 3.0.0. Otherwise, you should upgrade to Dusk 4.0.0.
+
+### Passport 6.0.7
+
+Passport 6.0.7 has been released with a new `Laravel\Passport\Passport::withoutCookieSerialization()` method. Once you have disabled cookie serialization, you should call this method within your application's `AppServiceProvider`.
 
 <a name="upgrade-5.6.0"></a>
 ## Upgrading To 5.6.0 From 5.5
@@ -48,7 +56,7 @@ In addition, if you are using the following first-party Laravel packages, you sh
 
 <div class="content-list" markdown="1">
 - Dusk (Upgrade To `^3.0`)
-- Passport (Upgrade To `^5.0`)
+- Passport (Upgrade To `^6.0`)
 - Scout (Upgrade To `^4.0`)
 </div>
 

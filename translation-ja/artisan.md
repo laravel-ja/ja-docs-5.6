@@ -374,7 +374,7 @@ HTTPルートは定義していませんが、このファイルはアプリケ�
 
     $bar->finish();
 
-より詳細なオプションに関しては、[Symfonyのプログレスバーコンポーネントのドキュメント](https://symfony.com/doc/2.7/components/console/helpers/progressbar.html)で確認してください。
+より詳細なオプションに関しては、[Symfonyのプログレスバーコンポーネントのドキュメント](https://symfony.com/doc/current/components/console/helpers/progressbar.html)で確認してください。
 
 <a name="registering-commands"></a>
 ## コマンド登録

@@ -120,41 +120,6 @@ Eloquentは親の`id`カラム（もしくはカスタム`$primaryKey`）と一�
         return $this->belongsTo('App\User', 'foreign_key', 'other_key');
     }
 
-<a name="default-models"></a>
-#### デフォルトモデル
-
-`belongsTo`リレーションでは、指定したリレーションが`null`の場合に返却するデフォルトモデルを定義できます。このパターンは、頻繁に[Nullオブジェクトパターン](https://en.wikipedia.org/wiki/Null_Object_pattern)と呼ばれ、コードから条件のチェックを省くのに役立ちます。以下の例では、ポストに従属する`user`がない場合に、空の`App\User`モデルを返しています。
-
-    /**
-     * ポストの著者を取得
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User')->withDefault();
-    }
-
-属性を指定したデフォルトモデルを返すためには、`withDefault`メソッドに配列かクロージャを渡してください。
-
-    /**
-     * ポストの著者を取得
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User')->withDefault([
-            'name' => 'Guest Author',
-        ]);
-    }
-
-    /**
-     * ポストの著者を取得
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User')->withDefault(function ($user) {
-            $user->name = 'Guest Author';
-        });
-    }
-
 <a name="one-to-many"></a>
 ### １対多
 
@@ -360,7 +325,7 @@ Eloquentは、`Comment`モデルに対する外部キーを自動的に決める
 
 #### カスタム中間テーブルモデルの定義
 
-リレーションの中間テーブルを表すカスタムモデルを定義したい場合は、リレーションの定義時に`using`メソッドを呼び出します。リレーションの中間テーブルを表すために使用されるカスタムモデルは全て、`Illuminate\Database\Eloquent\Relations\Pivot`クラスを拡張する必要があります。例として、カスタム`UserRole`中間モデルを利用する、`Role`を定義してみましょう。
+リレーションの中間テーブルを表す、カスタムモデルを定義したい場合は、リレーション定義で`using`メソッドを呼び出します。カスタム多対多ピボットモデルは、`Illuminate\Database\Eloquent\Relations\Pivot`クラス、一方のカスタムポリモーフィック多対多ピボットモデルは、`Illuminate\Database\Eloquent\Relations\MorphPivot`クラスを拡張する必要があります。例として、カスタム`UserRole`ピボットモデルを使用する、`Role`を定義してみましょう。
 
     <?php
 
@@ -941,6 +906,41 @@ Eloquentは新しいモデルをリレーションに追加するために便利
     $user->account()->dissociate();
 
     $user->save();
+
+<a name="default-models"></a>
+#### デフォルトモデル
+
+`belongsTo`リレーションでは、指定したリレーションが`null`の場合に返却するデフォルトモデルを定義できます。このパターンは、頻繁に[Nullオブジェクトパターン](https://en.wikipedia.org/wiki/Null_Object_pattern)と呼ばれ、コードから条件のチェックを省くのに役立ちます。以下の例では、ポストに従属する`user`がない場合に、空の`App\User`モデルを返しています。
+
+    /**
+     * ポストの著者を取得
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withDefault();
+    }
+
+属性を指定したデフォルトモデルを返すためには、`withDefault`メソッドに配列かクロージャを渡してください。
+
+    /**
+     * ポストの著者を取得
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withDefault([
+            'name' => 'Guest Author',
+        ]);
+    }
+
+    /**
+     * ポストの著者を取得
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User')->withDefault(function ($user) {
+            $user->name = 'Guest Author';
+        });
+    }
 
 <a name="updating-many-to-many-relationships"></a>
 ### 多対多関係
