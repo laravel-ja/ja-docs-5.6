@@ -143,6 +143,10 @@ Laravelのローカリゼーション機能はアプリケーションで多言�
 
     echo trans_choice('time.minutes_ago', 5, ['value' => 5]);
 
+`trans_choice`関数に渡した整数値を表示したい場合は、`:count`プレースホルダを使用します。
+
+    'apples' => '{0} There are none|{1} There is one|[2,*] There are :count',
+
 <a name="overriding-package-language-files"></a>
 ## パッケージの言語ファイルのオーバーライド
 

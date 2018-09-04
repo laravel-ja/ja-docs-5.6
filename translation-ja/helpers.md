@@ -1383,17 +1383,23 @@ NULL値を指定すると、空の配列が返ってきます。
 <a name="method-optional"></a>
 #### `optional()` {#collection-method}
 
-`optional`関数は、どんな引数も指定でき、そのオブジェクトのプロパティへアクセスしたり、メソッドを呼び出したりできます。オブジェクトが`null`の場合、プロパティとメソッドはエラーを発生させる代わりに、`null`を返します。
+`optional`関数はどんな引数も指定でき、そのオブジェクトのプロパティへアクセスできます。指定したオブジェクトが`null`の場合、アクセスしているプロパティは、エラーを発生させる代わりに`null`を返します。
 
     return optional($user->address)->street;
 
     {!! old('name', optional($user)->name) !!}
 
-`optional`関数は、第２引数にクロージャを指定できます。このクロージャは、最初の引数がNULLでない場合に実行されます。
+返却されるオブジェクトのメソッドを呼び出すことも可能です。プロパティのアクセスと同様に、指定されたオブジェクトが`null`の場合、エラーを発生させる代わりに、呼び出したメソッドは`null`を返します。
+
+    return optional($user)->getTwitterProfile();
+
+呼び出したいメソッドが、実際にはそのオブジェクト自身のものでない場合は、`optional`の第２引数としてクロージャを渡します。
 
     return optional(User::find($id), function ($user) {
-        return new DummyUser;
+        return TwitterApi::findUser($user->twitter_id);
     });
+
+指定したオブジェクトが`null`ではない場合にクロージャが呼び出され、その戻り値がそのまま返されます。指定したオブジェクトが実際には`null`の場合、クロージャは呼び出されず、`optional`はエラーを発生させる代わりに`null`を返します。
 
 <a name="method-policy"></a>
 #### `policy()` {#collection-method}

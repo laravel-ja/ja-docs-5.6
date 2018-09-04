@@ -30,6 +30,7 @@ LaravelのソースコードはGitHubで管理され、各Laravelプロジェク
 - [Laravel Homestead](https://github.com/laravel/homestead)
 - [Laravel Homestead Build Scripts](https://github.com/laravel/settler)
 - [Laravel Horizon](https://github.com/laravel/horizon)
+- [Laravel Nova](https://github.com/laravel/nova-issues)
 - [Laravel Passport](https://github.com/laravel/passport)
 - [Laravel Scout](https://github.com/laravel/scout)
 - [Laravel Socialite](https://github.com/laravel/socialite)
@@ -46,7 +47,7 @@ LaravelのソースコードはGitHubで管理され、各Laravelプロジェク
 <a name="which-branch"></a>
 ## どのブランチ？
 
-**全ての**バグフィックスは、最新の安定ブランチ,もしくは現在のLTSブランチ(5.6)へ送ってください。次のリリースの中にだけ存在している機能に対する修正でない限り、決してバグフィックスを`master`ブランチに送っては**いけません**。
+**全ての**バグフィックスは、最新の安定ブランチ,もしくは現在のLTSブランチ(5.5)へ送ってください。次のリリースの中にだけ存在している機能に対する修正でない限り、決してバグフィックスを`master`ブランチに送っては**いけません**。
 
 現在のLaravelリリースと**完全な後方コンパティビリティ**を持っている**マイナー**な機能は、最新の安定ブランチへ送ってください。
 

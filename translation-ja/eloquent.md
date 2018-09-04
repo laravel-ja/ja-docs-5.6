@@ -730,7 +730,9 @@ Or, if you defined the global scope using a Closure:
 
 Eloquentモデルは多くのイベントを発行します。`creating`、`created`、`updating`、`updated`、`saving`、`saved`、`deleting`、`deleted`、`restoring`、`restored`、`retrieved`のメソッドを利用し、モデルのライフサイクルの様々な時点をフックすることができます。イベントにより特定のモデルクラスが保存されたりアップデートされたりするたび、簡単にコードを実行できるようになります。
 
-`retrieved`は、データベースから既存のモデルを取得した時に発行されます。新しいアイテムが最初に保存される場合に`creating`と`created`イベントが発行されます。新しくないアイテムに`save`メソッドが呼び出されると`updating`と`updated`イベントが発行されます。どちらの場合にも`saving`と`saved`イベントは発行されます。
+`retrieved`は、データベースから既存のモデルを取得した時に発行されます。新しいアイテムが最初に保存される場合に`creating`と`created`イベントが発行されます。既存のアイテムに`save`メソッドが呼び出されると`updating`と`updated`イベントが発行されます。どちらの場合にも`saving`と`saved`イベントは発行されます。
+
+> {note} Eloquentにより複数更新を実行する場合、更新したモデルに対し`saved`と`updated`イベントは発行されません。この理由は複数更新実行時に、モデルが実際には取得されないからです。
 
 使用するには、Eloquentモデルに`$dispatchesEvents`プロパティを定義します。これにより、Eloquentモデルのライフサイクルの様々な時点を皆さん自身の[イベントクラス](/docs/{{version}}/events)へマップします。
 

@@ -469,7 +469,7 @@ WHEREの結合にチェーンで`or`節をクエリに追加できます。`orWh
 <a name="json-where-clauses"></a>
 ### JSON WHERE節
 
-Laravelはデータベース上のJSONタイプをサポートするカラムに対するクエリに対応しています。現在、MySQL5.7とPostgreSQL、SQL Server2016に対応しています。JSONカラムをクエリするには`->`オペレータを使ってください。
+Laravelはデータベース上のJSONタイプをサポートするカラムに対するクエリに対応しています。現在、MySQL5.7とPostgreSQL、SQL Server2016、SQLite3.9.0（[JSON1拡張](https://www.sqlite.org/json1.html)使用時）に対応しています。JSONカラムをクエリするには`->`オペレータを使ってください。
 
     $users = DB::table('users')
                     ->where('options->language', 'en')
@@ -479,7 +479,7 @@ Laravelはデータベース上のJSONタイプをサポートするカラムに
                     ->where('preferences->dining->meal', 'salad')
                     ->get();
 
-JSON配列をクエリするには、`whereJsonContains`を使用します。
+JSON配列をクエリするには、`whereJsonContains`を使用します。（SQLiteでは未サポート）
 
     $users = DB::table('users')
                     ->whereJsonContains('options->languages', 'en')
@@ -614,7 +614,7 @@ MySQLとPostgreSQLでは、`whereJsonContains`で複数の値をサポートし�
 <a name="updating-json-columns"></a>
 ### JSONカラムの更新
 
-JSONカラムを更新する場合、JSONオブジェクトの中の適切なキーへアクセスするために、`->`記法を使ってください。JSONカラムをサポートしているデータベースでのみ、このオペレータをサポートしています。
+JSONカラムを更新する場合、JSONオブジェクト中の適切なキーへアクセスするために、`->`記法を使用してください。この操作子はMySQL5.7以降でのみサポートしています。
 
     DB::table('users')
                 ->where('id', 1)
