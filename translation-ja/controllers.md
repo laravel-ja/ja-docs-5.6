@@ -226,7 +226,7 @@ APIに使用するリソースルートを宣言する場合、`create`や`edit`
 <a name="restful-naming-resource-route-parameters"></a>
 ### リソースルートパラメータの命名
 
-By default, `Route::resource` will create the route parameters for your resource routes based on the "singularized" version of the resource name. You can easily override this on a per resource basis by using the `parameters` method. The array passed into the `parameters` method should be an associative array of resource names and parameter names:
+`Route::resource`はデフォルトで、リソース名の「複数形」を元にし、リソースルートのルートパラメータを生成します。`parameters`メソッドを使用して、リソース毎にこれを簡単にオーバーライドできます。リソース名とパラメータ名の連想配列を`parameters`へ渡してください。
 
     Route::resource('users', 'AdminUserController')->parameters([
         'users' => 'admin_user'
