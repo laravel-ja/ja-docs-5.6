@@ -366,7 +366,7 @@ Duskはフォームと入力要素を操作する、様々なメソッドを提�
 
     $browser->attach('photo', __DIR__.'/photos/me.png');
 
-> {note} The attach function requires the `Zip` PHP extension to be installed and enabled on your server.
+> {note} `attach`関数を利用するには、サーバへ`Zip` PHP拡張をインストールし、有効にする必要があります。
 
 <a name="using-the-keyboard"></a>
 ### キーワードの使用
