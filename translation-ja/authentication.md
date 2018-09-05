@@ -600,7 +600,7 @@ Laravelは認証処理の過程で、様々な[イベント](/docs/{{version}}/e
         ],
 
         'Illuminate\Auth\Events\Registered' => [
-            'App\Listeners\LogRegisteredUser',
+            'App\Listeners\LogAuthenticated',
         ],
 
         'Illuminate\Auth\Events\Login' => [
