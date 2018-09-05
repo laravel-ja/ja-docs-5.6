@@ -4,7 +4,7 @@
 - [CSSの出力](#writing-css)
 - [JavaScriptの出力](#writing-javascript)
     - [Vueコンポーネントの出力](#writing-vue-components)
-    - [Using React](#using-react)
+    - [Reactの使用](#using-react)
 
 <a name="introduction"></a>
 ## イントロダクション

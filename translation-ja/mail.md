@@ -473,7 +473,7 @@ Markdown MailableではBladeコンポーネントとMarkdown記法が利用で�
 <a name="rendering-mailables"></a>
 ## Mailableのレンダリング
 
-Sometimes you may wish to capture the HTML content of a mailable without sending it. To accomplish this, you may call the `render` method of the mailable. This method will return the evaluated contents of the mailable as a string:
+場合により、実際に送信はしないが、MailableのHTMLコンテンツを利用したいことも起きます。そのためには、Mailableの`render`メソッドを呼び出してください。このメソッドは、Mailableのコンテンツを評価し、文字列として返します。
 
     $invoice = App\Invoice::find(1);
 
