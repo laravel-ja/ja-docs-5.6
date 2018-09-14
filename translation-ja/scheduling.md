@@ -248,7 +248,7 @@ Laravelスケジューラはスケジュールしたタスクが生成する出�
              ->sendOutputTo($filePath)
              ->emailOutputTo('foo@example.com');
 
-> {note} The `emailOutputTo`, `sendOutputTo` and `appendOutputTo` methods are exclusive to the `command` and `exec` methods.
+> {note} `emailOutputTo`、`sendOutputTo`、`appendOutputTo`メソッドは、`command`と`exec`メソッドに対して排他的です。
 
 <a name="task-hooks"></a>
 ## タスクフック
