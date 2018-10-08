@@ -30,7 +30,7 @@
 <a name="resetting-routing"></a>
 ## ルート定義
 
-Laravelはパスワードリセットリンクのメールを送信し、ユーザーのパスワードをリセットするために必要なロジックを全部含んでいる、`Auth\ForgotPasswordController`と`Auth\PasswordController`を用意しています。パスワードリセットに必要な全ルートは、`make:auth` Artisanコマンドで生成します。
+Laravelはパスワードリセットリンクのメールを送信し、ユーザーのパスワードをリセットするために必要なロジックを全部含んでいる、`Auth\ForgotPasswordController`と`Auth\ResetPasswordController`を用意しています。パスワードリセットに必要な全ルートは、`make:auth` Artisanコマンドで生成します。
 
     php artisan make:auth
 
