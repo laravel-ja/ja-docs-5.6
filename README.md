@@ -2,6 +2,8 @@
 
 このリポジトリはPHP Webアプリフレームワーク、Laravel5.6の公式英文ドキュメントを日本語へ翻訳しています。
 
+**注意：当ドキュメントのメンテナンス期間は過ぎました。**
+
 This is a Japanese translation repository for Laravel 5.6 official documentations.
 
 翻訳内容は、<https://readouble.com/laravel/5.6/ja>で公開しています。
